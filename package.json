@@ -1,0 +1,27 @@
+{
+  "name": "hotel_booking",
+  "version": "1.0.0",
+  "description": "hotel booking app clone",
+  "license": "ISC",
+  "author": "kashish narang",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-ejs-layouts": "^2.5.1",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.5.0",
+    "mongoose": "^9.8.0",
+    "multer": "^2.2.0",
+    "validator": "^13.15.35"
+  }
+}

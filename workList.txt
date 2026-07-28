@@ -1,0 +1,8 @@
+setup-app.js and server--done
+setup mongoDb and mongoose--done
+setup auth file--> jwtAuth--done, user login--done,regiseter--done,logout resetPass-forgotPass featured 
+setup ejs-> login--done,regiseter--done,resetPass,forgotPass page
+file upload middleware --done
+setup mainpage.ejs file (make a simple respond today to check it's wkring or not)--done
+application level error file --done
+express--done and mongoose validation-()
