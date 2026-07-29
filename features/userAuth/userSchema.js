@@ -1,11 +1,55 @@
 import mongoose from "mongoose";
-import { Schema } from "mongoose";
 
-export const userSchema=mongoose.Schema({
-name:{type:String,trim:true,required:true},
-email:{type:String,trim:true,required:true,unique:true},
-phoneNo:{type:Number,trim:true,required:true},
-password:{type:String,required:true},
-image:{type:String},
-role:{type:String,enum:["Customer","admin"],default:"Customer",required:true}
-})
+export const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true
+    },
+
+    phoneNo: {
+      type: String,
+      required: true,
+      trim: true
+    },
+
+    password: {
+      type: String,
+      required: true
+    },
+
+    image: {
+      type: String,
+      default: null
+    },
+
+    role: {
+      type: String,
+      enum: ["Guest", "Hotel Partner"],
+      default: "Guest",
+      required: true
+    },
+
+    resetToken: {
+      type: String,
+      default: null
+    },
+
+    resetTokenExpiry: {
+      type: Date,
+      default: null
+    }
+  },
+  {
+    timestamps: true
+  }
+);

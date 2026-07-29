@@ -16,3 +16,11 @@ export const userLoginRules=[
 
 ]
 
+export const forgotPassRules=[
+            body('email').notEmpty().withMessage("Email is required").isEmail().withMessage("Enter a valid email id"),
+
+]
+export const resetPassrules=[
+        body('password').notEmpty().withMessage('Password is required')
+
+]

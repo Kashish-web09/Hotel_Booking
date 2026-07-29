@@ -1,6 +1,8 @@
+
 import jwt from 'jsonwebtoken'
-import userRepo from "./userRepository.js";
 import bcrypt from 'bcrypt'
+import crypto from 'crypto'
+import userRepo from "./userRepository.js";
 export default class userController{
     constructor(){
         this.userRepo=new userRepo();
@@ -9,7 +11,7 @@ export default class userController{
     async getLogin(req,res,next){
 try {
     return res.render('login',{
-        title:"Login Page",
+        title:"Login",
         errors:[],
         oldData:{}
     })
@@ -106,5 +108,67 @@ return res.status(400).render("register", {
 
     }
 
+    async forgotPassPage(req,res,next){
+try{        return res.render('forgotPass',{
+            title:"Forgot Password",
+            errors:[],
+            oldData:{}
+        })
+}catch(err){
+    next();
+}
+    }
+async forgotPass(req,res,next){
+try{ 
+    const {email}=req.body;
+const result=await this.userRepo.forgotPass(email);
+if(!result){
+return res.status(400).render("forgotPass", {
+    title: "Forgot Passwrod Page",
+    errors: [{msg:"User email not found!"}],
+    oldData: {}
+});
+}
+const token=crypto.randomBytes(32).toString('hex');
+const expiry=Date.now()+15*60*1000;
+await this.userRepo.saveResetToken(email,token,expiry)
+return res.redirect(`/api/auth/reset-pass/${token}`)
+}catch(err){
+    next(err)
+}
+}
+
+async resetPassPage(req,res,next){
+    try {
+        const {token}=req.params;
+        return res.render('resetPass',{
+            title:"Reset Password",
+            token,
+            errors:[],
+            oldData:{}
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+async resetPass(req,res,next){
+try{
+        const {password}=req.body;
+    const {token}=req.params;
+    const hashedPassword=await bcrypt.hash(password,12);
+    const result=await this.userRepo.resetPass(
+        token,
+        hashedPassword
+    )
+    if(result.modifiedCount===0){
+        return res.status(400).render('resetPass',{
+            errors:[{msg:"Invalid or expiry link"}]
+        })
+    }
+    return res.redirect('/api/auth/login')
+}catch(err){
+    next(err)
+}
+}
 }
 

@@ -20,7 +20,6 @@ async findUserById(userId){
     try {
         return await userModels.findById(userId);
     } catch (err) {
-                    console.log(err)
             throw new applicationError("Wrong with db",500)
 
     }
@@ -29,8 +28,52 @@ async findUserByEmail(email){
     try {
         return await userModels.findOne({email:email})
     } catch (err) {
-                    console.log(err)
             throw new applicationError("Wrong with db",500)
+
+    }
+}
+async forgotPass(email){
+    try {
+        return await userModels.findOne({email});
+    } catch (err) {
+        console.log(err)
+                    throw new applicationError("Wrong with db",500)
+
+    }
+}
+async resetPass(token,password){
+    try {
+        return await userModels.updateOne(
+            {
+                resetToken:token,
+                resetTokenExpiry:{$gt:Date.now()}
+            },
+            {
+                $set:{
+                    password,
+                    resetToken:null,
+                    resetTokenExpiry:null
+                }
+            }
+        )
+    } catch (err) {
+                            throw new applicationError("Wrong with db",500)
+
+    }
+}
+async saveResetToken(email,token,expiry){
+    try {
+        return await userModels.updateOne(
+            {email},
+            {
+                $set:{
+                    resetToken:token,
+                    resetTokenExpiry:expiry
+                }
+            }
+        )
+    } catch (err) {
+                            throw new applicationError("Wrong with db",500)
 
     }
 }

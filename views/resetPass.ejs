@@ -1,0 +1,221 @@
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+
+
+    <div class="row shadow-lg rounded-4 overflow-hidden bg-white"
+         style="max-width:1100px; width:100%;">
+
+
+
+
+
+        <!-- Left Hotel Branding -->
+
+
+        <div class="col-lg-5 d-none d-lg-flex align-items-center justify-content-center bg-dark text-white p-5">
+
+
+            <div class="text-center">
+
+
+                <i class="bi bi-building fs-1 text-warning"></i>
+
+
+                <h1 class="fw-bold mt-3">
+                    Luxury Stay
+                </h1>
+
+
+                <p class="text-white-50">
+                    Create a new password and continue
+                    enjoying your premium hotel experience.
+                </p>
+
+
+
+                <hr class="border-light">
+
+
+
+                <div class="mt-4">
+
+
+                    <p>
+                        <i class="bi bi-shield-lock text-warning"></i>
+                        Secure Password Update
+                    </p>
+
+
+                    <p>
+                        <i class="bi bi-person-check text-warning"></i>
+                        Account Protection
+                    </p>
+
+
+                    <p>
+                        <i class="bi bi-stars text-warning"></i>
+                        Premium Guest Experience
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+        <!-- Reset Password Form -->
+
+
+        <div class="col-lg-7 p-5">
+
+
+
+            <div class="text-center mb-4">
+
+
+                <i class="bi bi-key-fill fs-1 text-warning"></i>
+
+
+                <h2 class="fw-bold mt-3">
+                    Reset Password
+                </h2>
+
+
+                <p class="text-muted">
+                    Enter your new password to secure your account.
+                </p>
+
+
+            </div>
+
+
+
+
+
+
+
+            <form action="/api/auth/reset-pass/<%= token %>" method="POST">
+
+
+
+
+
+
+                <!-- Password -->
+
+
+                <div class="mb-4">
+
+
+                    <label class="form-label fw-semibold">
+                        New Password
+                    </label>
+
+
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control form-control-lg rounded-3"
+                        placeholder="Enter new password"
+                        required
+                    >
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+                <!-- Button -->
+
+
+                <div class="d-grid">
+
+
+                    <button 
+                        type="submit"
+                        class="btn btn-warning rounded-pill py-2 fw-bold">
+
+
+                        <i class="bi bi-check-circle"></i>
+
+                        Reset Password
+
+
+                    </button>
+
+
+                </div>
+
+
+
+
+
+
+            </form>
+
+
+
+
+
+
+
+
+            <hr class="my-4">
+
+
+
+
+
+
+            <p class="text-center mb-0">
+
+
+                Remember your password?
+
+
+                <a 
+                    href="/api/auth/login"
+                    class="text-warning fw-bold text-decoration-none">
+
+
+                    Login Now
+
+
+                </a>
+
+
+            </p>
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+</div>
