@@ -47,12 +47,18 @@ export default class roomRepo{
         }
 
     }
-    async filterRoom(hotelId,roomType,roomNumber){
+    async filterRoom(status,roomType,roomNumber){
                         try {
             let filter={};
-              if (hotelId) {
-            filter.hotelId = hotelId;
-        }
+        //       if (hotelId) {
+        //     filter.hotelId = hotelId;
+        // }
+            if(status){
+                filter.status={
+                    $regex:status,
+                    $options:"i"
+                }
+            }
 
             if(roomType){
                 filter.roomType=roomType
@@ -74,39 +80,21 @@ export default class roomRepo{
         }
 
     }
-async getRoomByHotle(hotelId){
-                try {
-            return await roomModels.find({hotelId})
-        } catch (err) {
-            throw new applicationError("Wrong with db",500)
-        }
+    // async gethotelById(id){
+    //     try {
+            
+    //     } catch (err) {
+    //                     throw new applicationError("Wrong with db",500)
 
-}
-async roomNumberExists(roomNumber){
-                    try {
-            return await roomModels.exists({roomNumber})
-        } catch (err) {
-            throw new applicationError("Wrong with db",500)
-        }
+    //     }
+    // }
 
-}
-async updateRoomStatus(id,status){
-try {
-    return await roomModels.findByIdAndUpdate(
-        id,
-        {
-            $set:{
-                status
-            }
-        },
-        {
-            new:true,
-            runValidators:true
-        }
-    )
-} catch (err) {
-                throw new applicationError("Wrong with db",500)
+    // async roomNumberExists(hoteId,roomNumber){
+    //     try {
+            
+    //     } catch (err) {
+    //                     throw new applicationError("Wrong with db",500)
 
-}
-}
+    //     }
+    // }
 }

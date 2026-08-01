@@ -21,7 +21,7 @@
 
         <div class="card-body">
 
-            <form action="/admin/rooms/filter" method="GET">
+            <form action="/api/admin/rooms/filter" method="GET">
 
                 <div class="row g-2">
 
@@ -49,7 +49,21 @@
                         </select>
 
                     </div>
+                    <!-- Status -->
+<!-- Status -->
+<div class="col-md-3">
 
+    <select name="status" class="form-select">
+
+        <option value="">All</option>
+        <option value="Available">Available</option>
+        <option value="Booked">Booked</option>
+        <option value="Maintenance">Maintenance</option>
+        <option value="Cleaning">Cleaning</option>
+
+    </select>
+
+</div>
                     <div class="col-md-3">
 
                         <input
@@ -161,7 +175,7 @@
                                     <td>
 
                                         <a
-                                            href="/admin/rooms/edit/<%= room._id %>"
+                                            href="/api/admin/rooms/edit/<%= room._id %>"
                                             class="btn btn-sm btn-outline-primary">
                                             Edit
                                         </a>

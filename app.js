@@ -15,6 +15,7 @@ import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
 import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
 import feedbackRoute from './features/admin/contact/contactRoutes.js';
 import roomRoutes from './features/admin/rooms/roomsRoutes.js';
+import roomRoute from './features/guest/rooms/roomsRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -62,7 +63,7 @@ title:"Dashboard Page"
 // guest routes
 app.use('/api/auth',userAuth);
 app.use('/api/hotel',currentUser,feedbackRoutes)
-
+app.use('/api/hotel/rooms',currentUser,roomRoute)
 // admin routes
 app.use('/api/admin',adminUserRoutes) 
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
