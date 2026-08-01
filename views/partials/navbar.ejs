@@ -6,11 +6,15 @@
             <i class="bi bi-building"></i> Hotel BradMate
         </a>
 
+        <!-- Mobile Toggle -->
         <button
             class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbar">
+            data-bs-target="#navbar"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
 
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,107 +25,41 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        Home
-                    </a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/rooms">
-                        Rooms
-                    </a>
+                    <a class="nav-link" href="/rooms">Rooms</a>
                 </li>
 
-                <% if(user){ %>
-
+                <% if (isLogin) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/bookings">
-                        My Bookings
-                    </a>
+                    <a class="nav-link" href="/bookings">My Bookings</a>
                 </li>
-
                 <% } %>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/contact">
-                        Contact
-                    </a>
+                    <a class="nav-link" href="/api/hotel/feedback">Contact</a>
                 </li>
 
             </ul>
 
             <!-- Right Menu -->
-            <ul class="navbar-nav align-items-center">
+            <ul class="navbar-nav">
 
-                <% if(user){ %>
+                <% if (isLogin) { %>
 
-                <!-- Profile -->
-                <li class="nav-item dropdown">
-
-                    <a
-                        class="nav-link dropdown-toggle d-flex align-items-center"
-                        href="#"
-                        data-bs-toggle="dropdown">
-
-                        <% if(user.image){ %>
-
-                        <img
-                            src="/uploads/<%= user.image %>"
-                            class="rounded-circle me-2"
-                            width="36"
-                            height="36"
-                            style="object-fit:cover;">
-
-                        <% } else { %>
-
-                        <i class="bi bi-person-circle fs-4 me-2"></i>
-
-                        <% } %>
-
-                        <%= user.name %>
-
+                <li class="nav-item">
+                    <a href="/api/auth/logout" class="btn btn-outline-light">
+                        <i class="bi bi-box-arrow-right me-1"></i> Logout
                     </a>
-
-                    <ul class="dropdown-menu dropdown-menu-end">
-
-                        <li>
-                            <a class="dropdown-item" href="/profile">
-                                <i class="bi bi-person"></i>
-                                My Profile
-                            </a>
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item" href="/bookings">
-                                <i class="bi bi-calendar-check"></i>
-                                My Bookings
-                            </a>
-                        </li>
-
-                        <li><hr class="dropdown-divider"></li>
-
-                        <li>
-                            <a class="dropdown-item text-danger" href="/logout">
-                                <i class="bi bi-box-arrow-right"></i>
-                                Logout
-                            </a>
-                        </li>
-
-                    </ul>
-
                 </li>
 
                 <% } else { %>
 
-                <li class="nav-item me-2">
-                    <a href="/login" class="btn btn-outline-light">
-                        Login
-                    </a>
-                </li>
-
                 <li class="nav-item">
-                    <a href="/register" class="btn btn-light text-primary">
-                        Register
+                    <a href="/api/auth/login" class="btn btn-light text-primary fw-semibold">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
                     </a>
                 </li>
 

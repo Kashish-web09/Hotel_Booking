@@ -1,0 +1,194 @@
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card shadow p-4">
+
+                <h2 class="text-center mb-4">
+                    Contact Us
+                </h2>
+
+                <p class="text-center text-muted">
+                    Have a question, complaint, or feedback?
+                    We would love to hear from you.
+                </p>
+
+
+                <form action="/api/hotel/feedback" method="POST">
+
+                    <!-- Name -->
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Name
+                        </label>
+
+                        <input 
+                            type="text"
+                            name="name"
+                            class="form-control"
+                            placeholder="Enter your name"
+                            value="<%= oldData?.name || '' %>"
+                        >
+
+                        <% if(errors?.name){ %>
+                            <small class="text-danger">
+                                <%= errors.name %>
+                            </small>
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- Email -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input 
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            placeholder="Enter your email"
+                            value="<%= oldData?.email || '' %>"
+                        >
+
+                        <% if(errors?.email){ %>
+                            <small class="text-danger">
+                                <%= errors.email %>
+                            </small>
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- Phone -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+
+                        <input 
+                            type="text"
+                            name="phoneNo"
+                            class="form-control"
+                            placeholder="Enter phone number"
+                            value="<%= oldData?.phoneNo || '' %>"
+                        >
+
+                        <% if(errors?.phoneNo){ %>
+                            <small class="text-danger">
+                                <%= errors.phoneNo %>
+                            </small>
+                        <% } %>
+
+                    </div>
+
+
+                    <!-- Message Type -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Message Type
+                        </label>
+
+                        <select name="messageType" class="form-select">
+
+                            <option value="Feedback">
+                                Feedback
+                            </option>
+
+                            <option value="Inquiry">
+                                Inquiry
+                            </option>
+
+                            <option value="Complaint">
+                                Complaint
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Message -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Message
+                        </label>
+
+                        <textarea
+                            name="message"
+                            class="form-control"
+                            rows="5"
+                            placeholder="Write your message here..."
+                        ><%= oldData?.message || '' %></textarea>
+
+
+                        <% if(errors?.message){ %>
+                            <small class="text-danger">
+                                <%= errors.message %>
+                            </small>
+                        <% } %>
+
+                    </div>
+
+
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary w-100">
+                        Submit
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Hotel Contact Details -->
+
+        <div class="col-md-4 mt-4 mt-md-0">
+
+            <div class="card shadow p-4">
+
+                <h4>
+                    Hotel Contact Details
+                </h4>
+
+                <hr>
+
+                <p>
+                    📍 Address:
+                    Delhi, India
+                </p>
+
+                <p>
+                    📞 Phone:
+                    +91 9876543210
+                </p>
+
+                <p>
+                    ✉ Email:
+                    support@hotel.com
+                </p>
+
+                <p>
+                    🕒 Available:
+                    24/7 Customer Support
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

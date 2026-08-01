@@ -1,0 +1,430 @@
+<div class="container-fluid py-4">
+
+    <!-- Welcome Banner -->
+    <div class="card shadow border-0 mb-4"
+        style="background: linear-gradient(135deg,#667eea,#764ba2); color:white;">
+
+        <div class="card-body p-5">
+
+            <div class="row align-items-center">
+
+                <div class="col-md-8">
+
+                    <h1>
+                        Welcome back, <%= user?.name || "Traveler" %> ✈️
+                    </h1>
+
+                    <p class="mt-3 fs-5">
+                        Plan your next stay and explore amazing destinations.
+                    </p>
+
+
+                    <a href="/hotels" 
+                       class="btn btn-light mt-3 px-4">
+                        Explore Hotels
+                    </a>
+
+                </div>
+
+
+                <div class="col-md-4 text-center">
+
+                    <img 
+                    src="/images/travel.png"
+                    class="img-fluid"
+                    style="max-height:180px;"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Statistics -->
+
+    <div class="row g-4">
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p class="text-muted">
+                                Total Trips
+                            </p>
+
+                            <h2>
+                                12
+                            </h2>
+
+                        </div>
+
+
+                        <div class="fs-1">
+                            🏨
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+
+                    <div class="d-flex justify-content-between">
+
+
+                        <div>
+
+                            <p class="text-muted">
+                                Upcoming
+                            </p>
+
+                            <h2>
+                                3
+                            </h2>
+
+                        </div>
+
+
+                        <div class="fs-1">
+                            🗓️
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p class="text-muted">
+                                Rewards
+                            </p>
+
+
+                            <h2>
+                                850
+                            </h2>
+
+
+                        </div>
+
+
+                        <div class="fs-1">
+                            ⭐
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0 h-100">
+
+                <div class="card-body">
+
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p class="text-muted">
+                                Saved Hotels
+                            </p>
+
+
+                            <h2>
+                                8
+                            </h2>
+
+
+                        </div>
+
+
+                        <div class="fs-1">
+                            ❤️
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- Current Booking -->
+
+
+    <div class="card shadow border-0 mt-5">
+
+
+        <div class="card-header bg-white">
+
+            <h4>
+                Upcoming Stay 🏝️
+            </h4>
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+            <div class="row align-items-center">
+
+
+                <div class="col-md-4">
+
+
+                    <img 
+                    src="/images/hotel1.jpg"
+                    class="img-fluid rounded"
+                    style="height:200px;width:100%;object-fit:cover;"
+                    >
+
+
+                </div>
+
+
+
+                <div class="col-md-5">
+
+
+                    <h3>
+                        The Grand Palace Hotel
+                    </h3>
+
+
+                    <p class="text-muted">
+                        📍 Delhi, India
+                    </p>
+
+
+                    <p>
+                        🛏 Deluxe Room
+                    </p>
+
+
+                    <p>
+                        📅 10 Aug - 13 Aug
+                    </p>
+
+
+                    <span class="badge bg-success">
+                        Confirmed
+                    </span>
+
+
+                </div>
+
+
+
+                <div class="col-md-3 text-center">
+
+
+                    <button class="btn btn-primary px-4">
+                        View Booking
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Recommended Hotels -->
+
+
+    <h3 class="mt-5 mb-3">
+        Recommended For You 🌎
+    </h3>
+
+
+
+    <div class="row g-4">
+
+
+        <div class="col-md-4">
+
+
+            <div class="card shadow border-0">
+
+
+                <img 
+                src="/images/resort.jpg"
+                class="card-img-top"
+                style="height:180px;object-fit:cover;"
+                >
+
+
+                <div class="card-body">
+
+
+                    <h5>
+                        Ocean View Resort
+                    </h5>
+
+
+                    <p class="text-muted">
+                        Goa, India
+                    </p>
+
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            ⭐ 4.8
+                        </span>
+
+
+                        <button class="btn btn-outline-primary btn-sm">
+                            Book Now
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="col-md-4">
+
+
+            <div class="card shadow border-0">
+
+
+                <img 
+                src="/images/mountain.jpg"
+                class="card-img-top"
+                style="height:180px;object-fit:cover;"
+                >
+
+
+                <div class="card-body">
+
+
+                    <h5>
+                        Mountain Retreat
+                    </h5>
+
+
+                    <p class="text-muted">
+                        Manali, India
+                    </p>
+
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>
+                            ⭐ 4.6
+                        </span>
+
+
+                        <button class="btn btn-outline-primary btn-sm">
+                            Book Now
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+</div>

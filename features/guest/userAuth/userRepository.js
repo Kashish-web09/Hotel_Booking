@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { userSchema } from "./userSchema.js";
-import applicationError from "../../errorFile/applicationLevelError.js";
+import applicationError from "../../../errorFile/applicationLevelError.js";
 
 const userModels=new mongoose.model('auth',userSchema);
 
@@ -12,7 +12,6 @@ export default class userRepo{
             await newUser.save();
             return newUser;
         } catch (err) {
-            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
     }
@@ -32,11 +31,18 @@ async findUserByEmail(email){
 
     }
 }
+async getAll(){
+    try {
+        return await userModels.find().sort({createdAt:-1});
+    } catch (err) {
+                throw new applicationError("Wrong with db", 500);
+
+    }
+}
 async forgotPass(email){
     try {
         return await userModels.findOne({email});
     } catch (err) {
-        console.log(err)
                     throw new applicationError("Wrong with db",500)
 
     }

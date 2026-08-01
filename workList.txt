@@ -1,8 +1,26 @@
 setup-app.js and server--done
 setup mongoDb and mongoose--done
-setup auth file--> jwtAuth--done, user login--done,regiseter--done,logout resetPass-forgotPass featured 
-setup ejs-> login--done,regiseter--done,resetPass,forgotPass page
+setup auth file--> jwtAuth--done, user login--done,regiseter--done,logout resetPass-forgotPass featured --done
+setup ejs-> login--done,regiseter--done,resetPass,forgotPass page done
 file upload middleware --done
 setup mainpage.ejs file (make a simple respond today to check it's wkring or not)--done
 application level error file --done
-express--done and mongoose validation-()
+express--done and mongoose validation-() done
+
+
+setup logger middleware and connect to controller --done
+Contact Features:[
+- Users can view the hotel's contact details. 
+- Users can submit feedback, inquiries, or complaints.
+- Input validation ensures valid name, email, and message.
+- Feedback is stored securely in MongoDB.
+]-done
+
+
+admin setup-{
+    -- admin user login,regiseter,resetPass,forgotPass Features --done
+    -- admin layout and navbar --done
+    -- admin featue to add,edit,delete products
+    -- aadmin to see all guest message from contct --done
+    admin ejs
+}

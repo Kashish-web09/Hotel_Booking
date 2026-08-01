@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 
-export const validator=(rules,view)=>{
+ const validator=(rules,view)=>{
     return async (req,res,next)=>{
         await Promise.all(rules.map(r=>r.run(req)));
         const errors=validationResult(req);
@@ -14,3 +14,4 @@ export const validator=(rules,view)=>{
     }
 
 }
+export default validator;

@@ -8,8 +8,13 @@ import cookieParser from 'cookie-parser';
 import { connectToMongoose } from './cofnig/mongoose.js';
 import expressEjsLayouts from 'express-ejs-layouts';
 // features routes 
-import userAuth from './features/userAuth/userRoutes.js';
-
+import { currentUser } from './middleware/jwtAuthMiddleware.js';
+import feedbackRoutes from './features/guest/contact/contactRoutes.js';
+import userAuth from './features/guest/userAuth/userRoutes.js';
+import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
+import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
+import feedbackRoute from './features/admin/contact/contactRoutes.js';
+import roomRoutes from './features/admin/rooms/roomsRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -19,18 +24,28 @@ app.use(cors(corsOption))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
+app.use((req,res,next)=>{
 
+    res.locals.isLogin = !!req.cookies.token;
+    
+    next();
+
+});
 // View Engine
 app.use(expressEjsLayouts)
 
 app.set("view engine",'ejs');
 app.set("views",'./views')
-//express EJS layouts
-app.set("layout","/layout/layout");
-app.use((req,res,next)=>{
-    res.locals.layout="layout/layout";
+app.use((req, res, next) => {
+
+    if (req.originalUrl.startsWith("/api/admin")) {
+        res.locals.layout = "layout/adminLayout";
+    } else {
+        res.locals.layout = "layout/layout";
+    }
+
     next();
-})
+});
 app.use(express.static('./public'));
 app.use('/uploads',express.static("uploads"))
 // make user availabe to every view
@@ -38,15 +53,20 @@ app.use((req,res,next)=>{
     res.locals.user=req.user||null;
     next()
 })
-app.get('/dashboard',(req,res,next)=>{
-    return res.render('dashboard',{
+app.get('/',(req,res,next)=>{
+    return res.render('guest/dashboard',{
 title:"Dashboard Page"
     })
 })
 
-
+// guest routes
 app.use('/api/auth',userAuth);
+app.use('/api/hotel',currentUser,feedbackRoutes)
 
+// admin routes
+app.use('/api/admin',adminUserRoutes) 
+app.use('/api/admin/feedback',adminUser,feedbackRoute)
+app.use('/api/admin/rooms',adminUser,roomRoutes)
 const startServer = async () => {
     await connectToMongoose();
 

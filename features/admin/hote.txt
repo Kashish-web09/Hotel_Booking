@@ -1,0 +1,28 @@
+{
+    name,
+    description,
+    address,
+    city,
+    state,
+    country,
+    pincode,
+
+    phone,
+    email,
+
+    starRating,
+
+    amenities,
+
+    images,
+
+    checkInTime,
+    checkOutTime,
+
+    status,
+
+    createdBy,
+
+    createdAt,
+    updatedAt
+}

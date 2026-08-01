@@ -1,22 +1,23 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+// import userRepo from "../features/userAuth/userRepository.js";
 
-export const jwtToken=(req,res,next)=>{
-    // 1 read the token from brower cookeis
-    const token=req.cookies.token;
-    // 2 if no token user is not logged in
-    if(!token){
-        return res.redirect('/api/auth/login')
+// const repo = new userRepo();
+
+export const currentUser =  (req, res, next) => {
+    const token = req.cookies.token;
+    if (!token) {
+        res.locals.isLogin = false;
+        return next();
     }
 
     try {
-        // 3. verify token
-        const payload=jwt.verify(token,process.env.JWT_SECRET);
-        // 4. save user info for later use
-        req.userId=payload.userId;
-        // 5. continue to the protected route
-        next();
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+req.userId=payload.userId;
+res.locals.isLogin=true;
+next();
     } catch (err) {
+        req.clearCookie('token')
                 return res.redirect('/api/auth/login')
-
     }
-}
+
+};
