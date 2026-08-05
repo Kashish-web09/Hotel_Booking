@@ -5,3 +5,17 @@
 {"level":"error","message":"Wrong with db","timestamp":"2026-08-01T07:17:35.833Z"}
 {"level":"error","message":"Wrong with db","timestamp":"2026-08-01T07:20:34.209Z"}
 {"level":"error","message":"hotelId is not defined","timestamp":"2026-08-01T07:20:55.583Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:40:54.674Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:42:33.651Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:58:30.709Z"}
+{"level":"error","message":"Cannot destructure property 'id' of 'req.body' as it is undefined.","timestamp":"2026-08-02T06:09:11.858Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:10:51.523Z"}
+{"level":"error","message":"er is not defined","timestamp":"2026-08-02T07:11:23.414Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:11:44.145Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:12:36.339Z"}
+{"level":"error","message":"startDate is not defined","timestamp":"2026-08-02T07:16:34.332Z"}
+{"level":"error","message":"startdate is not defined","timestamp":"2026-08-02T07:19:11.347Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:24:13.129Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:24:55.899Z"}
+{"level":"error","message":"res.clearCookies is not a function","timestamp":"2026-08-05T10:18:59.250Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'getAll')","timestamp":"2026-08-05T10:54:45.157Z"}

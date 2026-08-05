@@ -16,6 +16,10 @@ import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
 import feedbackRoute from './features/admin/contact/contactRoutes.js';
 import roomRoutes from './features/admin/rooms/roomsRoutes.js';
 import roomRoute from './features/guest/rooms/roomsRoutes.js';
+import bookingRoutes from './features/guest/booking/bookingRoutes.js';
+import dashRoutes from './features/guest/dashboard/dashRoutes.js';
+import bookingRoute from './features/admin/booking/bookingRoutes.js';
+import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -54,20 +58,20 @@ app.use((req,res,next)=>{
     res.locals.user=req.user||null;
     next()
 })
-app.get('/',(req,res,next)=>{
-    return res.render('guest/dashboard',{
-title:"Dashboard Page"
-    })
-})
+
 
 // guest routes
 app.use('/api/auth',userAuth);
+app.use('/api/hotel/dashboard',currentUser,dashRoutes)
 app.use('/api/hotel',currentUser,feedbackRoutes)
 app.use('/api/hotel/rooms',currentUser,roomRoute)
+app.use('/api/hotel/booking',currentUser,bookingRoutes)
 // admin routes
 app.use('/api/admin',adminUserRoutes) 
+app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
 app.use('/api/admin/rooms',adminUser,roomRoutes)
+app.use('/api/admin/booking',adminUser,bookingRoute)
 const startServer = async () => {
     await connectToMongoose();
 

@@ -6,6 +6,7 @@ import validator from '../../../middleware/commonValidation.js';
 const userAuth=express.Router();
 const userControllerAuth=new userController();
 
+
 userAuth.get('/login',(req,res,next)=>{
     userControllerAuth.getLogin(req,res,next)
 })

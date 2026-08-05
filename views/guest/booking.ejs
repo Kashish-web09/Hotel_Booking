@@ -1,0 +1,243 @@
+```ejs
+<div class="container py-5">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <a
+            href="/api/hotel/room"
+            class="text-decoration-none">
+            ← Back to Room
+        </a>
+    </div>
+
+
+    <div class="row g-4">
+
+        <!-- Booking Form -->
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h3 class="mb-1">
+                        Book Your Room
+                    </h3>
+
+                    <p class="text-muted mb-4">
+                        Enter your stay details below.
+                    </p>
+
+
+                    <% if (errors && errors.length > 0) { %>
+
+                        <div class="alert alert-danger">
+
+                            <% errors.forEach(error => { %>
+
+                                <div>
+                                    <%= error.msg || error %>
+                                </div>
+
+                            <% }) %>
+
+                        </div>
+
+                    <% } %>
+
+
+                    <form
+                        action="/api/hotel/booking/create"
+                        method="POST">
+
+                        <!-- Room ID -->
+                        <input
+                            type="hidden"
+                            name="roomId"
+                            value="<%= room._id %>">
+
+
+                        <!-- Check In / Check Out -->
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Check In
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="checkIn"
+                                    class="form-control"
+                                    value="<%= oldData?.checkIn || '' %>"
+                                    required>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label class="form-label">
+                                    Check Out
+                                </label>
+
+                                <input
+                                    type="date"
+                                    name="checkOut"
+                                    class="form-control"
+                                    value="<%= oldData?.checkOut || '' %>"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Guests -->
+                        <div class="mt-3">
+
+                            <label class="form-label">
+                                Number of Guests
+                            </label>
+
+                            <input
+                                type="number"
+                                name="guests"
+                                min="1"
+                                max="<%= room.maxGuests %>"
+                                value="<%= oldData?.guests || 1 %>"
+                                class="form-control"
+                                required>
+
+                            <small class="text-muted">
+                                This room can accommodate up to
+                                <%= room.maxGuests %> guests.
+                            </small>
+
+                        </div>
+
+
+                        <!-- Terms -->
+                        <div class="form-check mt-4">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="bookingTerms"
+                                required>
+
+                            <label
+                                class="form-check-label"
+                                for="bookingTerms">
+
+                                I confirm that the booking details are correct.
+
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary w-100 mt-4">
+
+                            Confirm Booking
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Room Summary -->
+        <div class="col-lg-5">
+
+            <div class="card shadow-sm border-0">
+
+                <% if (room.images && room.images.length > 0) { %>
+
+                    <img
+                        src="/uploads/<%= room.images[0] %>"
+                        class="card-img-top"
+                        style="height:220px; object-fit:cover;"
+                        alt="Room">
+
+                <% } %>
+
+
+                <div class="card-body">
+
+                    <h4 class="mb-1">
+                        <%= room.roomType %> Room
+                    </h4>
+
+                    <p class="text-muted mb-3">
+                        Room <%= room.roomNumber %>
+                    </p>
+
+
+                    <div class="d-flex justify-content-between mb-2">
+
+                        <span>
+                            Maximum Guests
+                        </span>
+
+                        <strong>
+                            <%= room.maxGuests %>
+                        </strong>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>
+                            Price per night
+                        </span>
+
+                        <strong>
+                            ₹<%= room.pricePerNight %>
+                        </strong>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div class="d-flex justify-content-between">
+
+                        <strong>
+                            Price
+                        </strong>
+
+                        <strong class="fs-5">
+                            ₹<%= room.pricePerNight %>
+                            <small class="text-muted fs-6">
+                                / night
+                            </small>
+                        </strong>
+
+                    </div>
+
+                    <p class="text-muted small mt-2 mb-0">
+                        Final amount will be calculated based on your
+                        selected check-in and check-out dates.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```

@@ -44,3 +44,65 @@
 {"level":"info","message":"Room added successfully!","timestamp":"2026-08-01T10:57:14.952Z"}
 {"level":"info","message":"Room deleted successfully 6a6dd10a920cce48251d2948","timestamp":"2026-08-01T10:59:47.502Z"}
 {"level":"info","message":"Room update successfully 6a6dcc8414d13d3f656e8642","timestamp":"2026-08-01T10:59:54.204Z"}
+{"level":"info","message":"User login in: knarang0909@gmail.com","timestamp":"2026-08-02T05:40:12.133Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:40:54.674Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-02T05:41:42.070Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:42:33.651Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-02T05:43:10.024Z"}
+{"level":"info","message":"Room update successfully 6a6ed8962b2bcc0d92e39080","timestamp":"2026-08-02T05:43:22.489Z"}
+{"level":"info","message":"Room update successfully 6a6dcc8414d13d3f656e8642","timestamp":"2026-08-02T05:43:30.730Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-02T05:58:14.720Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T05:58:30.709Z"}
+{"level":"info","message":"Room update successfully 6a6edc76a89bef6fcd652e2c","timestamp":"2026-08-02T05:58:36.195Z"}
+{"level":"info","message":"Feedback status update for 6a6edd3470384f20f0d0484d and message sent successfully ","timestamp":"2026-08-02T06:01:34.175Z"}
+{"level":"error","message":"Cannot destructure property 'id' of 'req.body' as it is undefined.","timestamp":"2026-08-02T06:09:11.858Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-02T06:45:54.065Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-02T06:45:58.752Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-02T06:46:04.480Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-02T06:47:16.135Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-02T06:47:55.433Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-02T06:49:30.916Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:10:51.523Z"}
+{"level":"error","message":"er is not defined","timestamp":"2026-08-02T07:11:23.414Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:11:44.145Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:12:36.339Z"}
+{"level":"warn","message":"Room is not available for these dates","timestamp":"2026-08-02T07:14:49.856Z"}
+{"level":"error","message":"startDate is not defined","timestamp":"2026-08-02T07:16:34.332Z"}
+{"level":"warn","message":"Room is not available for these dates","timestamp":"2026-08-02T07:17:34.594Z"}
+{"level":"warn","message":"Room is not available for these dates","timestamp":"2026-08-02T07:18:13.690Z"}
+{"level":"error","message":"startdate is not defined","timestamp":"2026-08-02T07:19:11.347Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:24:13.129Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-02T07:24:55.899Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-04T06:15:04.098Z"}
+{"level":"info","message":"User login in: knarang0909@gmail.com","timestamp":"2026-08-05T05:26:00.949Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-05T05:27:05.354Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-05T05:27:08.926Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-05T05:27:39.963Z"}
+{"level":"info","message":"Completed for this 6a71b1f41d1075a9f31cbba7 id have been updated","timestamp":"2026-08-05T05:28:54.019Z"}
+{"level":"info","message":"Cancelled for this 6a72caab8bea320c7e55cba4 id have been updated","timestamp":"2026-08-05T05:31:44.656Z"}
+{"level":"info","message":"Confirmed for this 6a72cad88bea320c7e55cba5 id have been updated","timestamp":"2026-08-05T05:32:19.652Z"}
+{"level":"warn","message":"Room is not available for Sat Aug 15 2026 05:30:00 GMT+0530 (India Standard Time)","timestamp":"2026-08-05T05:32:37.490Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-05T05:37:41.309Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-05T05:46:46.831Z"}
+{"level":"info","message":"User login in: knarang0909@gmail.com","timestamp":"2026-08-05T05:47:01.850Z"}
+{"level":"info","message":"Cancelled for this 6a72ce32541cc0f4368a0343 id have been updated","timestamp":"2026-08-05T05:47:31.546Z"}
+{"level":"info","message":"User login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:17:58.368Z"}
+{"level":"error","message":"res.clearCookies is not a function","timestamp":"2026-08-05T10:18:59.250Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-05T10:19:28.533Z"}
+{"level":"info","message":"User login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:19:35.644Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:26:08.459Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:28:18.120Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:29:32.255Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:31:36.722Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:32:04.826Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:34:56.295Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:35:47.454Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:38:18.739Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:38:36.042Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:38:58.329Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-05T10:39:19.923Z"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'getAll')","timestamp":"2026-08-05T10:54:45.157Z"}
+{"level":"info","message":"Room deleted successfully 6a6dcc8414d13d3f656e8642","timestamp":"2026-08-05T11:00:34.635Z"}
+{"level":"info","message":"Room deleted successfully 6a6ed8962b2bcc0d92e39080","timestamp":"2026-08-05T11:00:35.772Z"}
+{"level":"info","message":"Room deleted successfully 6a6ed8ee875ac06a14c8c0bc","timestamp":"2026-08-05T11:00:37.111Z"}
+{"level":"info","message":"Room deleted successfully 6a6edc76a89bef6fcd652e2c","timestamp":"2026-08-05T11:00:39.257Z"}

@@ -218,89 +218,96 @@
     <!-- Current Booking -->
 
 
-    <div class="card shadow border-0 mt-5">
 
+<% if (upcomingBooking) { %>
 
-        <div class="card-header bg-white">
+<div class="card shadow border-0 mt-5">
 
-            <h4>
-                Upcoming Stay 🏝️
-            </h4>
+    <div class="card-header bg-white">
+        <h4>
+            Upcoming Stay 🏝️
+        </h4>
+    </div>
 
-        </div>
+    <div class="card-body">
 
+        <div class="row align-items-center">
 
+            <div class="col-md-4">
 
-        <div class="card-body">
-
-
-            <div class="row align-items-center">
-
-
-                <div class="col-md-4">
-
-
-                    <img 
-                    src="/images/hotel1.jpg"
+                <img 
+                    src="<%= upcomingBooking.roomId.images?.[0] || '/images/hotel1.jpg' %>"
                     class="img-fluid rounded"
                     style="height:200px;width:100%;object-fit:cover;"
-                    >
-
-
-                </div>
-
-
-
-                <div class="col-md-5">
-
-
-                    <h3>
-                        The Grand Palace Hotel
-                    </h3>
-
-
-                    <p class="text-muted">
-                        📍 Delhi, India
-                    </p>
-
-
-                    <p>
-                        🛏 Deluxe Room
-                    </p>
-
-
-                    <p>
-                        📅 10 Aug - 13 Aug
-                    </p>
-
-
-                    <span class="badge bg-success">
-                        Confirmed
-                    </span>
-
-
-                </div>
-
-
-
-                <div class="col-md-3 text-center">
-
-
-                    <button class="btn btn-primary px-4">
-                        View Booking
-                    </button>
-
-
-                </div>
-
+                >
 
             </div>
 
+            <div class="col-md-5">
+
+                <h3>
+                    <%= upcomingBooking.roomId.hotelName || "Hotel" %>
+                </h3>
+
+                <p class="text-muted">
+                    📍 <%= upcomingBooking.roomId.location || "India" %>
+                </p>
+
+                <p>
+                    🛏 <%= upcomingBooking.roomId.roomType %> Room
+                </p>
+
+                <p>
+                    📅
+                    <%= new Date(upcomingBooking.checkIn).toLocaleDateString("en-IN") %>
+                    -
+                    <%= new Date(upcomingBooking.checkOut).toLocaleDateString("en-IN") %>
+                </p>
+
+                <span class="badge bg-success">
+                    <%= upcomingBooking.status %>
+                </span>
+
+            </div>
+
+            <div class="col-md-3 text-center">
+
+                <a 
+                    href="/api/hotel/bookings/<%= upcomingBooking._id %>"
+                    class="btn btn-primary px-4"
+                >
+                    View Booking
+                </a>
+
+            </div>
 
         </div>
 
+    </div>
+
+</div>
+
+<% } else { %>
+
+<div class="card shadow border-0 mt-5">
+
+    <div class="card-body text-center">
+
+        <h4>No Upcoming Stay 🏝️</h4>
+
+        <p class="text-muted">
+            You don't have any upcoming bookings.
+        </p>
+
+        <a href="/api/hotel/rooms" class="btn btn-primary">
+            Browse Rooms
+        </a>
 
     </div>
+
+</div>
+
+<% } %>
 
 
 

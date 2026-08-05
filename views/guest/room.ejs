@@ -13,27 +13,10 @@
     <div class="card shadow-sm mb-4">
         <div class="card-body">
 
-            <form action="/api/rooms/search" method="GET">
+            <form action="/api/hotel/rooms/search" method="GET">
 
                 <div class="row g-2">
 
-                    <div class="col-md-3">
-                        <label class="form-label">Check In</label>
-                        <input
-                            type="date"
-                            name="checkIn"
-                            class="form-control"
-                            required>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label class="form-label">Check Out</label>
-                        <input
-                            type="date"
-                            name="checkOut"
-                            class="form-control"
-                            required>
-                    </div>
 
                     <div class="col-md-2">
                         <label class="form-label">Guests</label>
@@ -41,24 +24,44 @@
                             type="number"
                             name="guests"
                             min="1"
-                            value="1"
+                            value="<%= oldData?.guests || 1 %>"
                             class="form-control">
                     </div>
 
                     <div class="col-md-2">
                         <label class="form-label">Room Type</label>
 
-                        <select name="roomType" class="form-select">
-                            <option value="">All</option>
-                            <option value="Single">Single</option>
-                            <option value="Double">Double</option>
-                            <option value="Twin">Twin</option>
-                            <option value="Deluxe">Deluxe</option>
-                            <option value="Suite">Suite</option>
-                            <option value="Family">Family</option>
-                            <option value="Executive">Executive</option>
-                        </select>
+<select name="roomType" class="form-select">
+    <option value="">All</option>
 
+    <option value="Single" <%= oldData?.roomType === "Single" ? "selected" : "" %>>
+        Single
+    </option>
+
+    <option value="Double" <%= oldData?.roomType === "Double" ? "selected" : "" %>>
+        Double
+    </option>
+
+    <option value="Twin" <%= oldData?.roomType === "Twin" ? "selected" : "" %>>
+        Twin
+    </option>
+
+    <option value="Deluxe" <%= oldData?.roomType === "Deluxe" ? "selected" : "" %>>
+        Deluxe
+    </option>
+
+    <option value="Suite" <%= oldData?.roomType === "Suite" ? "selected" : "" %>>
+        Suite
+    </option>
+
+    <option value="Family" <%= oldData?.roomType === "Family" ? "selected" : "" %>>
+        Family
+    </option>
+
+    <option value="Executive" <%= oldData?.roomType === "Executive" ? "selected" : "" %>>
+        Executive
+    </option>
+</select>
                     </div>
 
                     <div class="col-md-2 d-flex align-items-end">
@@ -138,7 +141,7 @@
                         <div class="card-footer bg-white">
 
                             <a
-                                href="/api/rooms/<%= room._id %>"
+                                href="/api/hotel/rooms/view_Room/<%= room._id %>"
                                 class="btn btn-outline-primary w-100">
                                 View Room
                             </a>

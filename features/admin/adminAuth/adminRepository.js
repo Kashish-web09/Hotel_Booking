@@ -57,7 +57,6 @@ export default class adminUserRepo{
                 }
             )
         } catch (err) {
-            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
 

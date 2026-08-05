@@ -18,44 +18,41 @@ export default class roomRepo{
         throw new applicationError("Wrong with db",500)
     }
 }
-    async searchRoom(checkIn,checkOut,roomType,guests){
+async searchRoom(guests, roomType) {
     try {
-let filter={};
-if(checkIn){
-    filter.checkIn={
-        $regex:checkIn,
-        $options:'i'
-    }
-}
-if(checkOut){
-    filter.checkOut=checkOut
-}
-if(roomType){
-    filter.roomType=roomType
-}
-if(guests){
-    filter.guests=guests
-}
-return await roomModels.find(filter).sort({createAt:-1})
-        // search using checkin,checkout date, room types
+        const filter = {
+            status: { $ne: "Maintenance" }
+        };
+
+        if (guests) {
+            filter.maxGuests = {
+                $gte: Number(guests)
+            };
+        }
+
+        if (roomType) {
+            filter.roomType = roomType;
+        }
+
+
+        const rooms = await roomModels
+            .find(filter)
+            .sort({ createdAt: -1 });
+
+
+        return rooms;
+
     } catch (err) {
-        throw new applicationError("Wrong with db",500)
+        throw new applicationError("Wrong with db", 500);
     }
-}
-    async getRoomById(id){
+} 
+   async getRoomById(id){
     try {
-        // show room details
 return await roomModels.findById(id);
     } catch (err) {
         throw new applicationError("Wrong with db",500)
     }
 }
-    async checkRoomAvailability(roomId,checkIn,checkOut){
-    try {
-        //  chek room is available or not
-    } catch (err) {
-        throw new applicationError("Wrong with db",500)
-    }
-}
+
 
 }

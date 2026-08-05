@@ -9,4 +9,12 @@ roomRoute.get('/',(req,res,next)=>{
     roomsController.getAllRoom(req,res,next)
 })
 
+roomRoute.get('/search',(req,res,next)=>{
+    roomsController.searchRoom(req,res,next)
+})
+
+roomRoute.get('/view_Room/:id',(req,res,next)=>{
+    roomsController.roomDetailsPage(req,res,next)
+})
+
 export default roomRoute;

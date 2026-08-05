@@ -8,6 +8,7 @@ export default class userController {
     constructor() {
         this.userRepo = new userRepo();
     }
+
     async getLogin(req, res, next) {
         try {
             return res.render("guest/login", {
@@ -68,7 +69,7 @@ export default class userController {
 
             logger.info(`User logged in: ${email}`);
 
-            return res.redirect("/");
+            return res.redirect("/api/hotel/dashboard");
         } catch (err) {
             logger.error({
                 message: err.message            });

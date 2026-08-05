@@ -8,6 +8,8 @@ export default class adminUserController{
         this.adminUserRepo=new adminUserRepo();
     }
 
+
+    
     async registerPage(req,res,next){
         try {
             return res.render('admin/register',{
@@ -107,11 +109,22 @@ return res.render('/api/admin/login')
 httpOnly:true,
 maxAge:24*60*60*1000
           });
-          logger.info(`User login in: ${email}`)
-          return res.send('user login ') ///temparary
+          logger.info(`Admin login in: ${email}`)
+          return res.redirect('/api/admin/dashboard')
         } catch (err) {
             logger.error(err.message);
             next(err)
+        }
+    }
+    async logout(req,res,next){
+        try {
+            res.clearCookie('adminToken');
+            logger.info('Admin logout');
+            return res.redirect('/api/admin/login')
+        } catch (err) {
+                        logger.error(err.message);
+            next(err)
+
         }
     }
     async forgotPassPage(req,res,next){

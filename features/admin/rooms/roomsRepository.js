@@ -10,7 +10,6 @@ export default class roomRepo{
             await newRoom.save();
             return newRoom;
         } catch (err) {
-            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
     }

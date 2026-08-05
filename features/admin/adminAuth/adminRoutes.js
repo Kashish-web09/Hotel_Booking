@@ -7,6 +7,8 @@ import { upload } from '../../../middleware/fileUploadMiddleware.js';
 const adminUserRoutes=express.Router();
 const adminController=new adminUserController();
 
+
+
 adminUserRoutes.get('/register',(req,res,next)=>{
     adminController.registerPage(req,res,next)
 })
@@ -34,5 +36,7 @@ adminUserRoutes.get('/reset-pass/:token',(req,res,next)=>{
 adminUserRoutes.post('/reset-pass/:token',validator(resetPassRules,'admin/resetPass'),(req,res,next)=>{
     adminController.resetPass(req,res,next)
 })
-
+adminUserRoutes.get('/logout',(req,res,next)=>{
+    adminController.logout(req,res,next)
+})
 export default adminUserRoutes;
