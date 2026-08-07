@@ -1,9 +1,12 @@
 import logger from "../../../middleware/loggerMiddleware.js";
+import hotelrepo from "../hotel/hotelRepository.js";
 import roomRepo from "./roomsRepository.js";
+
 
 export default class roomController{
     constructor(){
         this.roomRepo=new roomRepo();
+        this.hotelrepo=new hotelrepo();
     }
     async getAllRooms(req,res,next){
 try {
@@ -22,8 +25,10 @@ try {
     
     async addRoomPage(req,res,next){
 try {
+const hotels=await this.hotelrepo.getAllHotel();
     return res.render('admin/addRoom',{
         title:"Add Room Page",
+        hotels,
         errors:[],
         oldData:req.body
     })
@@ -36,6 +41,7 @@ try {
 async addRoom(req, res, next) {
     try {
         const {
+            hotelId,
             roomNumber,
             roomType,
             floor,
@@ -53,6 +59,7 @@ async addRoom(req, res, next) {
         } = req.body;
         const image=req.file ? req.file.filename:'default.png'
         const roomData = {
+            hotelId,
             roomNumber,
             roomType,
             floor,
@@ -117,9 +124,9 @@ try{
     async filterRoom(req,res,next){
 try {
     
-    const {status,roomType,roomNumber}=req.query;
+    const {hotelId,status,roomType,roomNumber}=req.query;
 
-    const rooms=await this.roomRepo.filterRoom(status,roomType,roomNumber);
+    const rooms=await this.roomRepo.filterRoom(hotelId,status,roomType,roomNumber);
     return res.render('admin/room',{
         title:"Rooms Page",
         rooms,

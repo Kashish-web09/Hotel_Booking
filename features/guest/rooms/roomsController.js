@@ -61,4 +61,21 @@ export default class roomController{
 
         }
     }
+    async getRoomByHotelId(req,res,next){
+        try {
+            const {hotelId}=req.query;
+            const rooms=await this.roomRepo.getRoomsByHotelId(hotelId);
+            return res.render('guest/room',{
+                title:"Available Rooms",
+                rooms,
+                hotelId,
+                errors:[],
+                oldData:{}
+            })
+        } catch (err) {
+                                    logger.error(err.message);
+            next(err)
+
+        }
+    }
 }

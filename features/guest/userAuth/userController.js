@@ -69,7 +69,7 @@ export default class userController {
 
             logger.info(`User logged in: ${email}`);
 
-            return res.redirect("/api/hotel/dashboard");
+            return res.redirect("/");
         } catch (err) {
             logger.error({
                 message: err.message            });

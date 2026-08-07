@@ -16,6 +16,8 @@ try {
     next();
 } catch (err) {
     res.clearCookie('adminToken')
+            res.locals.isLogin = false;
+
                     return res.redirect('/api/admin/login')
 
 }

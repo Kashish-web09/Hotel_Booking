@@ -10,6 +10,7 @@ export default class roomRepo{
             await newRoom.save();
             return newRoom;
         } catch (err) {
+            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
     }
@@ -37,7 +38,7 @@ export default class roomRepo{
                     $set:data
                 },
                 {
-                    new:true,
+                    returnDocument:"after",
                     runValidators:true
                 }
             )
@@ -46,12 +47,12 @@ export default class roomRepo{
         }
 
     }
-    async filterRoom(status,roomType,roomNumber){
+    async filterRoom(hotelId,status,roomType,roomNumber){
                         try {
             let filter={};
-        //       if (hotelId) {
-        //     filter.hotelId = hotelId;
-        // }
+              if (hotelId) {
+            filter.hotelId = hotelId;
+        }
             if(status){
                 filter.status={
                     $regex:status,
@@ -67,6 +68,7 @@ export default class roomRepo{
             }
             return await roomModels.find(filter);
         } catch (err) {
+            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
 
@@ -78,6 +80,15 @@ export default class roomRepo{
             throw new applicationError("Wrong with db",500)
         }
 
+    }
+
+    async deleteRoomsByHotelId(hotelId){
+try {
+    return await roomModels.deleteMany({hotelId});
+} catch (err) {
+            throw new applicationError("Wrong with db", 500);
+
+}
     }
     // async gethotelById(id){
     //     try {

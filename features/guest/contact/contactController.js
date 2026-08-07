@@ -30,7 +30,7 @@ async feedback(req,res,next){
             message
         }
         await this.feedbackRepo.createFeedback(contact);
-        return res.redirect("/api/hotel/feedback");
+        return res.redirect("/api/guest/feedback");
 
     } catch(err){
         logger.error(err.message);

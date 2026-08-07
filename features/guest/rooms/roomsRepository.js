@@ -53,6 +53,18 @@ return await roomModels.findById(id);
         throw new applicationError("Wrong with db",500)
     }
 }
+async getRoomsByHotelId(hotelId){
+        try {
+return await roomModels.find({
+    hotelId,
+    status:{
+        $ne:"Maintenance"
+    }
+}).sort({createdAt:-1});
+    } catch (err) {
+        throw new applicationError("Wrong with db",500)
+    }
 
+}
 
 }

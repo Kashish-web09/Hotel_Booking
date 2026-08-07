@@ -10,7 +10,7 @@
             </p>
         </div>
 
-        <a href="/api/hotel/rooms" class="btn btn-primary">
+        <a href="/api/guest/rooms" class="btn btn-primary">
             Browse Rooms
         </a>
 
@@ -97,7 +97,7 @@
                             <div class="d-flex gap-2">
 
                                 <a
-                                    href="/api/hotel/booking/details/<%= booking._id %>"
+                                    href="/api/guest/booking/details/<%= booking._id %>"
                                     class="btn btn-outline-primary btn-sm flex-grow-1">
                                     View Details
                                 </a>
@@ -109,7 +109,7 @@
                                 ) { %>
 
                                     <form
-                                        action="/api/hotel/booking/<%= booking._id %>"
+                                        action="/api/guest/booking/<%= booking._id %>"
                                         method="POST"
                                         onsubmit="return confirm('Cancel this booking?')">
 
@@ -147,7 +147,7 @@
             </p>
 
             <a
-                href="/api/hotel/rooms"
+                href="/api/guest/rooms"
                 class="btn btn-primary">
                 Find a Room
             </a>

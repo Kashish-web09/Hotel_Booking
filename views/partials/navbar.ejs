@@ -25,21 +25,30 @@
             <ul class="navbar-nav me-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/hotel/dashboard">Home</a>
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link" href="/about-us">About Us</a>
                 </li>
 
+                                <li class="nav-item">
+
+                    <a class="nav-link" href="/api/guest/hotel">Hotel</a>
+                </li>
+
+
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/hotel/rooms">Rooms</a>
+                    <a class="nav-link" href="/api/guest/rooms">Rooms</a>
                 </li>
 
                 <% if (isLogin) { %>
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/hotel/booking">My Bookings</a>
+                    <a class="nav-link" href="/api/guest/booking">My Bookings</a>
                 </li>
                 <% } %>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/api/hotel/feedback">Contact</a>
+                    <a class="nav-link" href="/api/guest/feedback">Contact</a>
                 </li>
 
             </ul>

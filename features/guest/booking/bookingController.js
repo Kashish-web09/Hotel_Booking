@@ -74,7 +74,7 @@ if(!isAvailable){
             pricePerNight,
             totalAmount,
         })
-        return res.redirect(`/api/hotel/booking/details/${booking._id}`)
+        return res.redirect(`/api/guest/booking/details/${booking._id}`)
 
         } catch (err) {
             logger.error(err.message);
@@ -126,7 +126,7 @@ async cancelBooking(req, res, next) {
             );
         }
 
-        return res.redirect("/api/hotel/booking");
+        return res.redirect("/api/guest/booking");
 
     } catch (err) {
 

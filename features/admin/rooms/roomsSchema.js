@@ -4,8 +4,8 @@ export const roomSchema = new mongoose.Schema(
     {
         hotelId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Hotel",
-            required: false,
+            ref: "hotel",
+            required: true,
         },
 
         roomNumber: {
@@ -123,12 +123,3 @@ export const roomSchema = new mongoose.Schema(
 );
 
 
-roomSchema.index(
-    {
-        hotelId: 1,
-        roomNumber: 1,
-    },
-    {
-        unique: true,
-    }
-);

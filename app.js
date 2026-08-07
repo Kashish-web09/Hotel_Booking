@@ -20,6 +20,8 @@ import bookingRoutes from './features/guest/booking/bookingRoutes.js';
 import dashRoutes from './features/guest/dashboard/dashRoutes.js';
 import bookingRoute from './features/admin/booking/bookingRoutes.js';
 import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
+import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
+import hotelRoute from './features/guest/hotel/hotelRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -31,7 +33,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
 app.use((req,res,next)=>{
 
-    res.locals.isLogin = !!req.cookies.token;
+    res.locals.isLogin = false;
     
     next();
 
@@ -62,14 +64,16 @@ app.use((req,res,next)=>{
 
 // guest routes
 app.use('/api/auth',userAuth);
-app.use('/api/hotel/dashboard',currentUser,dashRoutes)
-app.use('/api/hotel',currentUser,feedbackRoutes)
-app.use('/api/hotel/rooms',currentUser,roomRoute)
-app.use('/api/hotel/booking',currentUser,bookingRoutes)
+app.use('/',dashRoutes)
+app.use('/api/guest/feedback',currentUser,feedbackRoutes)
+app.use('/api/guest/hotel',currentUser,hotelRoute)
+app.use('/api/guest/rooms',currentUser,roomRoute)
+app.use('/api/guest/booking',currentUser,bookingRoutes)
 // admin routes
 app.use('/api/admin',adminUserRoutes) 
 app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
+app.use('/api/admin/hotel',adminUser,hotelRoutes)
 app.use('/api/admin/rooms',adminUser,roomRoutes)
 app.use('/api/admin/booking',adminUser,bookingRoute)
 const startServer = async () => {

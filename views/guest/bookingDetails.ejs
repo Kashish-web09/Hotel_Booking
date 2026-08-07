@@ -4,7 +4,7 @@
     <div class="mb-4">
 
         <a
-            href="/api/hotel/booking"
+            href="/api/guest/booking"
             class="text-decoration-none">
             ← My Bookings
         </a>
@@ -293,7 +293,7 @@
                         ) { %>
 
                             <form
-                                action="/api/hotel/booking/<%= booking._id %>"
+                                action="/api/guest/booking/<%= booking._id %>"
                                 method="POST"
                                 onsubmit="return confirm('Are you sure you want to cancel this booking?')">
 
@@ -338,7 +338,7 @@
             </p>
 
             <a
-                href="/api/hotel/bookings"
+                href="/api/guest/bookings"
                 class="btn btn-primary">
 
                 My Bookings

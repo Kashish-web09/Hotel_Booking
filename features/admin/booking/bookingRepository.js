@@ -28,7 +28,7 @@ id,
     $set:{status}
 },
 {
-    new:true
+    returnDocument:"after"
 }
     )
 } catch (err) {

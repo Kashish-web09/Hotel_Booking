@@ -26,7 +26,7 @@ try {
             }
         },
         {
-            new:true
+            returnDocument:"after"
         }
     )
 } catch (err) {

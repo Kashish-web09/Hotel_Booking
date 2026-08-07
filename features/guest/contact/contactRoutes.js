@@ -6,10 +6,10 @@ import { feedbackRule } from './contactValidation.js';
 const feedbackRoutes=express.Router();
 const feedbacksController=new feedbackController();
 
-feedbackRoutes.get('/feedback',(req,res,next)=>{
+feedbackRoutes.get('/',(req,res,next)=>{
     feedbacksController.feedbackPage(req,res,next)
 });
-feedbackRoutes.post('/feedback',validator(feedbackRule,'contact'),(req,res,next)=>{
+feedbackRoutes.post('/',validator(feedbackRule,'contact'),(req,res,next)=>{
     feedbacksController.feedback(req,res,next)
 })
 

@@ -1,34 +1,43 @@
-<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+<!-- Admin Navbar Container -->
+<div class="container-fluid px-4">
 
-    <div class="container-fluid px-4">
-
-        <!-- Brand -->
-        <a
-            class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2"
-            href="/api/admin/dashboard"
-        >
-            <i class="bi bi-building"></i>
-            Hotel Admin
-        </a>
-
-
-        <!-- Mobile Toggle -->
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#adminNavbar"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!-- Brand -->
+    <a
+        class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2"
+        href="<%= isLogin ? '/api/admin/dashboard' : '/api/admin/login' %>"
+    >
+        <i class="bi bi-building"></i>
+        Hotel Admin
+    </a>
 
 
-        <!-- Navbar Content -->
-        <div class="collapse navbar-collapse" id="adminNavbar">
+    <!-- Mobile Toggle -->
+    <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#adminNavbar"
+        aria-controls="adminNavbar"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="adminNavbar">
+
+        <% if (isLogin) { %>
+
+            <!-- ========================= -->
+            <!-- LOGGED IN -->
+            <!-- ========================= -->
 
             <!-- Left Menu -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
 
+                <!-- Dashboard -->
                 <li class="nav-item">
                     <a
                         class="nav-link"
@@ -40,19 +49,31 @@
                 </li>
 
 
+                <!-- Hotels -->
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="/api/admin/hotel"
+                    >
+                        <i class="bi bi-building me-1"></i>
+                        Hotels
+                    </a>
+                </li>
 
 
+                <!-- Rooms -->
                 <li class="nav-item">
                     <a
                         class="nav-link"
                         href="/api/admin/rooms"
                     >
-                        <i class="bi bi-building me-1"></i>
+                        <i class="bi bi-door-open me-1"></i>
                         Rooms
                     </a>
                 </li>
 
 
+                <!-- Bookings -->
                 <li class="nav-item">
                     <a
                         class="nav-link"
@@ -64,6 +85,7 @@
                 </li>
 
 
+                <!-- Feedback -->
                 <li class="nav-item">
                     <a
                         class="nav-link"
@@ -80,22 +102,6 @@
             <!-- Right Side -->
             <div class="d-flex align-items-center gap-3">
 
-                <!-- Notifications -->
-                <a
-                    href="#"
-                    class="btn btn-light position-relative"
-                    title="Notifications"
-                >
-                    <i class="bi bi-bell"></i>
-
-                    <span
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                    >
-                        3
-                    </span>
-                </a>
-
-
                 <!-- Admin Profile -->
                 <div class="dropdown">
 
@@ -103,6 +109,7 @@
                         class="btn btn-light dropdown-toggle d-flex align-items-center gap-2"
                         type="button"
                         data-bs-toggle="dropdown"
+                        aria-expanded="false"
                     >
 
                         <span
@@ -119,6 +126,7 @@
                     </button>
 
 
+                    <!-- Dropdown -->
                     <ul class="dropdown-menu dropdown-menu-end shadow-sm">
 
                         <li>
@@ -127,6 +135,8 @@
                             </h6>
                         </li>
 
+
+                        <!-- Profile -->
                         <li>
                             <a
                                 class="dropdown-item"
@@ -137,20 +147,14 @@
                             </a>
                         </li>
 
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="/api/admin/settings"
-                            >
-                                <i class="bi bi-gear me-2"></i>
-                                Settings
-                            </a>
-                        </li>
+
 
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
+
+                        <!-- Logout -->
                         <li>
                             <a
                                 class="dropdown-item text-danger"
@@ -167,8 +171,30 @@
 
             </div>
 
-        </div>
+
+        <% } else { %>
+
+
+            <!-- ========================= -->
+            <!-- NOT LOGGED IN -->
+            <!-- ========================= -->
+
+            <div class="ms-auto">
+
+                <a
+                    href="/api/admin/login"
+                    class="btn btn-primary d-flex align-items-center gap-2"
+                >
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+                </a>
+
+            </div>
+
+
+        <% } %>
 
     </div>
 
-</nav>
+</div>
+

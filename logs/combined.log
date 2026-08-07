@@ -106,3 +106,57 @@
 {"level":"info","message":"Room deleted successfully 6a6ed8962b2bcc0d92e39080","timestamp":"2026-08-05T11:00:35.772Z"}
 {"level":"info","message":"Room deleted successfully 6a6ed8ee875ac06a14c8c0bc","timestamp":"2026-08-05T11:00:37.111Z"}
 {"level":"info","message":"Room deleted successfully 6a6edc76a89bef6fcd652e2c","timestamp":"2026-08-05T11:00:39.257Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T04:33:06.433Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T04:33:40.318Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T04:33:57.948Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T04:35:04.913Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T04:35:48.526Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-07T04:49:59.653Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-07T04:50:07.446Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T04:51:14.272Z"}
+{"level":"info","message":"Confirmed for this 6a75645b18d60df0fe7ad47f id have been updated","timestamp":"2026-08-07T04:52:09.193Z"}
+{"level":"info","message":"Completed for this 6a75645b18d60df0fe7ad47f id have been updated","timestamp":"2026-08-07T04:52:37.665Z"}
+{"level":"info","message":"Confirmed for this 6a72cad88bea320c7e55cba5 id have been updated","timestamp":"2026-08-07T05:02:08.653Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:06:48.873Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:07:47.796Z"}
+{"level":"info","message":"Hotel Forutne BrandMat in kashmir created scucessfully ","timestamp":"2026-08-07T06:08:47.441Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:14:50.852Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:15:15.002Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:15:39.236Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T06:19:31.066Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:21:37.433Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:22:12.564Z"}
+{"level":"info","message":"Hotel Leela Gardan Brandemate in Delhi created scucessfully ","timestamp":"2026-08-07T06:23:19.814Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T06:24:13.572Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:32:46.039Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T06:33:12.125Z"}
+{"level":"info","message":"Hotel delete by admin successfully 6a75766f5c45d9cff30da4dd","timestamp":"2026-08-07T06:33:49.230Z"}
+{"level":"info","message":"Hotel delete by admin successfully 6a7579d7f4fcb2f4a38fe2c0","timestamp":"2026-08-07T06:33:54.777Z"}
+{"level":"info","message":"Room deleted successfully 6a757a0df4fcb2f4a38fe2c1","timestamp":"2026-08-07T06:40:43.987Z"}
+{"level":"info","message":"Room deleted successfully 6a7578f313cf2bc077c64f66","timestamp":"2026-08-07T06:40:45.161Z"}
+{"level":"info","message":"Hotel Forutne BrandMat in kashmir created scucessfully ","timestamp":"2026-08-07T06:41:18.297Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T06:41:53.093Z"}
+{"level":"warn","message":"Hotel not found 6a757e0e6d99eae48d095220","timestamp":"2026-08-07T06:42:09.618Z"}
+{"level":"warn","message":"Hotel not found 6a757e0e6d99eae48d095220","timestamp":"2026-08-07T06:42:19.677Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a757e0e6d99eae48d095220","timestamp":"2026-08-07T06:43:48.756Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-07T06:45:25.935Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-07T14:46:14.923Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-07T14:46:21.110Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-07T14:51:33.969Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-07T14:57:43.184Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-07T14:57:51.593Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T14:59:44.928Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-07T15:17:23.934Z"}
+{"level":"info","message":"Hotel Forutne BrandMat in kashmir created scucessfully ","timestamp":"2026-08-07T15:19:35.662Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T15:21:38.735Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a75f787256e268110655f1e","timestamp":"2026-08-07T15:22:14.309Z"}
+{"level":"info","message":"Hotel Forutne BrandMat in kashmir created scucessfully ","timestamp":"2026-08-07T15:28:26.295Z"}
+{"level":"info","message":"Hotel Leela Gardan Brandemate in Delhi created scucessfully ","timestamp":"2026-08-07T15:28:56.272Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T15:30:47.216Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-07T15:31:46.212Z"}
+{"level":"info","message":"Completed for this 6a75fe0c51cbf716329f19c8 id have been updated","timestamp":"2026-08-07T15:47:56.721Z"}
+{"level":"info","message":"Cancelled for this 6a75fe9051cbf716329f19c9 id have been updated","timestamp":"2026-08-07T15:49:57.463Z"}
+{"level":"info","message":"Confirmed for this 6a75fef6b200bd8af040b9ea id have been updated","timestamp":"2026-08-07T15:51:29.437Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T16:03:44.895Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-07T16:03:47.030Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-07T16:04:02.449Z"}
