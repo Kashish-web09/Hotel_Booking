@@ -164,3 +164,31 @@
 {"level":"warn","message":"Login failed: Invalid password (knarang0909@gmail.com)","timestamp":"2026-08-08T04:25:57.022Z"}
 {"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T04:26:06.786Z"}
 {"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-08T04:46:08.726Z"}
+{"level":"info","message":"Admin Profile Updated 6a6c38f7685b458da4b8db20","timestamp":"2026-08-08T12:17:56.590Z"}
+{"level":"info","message":"User Profile Updated 6a6997603b39d936f85df4f1","timestamp":"2026-08-08T12:18:28.652Z"}
+{"level":"info","message":"User Profile Updated 6a6997603b39d936f85df4f1","timestamp":"2026-08-08T12:32:27.571Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-08T12:32:40.887Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-08T12:32:53.367Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-08T12:33:40.159Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T12:33:45.749Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-08T12:34:21.033Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-08T12:34:53.281Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-08T12:39:02.191Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T12:40:42.465Z"}
+{"level":"info","message":"User Profile Updated 6a6997603b39d936f85df4f1","timestamp":"2026-08-08T12:42:24.891Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-08T12:48:49.919Z"}
+{"level":"info","message":"Hotel The Grand Bharat in Delhi created scucessfully ","timestamp":"2026-08-08T12:49:03.420Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T12:50:07.449Z"}
+{"level":"info","message":"Admin Profile Updated 6a6c38f7685b458da4b8db20","timestamp":"2026-08-08T12:52:00.640Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-08T12:52:05.340Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a7725bf724e5ea22b6a649f","timestamp":"2026-08-08T12:55:25.195Z"}
+{"level":"info","message":"Hotel The Grand Bharat in Delhi created scucessfully ","timestamp":"2026-08-08T12:55:56.741Z"}
+{"level":"info","message":"Hotel The Grand Haven - Stay Grand. Feel at Home in Delhi created scucessfully ","timestamp":"2026-08-08T13:05:20.980Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a77299029c4da4dd03b82df","timestamp":"2026-08-08T13:05:55.713Z"}
+{"level":"info","message":"Hotel The Grand Haven - Stay Grand. Feel at Home in Delhi created scucessfully ","timestamp":"2026-08-08T13:06:26.367Z"}
+{"level":"info","message":"Hotel Royal Vista Retreat - A Royal Stay, Every Time in Jaipur created scucessfully ","timestamp":"2026-08-08T13:08:15.470Z"}
+{"level":"info","message":"Hotel SereneStay Hotels & Resorts -Relax. Recharge. Reconnect in Shimla created scucessfully ","timestamp":"2026-08-08T13:09:52.896Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T13:14:19.033Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T13:16:55.599Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T13:18:59.215Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T13:19:22.647Z"}

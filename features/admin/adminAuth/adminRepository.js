@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import applicationError from "../../../errorFile/applicationLevelError.js";
 import adminSchema from './adminSchema.js'
-const adminUserModel=mongoose.model('adminUser',adminSchema);
+const adminUserModel=mongoose.models.adminUser || mongoose.model('adminUser',adminSchema);
 
 export default class adminUserRepo{
     async register(user){

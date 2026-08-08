@@ -1,433 +1,136 @@
-<!-- =========================
-     PROFILE HEADER
-========================= -->
-
+<!-- Profile Header -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-
     <div>
-        <h2 class="fw-bold mb-1">
-            My Profile
-        </h2>
-
-        <p class="text-muted mb-0">
-            Manage your personal information and account.
-        </p>
+        <h2 class="fw-bold mb-1">My Profile</h2>
+        <p class="text-muted mb-0">Manage your personal information and account.</p>
     </div>
-
-    <a
-        href="/"
-        class="btn btn-outline-secondary"
-    >
-        <i class="bi bi-arrow-left me-1"></i>
-        Back
-    </a>
-
+    <a href="/" class="btn btn-outline-secondary"><i class="bi bi-arrow-left me-1"></i>Back</a>
 </div>
 
-
-<!-- =========================
-     PROFILE CONTENT
-========================= -->
-
+<!-- Profile Content -->
 <div class="row g-4">
 
-    <!-- =========================
-         PROFILE CARD
-    ========================== -->
-
+    <!-- Profile Card -->
     <div class="col-lg-4">
-
         <div class="card border-0 shadow-sm h-100">
-
             <div class="card-body text-center p-4">
 
-                <!-- Profile Image -->
-
                 <% if (user?.image) { %>
-
-                    <img
-                        src="/uploads/<%= user.image %>"
-                        alt="Profile Image"
-                        class="rounded-circle mx-auto mb-3 d-block"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            object-fit: cover;
-                            border: 4px solid #f1f3f5;
-                        "
-                    >
-
+                    <img src="/uploads/<%= user.image %>" alt="Profile Image"
+                         class="rounded-circle mx-auto mb-3 d-block"
+                         style="width:120px;height:120px;object-fit:cover;border:4px solid #f1f3f5;">
                 <% } else { %>
-
-                    <div
-                        class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style="
-                            width: 120px;
-                            height: 120px;
-                            font-size: 45px;
-                        "
-                    >
+                    <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto mb-3"
+                         style="width:120px;height:120px;font-size:45px;">
                         <i class="bi bi-person"></i>
                     </div>
-
                 <% } %>
 
-
-                <!-- Name -->
-
-                <h4 class="fw-bold mb-1">
-                    <%= user?.name || "Guest User" %>
-                </h4>
-
-
-                <!-- Email -->
-
-                <p class="text-muted mb-3">
-                    <%= user?.email || "No email available" %>
-                </p>
-
-
-                <!-- Account Type -->
-
+                <h4 class="fw-bold mb-1"><%= user?.name || "Guest User" %></h4>
+                <p class="text-muted mb-3"><%= user?.email || "No email available" %></p>
                 <span class="badge bg-primary-subtle text-primary px-3 py-2">
-
-                    <i class="bi bi-person me-1"></i>
-
-                    Guest
-
+                    <i class="bi bi-person me-1"></i>Guest
                 </span>
 
             </div>
-
         </div>
-
     </div>
 
-
-
-    <!-- =========================
-         PERSONAL INFORMATION
-    ========================== -->
-
+    <!-- Personal Information -->
     <div class="col-lg-8">
-
         <div class="card border-0 shadow-sm">
-
             <div class="card-body p-4">
 
                 <div class="d-flex justify-content-between align-items-center mb-4">
-
                     <div>
-
-                        <h5 class="fw-bold mb-1">
-                            Personal Information
-                        </h5>
-
-                        <p class="text-muted small mb-0">
-                            Update your profile information below.
-                        </p>
-
+                        <h5 class="fw-bold mb-1">Personal Information</h5>
+                        <p class="text-muted small mb-0">Update your profile information below.</p>
                     </div>
-
                     <i class="bi bi-person-vcard fs-3 text-primary"></i>
-
                 </div>
 
-
-                <!-- =========================
-                     UPDATE PROFILE FORM
-                ========================== -->
-
-                <form
-                    action="/api/guest/profile/update/"
-                    method="POST"
-                    enctype="multipart/form-data"
-                >
-
+                <form action="/api/guest/profile/update/" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
 
-
-                        <!-- =========================
-                             FULL NAME
-                        ========================== -->
-
+                        <!-- Name -->
                         <div class="col-md-6">
-
-                            <label
-                                for="name"
-                                class="form-label fw-semibold"
-                            >
-                                Full Name
-                            </label>
-
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                class="form-control"
-                                value="<%= user?.name || '' %>"
-                                placeholder="Enter your full name"
-                                required
-                            >
-
+                            <label for="name" class="form-label fw-semibold">Full Name</label>
+                            <input type="text" id="name" name="name" class="form-control"
+                                   value="<%= user?.name || '' %>" placeholder="Enter your full name" required>
                         </div>
 
-
-
-                        <!-- =========================
-                             EMAIL
-                        ========================== -->
-
+                        <!-- Email -->
                         <div class="col-md-6">
-
-                            <label
-                                for="email"
-                                class="form-label fw-semibold"
-                            >
-                                Email Address
-                            </label>
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                class="form-control"
-                                value="<%= user?.email || '' %>"
-                                readonly
-                            >
-
-                            <div class="form-text">
-                                <i class="bi bi-info-circle me-1"></i>
-                                Email address cannot be changed.
-                            </div>
-
+                            <label for="email" class="form-label fw-semibold">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-control"
+                                   value="<%= user?.email || '' %>" readonly>
+                            <div class="form-text"><i class="bi bi-info-circle me-1"></i>Email cannot be changed.</div>
                         </div>
 
-
-
-                        <!-- =========================
-                             PHONE NUMBER
-                        ========================== -->
-
+                        <!-- Phone -->
                         <div class="col-md-6">
-
-                            <label
-                                for="phoneNo"
-                                class="form-label fw-semibold"
-                            >
-                                Phone Number
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="phoneNo"
-                                name="phoneNo"
-                                class="form-control"
-                                value="<%= user?.phoneNo || '' %>"
-                                placeholder="Enter phone number"
-                            >
-
+                            <label for="phoneNo" class="form-label fw-semibold">Phone Number</label>
+                            <input type="tel" id="phoneNo" name="phoneNo" class="form-control"
+                                   value="<%= user?.phoneNo || '' %>" placeholder="Enter phone number">
                         </div>
 
-
-
-                        <!-- =========================
-                             ACCOUNT TYPE
-                        ========================== -->
-
+                        <!-- Account Type -->
                         <div class="col-md-6">
-
-                            <label
-                                for="role"
-                                class="form-label fw-semibold"
-                            >
-                                Account Type
-                            </label>
-
-                            <input
-                                type="text"
-                                id="role"
-                                class="form-control"
-                                value="Guest"
-                                readonly
-                            >
-
+                            <label for="role" class="form-label fw-semibold">Account Type</label>
+                            <input type="text" id="role" class="form-control" value="Guest" readonly>
                         </div>
 
-
-
-                        <!-- =========================
-                             PROFILE IMAGE
-                        ========================== -->
-
+                        <!-- Profile Image -->
                         <div class="col-12">
-
-                            <label
-                                for="image"
-                                class="form-label fw-semibold"
-                            >
-                                Profile Image
-                            </label>
-
-                            <input
-                                type="file"
-                                id="image"
-                                name="image"
-                                class="form-control"
-                                accept="image/png,image/jpeg,image/jpg,image/webp"
-                            >
-
-                            <div class="form-text">
-
-                                <i class="bi bi-image me-1"></i>
-
-                                Upload JPG, JPEG, PNG or WEBP image.
-
-                            </div>
-
+                            <label for="image" class="form-label fw-semibold">Profile Image</label>
+                            <input type="file" id="image" name="image" class="form-control"
+                                   accept="image/png,image/jpeg,image/jpg,image/webp">
+                            <div class="form-text"><i class="bi bi-image me-1"></i>JPG, JPEG, PNG or WEBP.</div>
                         </div>
 
                     </div>
-
-
-
-                    <!-- =========================
-                         DIVIDER
-                    ========================== -->
 
                     <hr class="my-4">
 
-
-
-                    <!-- =========================
-                         FORM BUTTONS
-                    ========================== -->
-
+                    <!-- Buttons -->
                     <div class="d-flex justify-content-end gap-2">
-
-                        <a
-                            href="/"
-                            class="btn btn-light border px-4"
-                        >
-                            Cancel
-                        </a>
-
-
-                        <button
-                            type="submit"
-                            class="btn btn-primary px-4"
-                        >
-
-                            <i class="bi bi-check-lg me-1"></i>
-
-                            Save Changes
-
+                        <a href="/" class="btn btn-light border px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-check-lg me-1"></i>Save Changes
                         </button>
-
                     </div>
-
                 </form>
 
             </div>
-
         </div>
-
     </div>
-
 </div>
 
-
-
-<!-- =========================
-     ACCOUNT SECTION
-========================= -->
-
+<!-- Account Section -->
 <div class="card border-0 shadow-sm mt-4">
-
     <div class="card-body p-4">
 
-        <h5 class="fw-bold mb-1">
-            Account
-        </h5>
-
-        <p class="text-muted small mb-4">
-            Manage your bookings and account security.
-        </p>
-
+        <h5 class="fw-bold mb-1">Account</h5>
+        <p class="text-muted small mb-4">Manage your bookings and account security.</p>
 
         <div class="row g-3">
 
-
-            <!-- =========================
-                 MY BOOKINGS
-            ========================== -->
-
+            <!-- My Bookings -->
             <div class="col-md-4">
-
-                <a
-                    href="/api/guest/booking"
-                    class="btn btn-outline-primary w-100 py-2"
-                >
-
-                    <i class="bi bi-calendar-check me-2"></i>
-
-                    My Bookings
-
+                <a href="/api/guest/booking" class="btn btn-outline-primary w-100 py-2">
+                    <i class="bi bi-calendar-check me-2"></i>My Bookings
                 </a>
-
             </div>
 
-
-
-            <!-- =========================
-                 CHANGE PASSWORD
-            ========================== -->
-
+            <!-- Logout -->
             <div class="col-md-4">
-
-                <a
-                    href="/api/auth/change-password"
-                    class="btn btn-outline-secondary w-100 py-2"
-                >
-
-                    <i class="bi bi-key me-2"></i>
-
-                    Change Password
-
-                </a>
-
-            </div>
-
-
-
-            <!-- =========================
-                 LOGOUT
-            ========================== -->
-
-            <div class="col-md-4">
-
-                <form
-                    action="/api/auth/logout"
-                    method="POST"
-                >
-
-                    <button
-                        type="submit"
-                        class="btn btn-outline-danger w-100 py-2"
-                    >
-
-                        <i class="bi bi-box-arrow-right me-2"></i>
-
-                        Logout
-
+                <form action="/api/auth/logout" method="get">
+                    <button type="submit" class="btn btn-outline-danger w-100 py-2">
+                        <i class="bi bi-box-arrow-right me-2"></i>Logout
                     </button>
-
                 </form>
-
             </div>
 
         </div>
-
     </div>
-
 </div>

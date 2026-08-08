@@ -2,7 +2,9 @@ import mongoose from "mongoose";
 import { userSchema } from "./userSchema.js";
 import applicationError from "../../../errorFile/applicationLevelError.js";
 
-const userModels=new mongoose.model('auth',userSchema);
+const userModels =
+    mongoose.models.auth ||
+    mongoose.model("auth", userSchema);
 
 export default class userRepo{
 

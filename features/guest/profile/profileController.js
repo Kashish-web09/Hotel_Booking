@@ -28,6 +28,8 @@ export default class profileController{
             const {name,email,phoneNo}=req.body;
             const image=req.file ? req.file.filename : "default.png"
             await this.profileRepo.updateProfile(userId,{name,email,phoneNo,image});
+                        logger.info(`User Profile Updated ${userId}`);
+
 return res.redirect('/');
         } catch (err) {
                         logger.error(err.message)
