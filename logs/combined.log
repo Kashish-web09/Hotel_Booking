@@ -160,3 +160,7 @@
 {"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-07T16:03:44.895Z"}
 {"level":"info","message":"User logged out","timestamp":"2026-08-07T16:03:47.030Z"}
 {"level":"info","message":"Admin logout","timestamp":"2026-08-07T16:04:02.449Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T04:24:36.147Z"}
+{"level":"warn","message":"Login failed: Invalid password (knarang0909@gmail.com)","timestamp":"2026-08-08T04:25:57.022Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T04:26:06.786Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-08T04:46:08.726Z"}

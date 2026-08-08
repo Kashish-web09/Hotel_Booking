@@ -28,5 +28,12 @@ async filterHotel(city,name){
 
     }
 }
+async getHotelDetailsById(hotelId){
+    try {
+        return await hotelModel.findById(hotelId)
+    } catch (err) {
+                            throw new applicationError('Wrong with db',500)
 
+    }
+}
 }

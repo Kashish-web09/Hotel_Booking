@@ -11,4 +11,7 @@ hotelRoute.get('/',(req,res,next)=>{
 hotelRoute.get('/search',(req,res,next)=>{
     hotelsController.filterHotel(req,res,next)
 })
+hotelRoute.get('/:id',(req,res,next)=>{
+    hotelsController.hotelDetailsPage(req,res,next)
+})
 export default hotelRoute

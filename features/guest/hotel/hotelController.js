@@ -19,14 +19,30 @@ export default class hotelController{
             next(err)
         }
     }
-async hotelDetailsPage(req,res,next){
+async hotelDetailsPage(req, res, next) {
     try {
-        
+        const { id } = req.params;
+        const hotel = await this.hotelRepo.getHotelDetailsById(id);
+        if (!hotel) {
+
+            return res.status(404).render("guest/hotelDetails", {
+                title: "Hotel Not Found",
+                message: "Hotel not found"
+            });
+        }
+
+        return res.render("guest/hotelDetails", {
+            title: `${hotel.name} Details`,
+            hotel:hotel,
+            errors: [],
+            oldData: {}
+        });
+
     } catch (err) {
-        
+            logger.error(err.message);
+        next(err);
     }
 }
-
     async filterHotel(req,res,next){
         try {
             const {city,name}=req.query;

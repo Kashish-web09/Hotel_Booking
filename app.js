@@ -22,6 +22,7 @@ import bookingRoute from './features/admin/booking/bookingRoutes.js';
 import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
 import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
 import hotelRoute from './features/guest/hotel/hotelRoutes.js';
+import profileRoutes from './features/guest/profile/profileRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -65,12 +66,14 @@ app.use((req,res,next)=>{
 // guest routes
 app.use('/api/auth',userAuth);
 app.use('/',dashRoutes)
+app.use('/api/guest/profile',currentUser,profileRoutes)
 app.use('/api/guest/feedback',currentUser,feedbackRoutes)
 app.use('/api/guest/hotel',currentUser,hotelRoute)
 app.use('/api/guest/rooms',currentUser,roomRoute)
 app.use('/api/guest/booking',currentUser,bookingRoutes)
 // admin routes
 app.use('/api/admin',adminUserRoutes) 
+
 app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
 app.use('/api/admin/hotel',adminUser,hotelRoutes)
