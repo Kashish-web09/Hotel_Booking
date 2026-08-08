@@ -1,129 +1,85 @@
-🏨 Hotel Booking Management System
+# 🏨 Hotel Booking Management System
 
-A full-stack hotel booking application built with Node.js, Express.js, MongoDB, Mongoose, and EJS.
+A full-stack hotel booking web application built using **Node.js, Express.js, MongoDB, Mongoose, and EJS**.
 
-The application provides separate workflows for Guests and Administrators, covering authentication, hotel and room management, room search, booking management, feedback, and admin dashboard analytics.
+The application provides separate workflows for **Guests** and **Administrators**, including authentication, hotel and room management, room search, booking management, feedback, and an admin dashboard with business statistics.
 
-Project Status: Core functionality is implemented. Profile management, complete validation, security hardening, and final testing are currently being completed.
+> **Project Status:** Core functionality is implemented. Guest/Admin profile management, complete validation, security hardening, and final testing are currently in progress.
 
-🚀 Key Features
+---
 
-👤 Guest
+## 🚀 Features
 
-User registration and login
+### 👤 Guest Features
 
-Forgot password and reset password
+- User registration and login
+- Logout
+- Forgot password
+- Reset password
+- JWT-based authentication
+- Cookie-based authentication
+- Guest dashboard
+- Hotel search
+- Hotel details
+- Room listing
+- Room search and filtering
+- Room details
+- Create bookings
+- View booking details
+- View booking history
+- Manage and cancel bookings
+- Submit feedback
+- About Us page
+- Guest profile *(in progress)*
 
-JWT-based authentication
+### 🛡️ Admin Features
 
-Cookie-based session handling
+- Admin login/logout
+- JWT-based admin authentication
+- Role-based authorization
+- Admin dashboard
+- Hotel management
+- Room management
+- Room image upload
+- Booking management
+- Booking status updates
+- Feedback management
+- Feedback status updates
+- Dashboard statistics:
+  - Total Users
+  - Total Hotels
+  - Total Rooms
+  - Total Bookings
+  - Total Revenue
+  - Recent Bookings
+  - Confirmed Bookings
+- Admin profile *(in progress)*
 
-Guest dashboard
+---
 
-Hotel search and hotel details
+## 🧰 Tech Stack
 
-Room listing and room search/filtering
+| Category | Technologies |
+|---|---|
+| Frontend | HTML5, CSS3, JavaScript, Bootstrap, EJS |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| Authentication | JWT, Cookies, bcrypt |
+| Validation | Express Validator |
+| File Upload | Multer |
+| Logging | Winston |
+| Configuration | dotenv |
+| Version Control | Git, GitHub |
 
-Room details
+---
 
-Create and manage bookings
+## 🏗️ Architecture
 
-View booking details and booking history
+The application follows a **feature-based architecture** with separation of responsibilities between routes, middleware, controllers, repositories, and models.
 
-Cancel bookings
+### Request Flow
 
-Submit feedback
-
-About Us page
-
-Guest profile — in progress
-
-🛡️ Admin
-
-Admin authentication and authorization
-
-Admin dashboard
-
-Hotel management
-
-Room management
-
-Room image upload
-
-Booking management
-
-Booking status updates
-
-Feedback management
-
-Feedback status updates
-
-User overview
-
-Dashboard statistics:
-
-Total users
-
-Total hotels
-
-Total rooms
-
-Total bookings
-
-Total revenue
-
-Recent bookings
-
-Admin profile — in progress
-
-🧰 Tech Stack
-
-Layer
-
-Technologies
-
-Frontend
-
-HTML5, CSS3, JavaScript, Bootstrap, EJS
-
-Backend
-
-Node.js, Express.js
-
-Database
-
-MongoDB, Mongoose
-
-Authentication
-
-JWT, Cookies, bcrypt
-
-Validation
-
-Express Validator
-
-File Uploads
-
-Multer
-
-Logging
-
-Winston
-
-Configuration
-
-dotenv
-
-Development
-
-Git, GitHub, npm
-
-🏗️ Architecture
-
-The application follows a feature-based architecture with separation of responsibilities between routes, middleware, controllers, repositories, and models.
-
-Request Flow
-
+```text
 Client Request
       ↓
     Route
@@ -137,9 +93,11 @@ Client Request
  Mongoose Model
       ↓
    MongoDB
+```
 
-For protected resources:
+### Protected Request Flow
 
+```text
 Request
    ↓
 JWT Authentication
@@ -151,11 +109,15 @@ Controller
 Business / Database Logic
    ↓
 MongoDB
+```
 
-This structure keeps authentication, routing, business logic, and database operations separated and easier to maintain.
+This structure keeps authentication, routing, business logic, and database operations separated and maintainable.
 
-📁 Project Structure
+---
 
+## 📁 Project Structure
+
+```text
 HOTEL_BOOKING/
 │
 ├── config/
@@ -166,6 +128,7 @@ HOTEL_BOOKING/
 │   └── applicationLevelError.js
 │
 ├── features/
+│   │
 │   ├── admin/
 │   │   ├── adminAuth/
 │   │   ├── adminDashboard/
@@ -215,91 +178,104 @@ HOTEL_BOOKING/
 ├── app.js
 ├── package.json
 └── README.md
+```
 
-🔐 Authentication & Authorization
+---
 
-Authentication is implemented using JWT and HTTP cookies.
+## 🔐 Authentication & Authorization
 
-The application separates guest and admin access:
+Authentication is implemented using **JWT and HTTP cookies**.
 
+The application separates guest and admin access.
+
+### Guest Authentication
+
+```text
 Guest
   ↓
-User Authentication
+User Login
   ↓
 JWT
   ↓
+Cookie
+  ↓
 Protected Guest Routes
+```
 
+### Admin Authentication
+
+```text
 Admin
   ↓
-Admin Authentication
+Admin Login
   ↓
 Admin JWT
+  ↓
+Cookie
   ↓
 Admin Authorization Middleware
   ↓
 Protected Admin Routes
+```
+
+Passwords are securely hashed using **bcrypt** before being stored.
 
 Example protected admin route:
 
+```js
 app.use('/api/admin/hotel', adminUser, hotelRoutes);
+```
 
 Example protected guest route:
 
+```js
 app.use('/api/guest/booking', currentUser, bookingRoutes);
+```
 
-Passwords are securely hashed before being stored using bcrypt.
+---
 
-🏨 Hotel & Room Management
+## 🏨 Hotel & Room Management
 
-Admin Workflow
+### Admin Workflow
 
+```text
 Admin Login
-    ↓
+     ↓
 Admin Dashboard
-    ↓
+     ↓
 Manage Hotels
-    ↓
+     ↓
 Add / Manage Rooms
-    ↓
+     ↓
 Upload Room Images
-    ↓
+     ↓
 Manage Room Details
+```
 
-Room information includes properties such as:
+Room information includes:
 
-Room number
+- Room number
+- Room type
+- Floor
+- Maximum guests
+- Bed type
+- Bed count
+- Price per night
+- Room size
+- Amenities
+- Room images
+- Room status
+- AC availability
+- Balcony availability
+- Smoking policy
 
-Room type
+---
 
-Floor
-
-Maximum guests
-
-Bed type
-
-Bed count
-
-Price per night
-
-Size
-
-Amenities
-
-Room images
-
-Room status
-
-AC availability
-
-Balcony availability
-
-Smoking policy
-
-📅 Booking Workflow
+## 📅 Booking Workflow
 
 The guest booking flow is:
 
+```text
 Search Hotel
      ↓
 View Hotel Details
@@ -317,31 +293,28 @@ Create Booking
 View Booking Details
      ↓
 Manage / Cancel Booking
+```
 
-A booking stores information such as:
+A booking contains information such as:
 
-User
+- User
+- Room
+- Check-in date
+- Check-out date
+- Number of guests
+- Price per night
+- Total amount
+- Booking status
 
-Room
+---
 
-Check-in date
-
-Check-out date
-
-Number of guests
-
-Price per night
-
-Total amount
-
-Booking status
-
-📊 Admin Dashboard
+## 📊 Admin Dashboard
 
 The admin dashboard provides a centralized overview of application activity.
 
-Dashboard Metrics
+### Dashboard Metrics
 
+```text
 Total Users
 Total Hotels
 Total Rooms
@@ -349,21 +322,25 @@ Total Bookings
 Total Revenue
 Recent Bookings
 Confirmed Bookings
+```
 
-This gives administrators a quick view of the current state of the hotel booking system.
+This allows administrators to monitor the overall activity of the hotel booking system from a single dashboard.
 
-💬 Feedback Management
+---
+
+## 💬 Feedback Management
 
 Guests can submit feedback through the application.
 
 Admins can:
 
-View guest feedback
+- View guest feedback
+- Review feedback details
+- Update feedback status
 
-Review feedback details
+### Feedback Flow
 
-Update feedback status
-
+```text
 Guest
   ↓
 Submit Feedback
@@ -373,21 +350,27 @@ MongoDB
 Admin Dashboard
   ↓
 Review / Update Status
+```
 
-🗄️ Database Design
+---
 
-MongoDB is used as the primary database with Mongoose for schema and data modeling.
+## 🗄️ Database
 
-Main entities include:
+The application uses **MongoDB** as the database with **Mongoose** for schema and data modeling.
 
+### Main Entities
+
+```text
 User
 Hotel
 Room
 Booking
 Feedback
+```
 
-Booking Relationship
+### Entity Relationship
 
+```text
 User
   │
   └──── Booking
@@ -395,85 +378,90 @@ User
            └──── Room
                   │
                   └──── Hotel
+```
 
-This allows the application to connect users, bookings, rooms, and hotels while keeping the data organized.
+This allows users, bookings, rooms, and hotels to be connected through MongoDB references.
 
-⚙️ Getting Started
+---
 
-Prerequisites
+## ⚙️ Getting Started
+
+### Prerequisites
 
 Make sure you have installed:
 
-Node.js
+- Node.js
+- npm
+- MongoDB / MongoDB Atlas
+- Git
 
-npm
+### 1. Clone the Repository
 
-MongoDB / MongoDB Atlas
-
-Git
-
-1. Clone the repository
-
+```bash
 git clone <your-repository-url>
+```
 
-2. Navigate to the project
+### 2. Navigate to the Project
 
+```bash
 cd hotel_booking
+```
 
-3. Install dependencies
+### 3. Install Dependencies
 
+```bash
 npm install
+```
 
-4. Configure environment variables
+### 4. Configure Environment Variables
 
-Create a .env file in the project root.
+Create a `.env` file in the project root.
 
 Example:
 
+```env
 PORT=9090
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
+```
 
-Add any additional email or application-specific variables required by your configuration.
+Add any additional environment variables required by your configuration.
 
-5. Start the application
+### 5. Start the Application
 
+```bash
 npm start
+```
 
 The application will run at:
 
+```text
 http://localhost:9090
+```
 
-🧪 Validation & Error Handling
+---
+
+## 🧪 Validation & Error Handling
 
 Validation is being implemented across the application's major workflows.
 
 Examples include:
 
-Required field validation
+- Required field validation
+- Email validation
+- Password validation
+- MongoDB ObjectId validation
+- Room price validation
+- Guest count validation
+- Booking date validation
+- Room type validation
+- Hotel information validation
+- Feedback validation
+- File upload validation
 
-Email validation
+### Booking Validation
 
-Password validation
-
-MongoDB ObjectId validation
-
-Room price validation
-
-Guest count validation
-
-Booking date validation
-
-Room type validation
-
-Hotel information validation
-
-Feedback validation
-
-File upload validation
-
-Important booking rules include:
-
+```text
 Check-out > Check-in
 
 Guests >= 1
@@ -483,105 +471,82 @@ Guests <= Room maximum capacity
 Room price > 0
 
 Room must be available for selected dates
+```
 
-🔒 Security
+---
+
+## 🔒 Security
 
 The application currently uses:
 
-bcrypt password hashing
+- bcrypt password hashing
+- JWT authentication
+- Cookie-based authentication
+- Protected routes
+- Admin authorization middleware
+- Request validation
+- Environment variables
+- File upload middleware
+- Application logging
 
-JWT authentication
+### Planned Security Improvements
 
-Cookie-based authentication
+- Rate limiting
+- Helmet
+- CSRF protection
+- Stronger cookie configuration
+- Additional input sanitization
+- More comprehensive authorization checks
 
-Protected routes
+---
 
-Admin authorization middleware
+## 📌 Future Improvements
 
-Request validation
+- [ ] Guest profile management
+- [ ] Admin profile management
+- [ ] Complete validation across all modules
+- [ ] Centralized error handling improvements
+- [ ] Automated testing
+- [ ] Security hardening
+- [ ] Email booking confirmation
+- [ ] Payment gateway integration
+- [ ] Hotel ratings and reviews
+- [ ] Production deployment
 
-Environment variables
+---
 
-File upload middleware
+## 🎯 Learning Outcomes
 
-Application logging
+Through this project, I gained practical experience with:
 
-Planned security improvements include:
+- Full-stack web application development
+- Node.js and Express.js
+- REST API development
+- MongoDB and Mongoose
+- JWT authentication and authorization
+- Middleware design
+- MVC architecture
+- Feature-based project organization
+- Repository pattern
+- EJS server-side rendering
+- File uploads
+- Form validation
+- Error handling
+- Application logging
+- Git and GitHub
 
-Rate limiting
+---
 
-Helmet
+## 👨‍💻 Author
 
-CSRF protection
+**Kashish Narang**
 
-Stronger cookie configuration
+Full Stack Developer
 
-Additional input sanitization
+**JavaScript | Node.js | Express.js | MongoDB | React**
 
-More comprehensive authorization checks
+---
 
-📌 Future Improvements
+## 📄 License
 
-Guest profile management
-
-Admin profile management
-
-Complete validation across all modules
-
-Centralized error handling improvements
-
-Automated testing
-
-Security hardening
-
-Email booking confirmation
-
-Payment gateway integration
-
-Hotel ratings and reviews
-
-Production deployment
-
-🎯 What I Learned
-
-This project provided practical experience with:
-
-Building full-stack web applications
-
-Node.js and Express.js
-
-REST API design
-
-MongoDB and Mongoose
-
-JWT authentication and authorization
-
-Middleware design
-
-MVC architecture
-
-Feature-based project organization
-
-Repository pattern
-
-EJS server-side rendering
-
-File uploads
-
-Form validation
-
-Error handling
-
-Logging
-
-Git and GitHub
-
-👨‍💻 Author
-
-Kashish Narang
-
-Full Stack DeveloperJavaScript | Node.js | Express.js | MongoDB | React
-
-📄 License
-
-This project is developed for learning and portfolio purposes.
+This project is developed for **learning and portfolio purposes**.
