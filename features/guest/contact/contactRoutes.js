@@ -13,5 +13,4 @@ feedbackRoutes.post('/',validator(feedbackRule),(req,res,next)=>{
 
     feedbacksController.feedback(req,res,next)
 })
-
 export default feedbackRoutes;

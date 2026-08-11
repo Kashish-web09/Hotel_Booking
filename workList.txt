@@ -1,4 +1,4 @@
-common validation in all Features
-make error pages
+common validation in all Features --done
+make error pages  --done
 make payment featue
 email service

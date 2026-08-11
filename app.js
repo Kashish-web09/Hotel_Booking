@@ -25,6 +25,7 @@ import hotelRoute from './features/guest/hotel/hotelRoutes.js';
 import profileRoutes from './features/guest/profile/profileRoutes.js';
 import profileRoute from './features/admin/profile/profileRoutes.js';
 import travelRoutes from './features/admin/travel/travelRoutes.js';
+import logger from './middleware/loggerMiddleware.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -83,7 +84,22 @@ app.use('/api/admin/hotel',adminUser,hotelRoutes)
 
 app.use('/api/admin/rooms',adminUser,roomRoutes)
 app.use('/api/admin/travel',adminUser,travelRoutes)
-app.use('/api/admin/booking',adminUser,bookingRoute)
+app.use('/api/admin/booking',adminUser,bookingRoute);
+
+// error handler page
+
+app.use((req,res,next)=>{
+    res.status(404).render('errorPages/404Error',{
+        title:"404- Page Not Found"
+    })
+})
+
+app.use((err,req,res,next)=>{
+    logger.error(err.stack);
+    res.status(500).render('errorPages/500Error',{
+        title:"500- Internal Server Error"
+    })
+})
 const startServer = async () => {
     await connectToMongoose();
 
