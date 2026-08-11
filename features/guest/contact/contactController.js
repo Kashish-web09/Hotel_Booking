@@ -17,29 +17,39 @@ try{
     next(err)
 }
     }
-async feedback(req,res,next){
+async feedback(req, res, next) {
     try {
-        const {name,email,phoneNo,messageType,message} = req.body;
-        if(req.validationErrors){
-    return res.render('guest/contact',{
-                    title:"Feedback",
-            errors:req.validationErrors,
-            oldData:req.body
-
-    })
-}
-
-        const contact={
+        const {
             name,
             email,
             phoneNo,
             messageType,
             message
+        } = req.body;
+
+        if (req.validationErrors) {
+            return res.render('guest/contact', {
+                title: "Feedback",
+                errors: req.validationErrors,
+                oldData: req.body
+            });
         }
+
+        const contact = {
+            name,
+            email,
+            phoneNo,
+            messageType,
+            message
+        };
+
+        // Save feedback to database
         await this.feedbackRepo.createFeedback(contact);
+
+
         return res.redirect("/api/guest/feedback");
 
-    } catch(err){
+    } catch (err) {
         logger.error(err.message);
         next(err);
     }

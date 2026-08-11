@@ -62,7 +62,9 @@ async addHotelPage(req,res,next){
 
             const image=req.file ? req.file.filename :"default.png";
             const adminUser=await this.adminUserRepo.findUserById(req.adminId);
+
             const existingHotel=await this.hotelrepo.findHotel(name,city);
+
             if(existingHotel){
                     logger.warn(`Hotel ${name} already exists in ${city}`);
 
@@ -73,6 +75,7 @@ async addHotelPage(req,res,next){
     });
 
             }
+
             const newHotel={
                 name,desc,address,city,state,
                 country,pincode,
