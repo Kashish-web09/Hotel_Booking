@@ -11,7 +11,6 @@ export default class hotelrepo{
             const hotel=new hotelModel(data);
             return await hotel.save();
         } catch (err) {
-            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
     }
@@ -26,24 +25,24 @@ export default class hotelrepo{
         }
 
     }
-    async updateHotelById(hotelId,data){
-                try {
-            return await hotelModel.findByIdAndUpdate(
-                {_id:mongoose.Schema.Types.ObjectId},
-                {
-                    $set:{
-                        data
-                    }
-                },
-                {
-                    runValidators:"after"
-                }
-            )
-        } catch (err) {
-            throw new applicationError("Wrong with db",500)
-        }
+async updateHotelById(hotelId, data) {
+    try {
 
+        return await hotelModel.findByIdAndUpdate(
+            hotelId,
+            {
+                $set: data
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+    } catch (err) {
+        throw new applicationError("Wrong with db", 500);
     }
+}
     async removeHotel(hotelId){
                 try {
             return await hotelModel.findByIdAndDelete(
@@ -53,7 +52,6 @@ export default class hotelrepo{
                 
             )
         } catch (err) {
-            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
 

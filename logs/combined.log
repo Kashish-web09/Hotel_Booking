@@ -192,3 +192,123 @@
 {"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T13:16:55.599Z"}
 {"level":"info","message":"Room added successfully!","timestamp":"2026-08-08T13:18:59.215Z"}
 {"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-08T13:19:22.647Z"}
+{"level":"info","message":"Confirmed for this 6a772cf529c4da4dd03b82e6 id have been updated","timestamp":"2026-08-09T04:00:08.883Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:17:10.329Z"}
+{"level":"info","message":"Destination deleted successfully 6a780d565f44150c7d24a728!","timestamp":"2026-08-09T05:19:11.687Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:19:44.855Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:25:05.686Z"}
+{"level":"info","message":"Destination deleted successfully 6a780f315a84aa924e1eab83!","timestamp":"2026-08-09T05:25:12.973Z"}
+{"level":"info","message":"Destination deleted successfully 6a780df066edb59c64c258ce!","timestamp":"2026-08-09T05:25:14.101Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:26:33.074Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:27:42.396Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:28:55.921Z"}
+{"level":"info","message":"Destination added successfully!","timestamp":"2026-08-09T05:29:42.316Z"}
+{"level":"info","message":"Room update successfully 6a772cc329c4da4dd03b82e5","timestamp":"2026-08-09T05:36:59.795Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-09T05:47:23.132Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-09T05:47:28.608Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-10T04:06:46.621Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-10T04:08:20.272Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-10T04:09:20.019Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-10T04:10:24.541Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:18:03.073Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:30:41.090Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:32:14.775Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:33:30.045Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:38:01.271Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:40:13.871Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:40:58.363Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:44:22.896Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:46:21.123Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:47:13.371Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:48:24.292Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:49:22.666Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:50:50.904Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:51:13.636Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:52:01.625Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:52:36.422Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:52:54.453Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:54:02.791Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:54:04.694Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:54:06.018Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:54:15.610Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:55:06.289Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T04:55:29.014Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:25:51.765Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:26:41.571Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:28:18.296Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-10T05:28:33.785Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:30:00.877Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:31:36.170Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:31:49.409Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:32:06.914Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:32:12.079Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-10T05:33:35.189Z"}
+{"level":"error","message":"travel validation failed: city: Path `city` is required.","timestamp":"2026-08-10T05:49:19.241Z"}
+{"level":"warn","message":"Invalid email id:knarang0909@gmail.com","timestamp":"2026-08-11T04:15:56.821Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-11T04:18:08.081Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-11T04:18:12.409Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:18:20.154Z"}
+{"level":"warn","message":"Password reset requested for unknown email: knarang0909@gmail","timestamp":"2026-08-11T04:18:50.194Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:20:16.302Z"}
+{"level":"warn","message":"Invalid or expired reset token: d9777373afb01d7828e68dc694562db8580aed8d788b4d88451ad1aba071d991","timestamp":"2026-08-11T04:21:44.558Z"}
+{"level":"warn","message":"Invalid or expired reset token: d9777373afb01d7828e68dc694562db8580aed8d788b4d88451ad1aba071d991","timestamp":"2026-08-11T04:21:48.163Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:21:55.960Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:23:07.790Z"}
+{"level":"warn","message":"Invalid or expired reset token: a87e52a460e5cbcbb5235800ed5094d5fea9c79ddb51dc83e05704b894797110","timestamp":"2026-08-11T04:24:04.551Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T04:24:33.911Z"}
+{"level":"warn","message":"Admin already exists knarang0909@gmail.com","timestamp":"2026-08-11T04:25:46.472Z"}
+{"level":"warn","message":"Password do not match","timestamp":"2026-08-11T04:26:03.086Z"}
+{"level":"warn","message":"Admin already exists knarang0909@gmail.com","timestamp":"2026-08-11T04:26:26.397Z"}
+{"level":"warn","message":"Password do not match","timestamp":"2026-08-11T04:26:39.173Z"}
+{"level":"warn","message":"Invalid email id:knarang0909@gmail.com","timestamp":"2026-08-11T04:29:58.848Z"}
+{"level":"warn","message":"Invalid email id:knarang0909@gmail.com","timestamp":"2026-08-11T04:30:08.972Z"}
+{"level":"warn","message":"Invalid email id:knarang0909@gmail.com","timestamp":"2026-08-11T04:30:23.232Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:31:06.999Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-11T04:31:31.858Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T04:31:58.788Z"}
+{"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-08-11T04:36:21.343Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a7aa6c54210b36b62cb8d1e","timestamp":"2026-08-11T04:36:25.641Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-11T04:38:54.937Z"}
+{"level":"info","message":"Room update successfully 6a7aa75e4210b36b62cb8d1f","timestamp":"2026-08-11T04:39:04.659Z"}
+{"level":"info","message":"Room update successfully 6a7aa75e4210b36b62cb8d1f","timestamp":"2026-08-11T04:39:04.721Z"}
+{"level":"info","message":"Room update successfully 6a7aa75e4210b36b62cb8d1f","timestamp":"2026-08-11T04:39:17.882Z"}
+{"level":"info","message":"Room deleted successfully 6a7aa75e4210b36b62cb8d1f","timestamp":"2026-08-11T04:39:20.957Z"}
+{"level":"info","message":"Room deleted successfully 6a796181e3bf43c0abeb952d","timestamp":"2026-08-11T04:39:45.468Z"}
+{"level":"info","message":"Destination updated successfully 6a781046530688bd41cc54be!","timestamp":"2026-08-11T04:40:43.911Z"}
+{"level":"info","message":"Destination updated successfully 6a781046530688bd41cc54be!","timestamp":"2026-08-11T04:41:37.104Z"}
+{"level":"info","message":"Destination updated successfully 6a780f89530688bd41cc54bb!","timestamp":"2026-08-11T04:43:01.781Z"}
+{"level":"info","message":"Destination updated successfully 6a781017530688bd41cc54bd!","timestamp":"2026-08-11T04:44:42.627Z"}
+{"level":"info","message":"Destination updated successfully 6a781017530688bd41cc54bd!","timestamp":"2026-08-11T04:44:50.936Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-11T04:47:00.946Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:47:05.907Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T04:48:20.612Z"}
+{"level":"info","message":"Admin login in: knarang0909@gmail.com","timestamp":"2026-08-11T04:48:26.951Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-11T04:52:34.234Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-11T04:52:36.592Z"}
+{"level":"warn","message":"Password reset requested for unknown email: narang2305@gmail.com","timestamp":"2026-08-11T04:52:46.573Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:52:50.496Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T04:52:53.761Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:53:29.874Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:56:44.724Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T04:56:48.916Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T04:56:57.081Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T04:57:03.844Z"}
+{"level":"warn","message":"Registration failed: knarang0909@gmail.com already exists","timestamp":"2026-08-11T05:00:08.271Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T05:00:50.482Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T05:00:55.124Z"}
+{"level":"info","message":"Password reset token generated for: knarang0909@gmail.com","timestamp":"2026-08-11T05:01:34.321Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-11T05:01:39.643Z"}
+{"level":"info","message":"New user registered: knarang0909@gmail.com","timestamp":"2026-08-11T05:05:42.755Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-11T05:06:51.255Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-11T05:08:17.557Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-11T05:08:23.795Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-11T05:08:35.161Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-08-11T05:08:48.167Z"}
+{"level":"warn","message":"Room is not available for Thu Aug 13 2026 05:30:00 GMT+0530 (India Standard Time)","timestamp":"2026-08-11T05:15:48.701Z"}
+{"level":"error","message":"id is not defined","timestamp":"2026-08-11T05:38:08.875Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:46:22.180Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:46:45.794Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:47:47.114Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:48:28.486Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:51:17.719Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-11T05:52:21.680Z"}

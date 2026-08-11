@@ -24,6 +24,7 @@ import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
 import hotelRoute from './features/guest/hotel/hotelRoutes.js';
 import profileRoutes from './features/guest/profile/profileRoutes.js';
 import profileRoute from './features/admin/profile/profileRoutes.js';
+import travelRoutes from './features/admin/travel/travelRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -79,7 +80,9 @@ app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
 app.use('/api/admin/profile',adminUser,profileRoute)
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
 app.use('/api/admin/hotel',adminUser,hotelRoutes)
+
 app.use('/api/admin/rooms',adminUser,roomRoutes)
+app.use('/api/admin/travel',adminUser,travelRoutes)
 app.use('/api/admin/booking',adminUser,bookingRoute)
 const startServer = async () => {
     await connectToMongoose();

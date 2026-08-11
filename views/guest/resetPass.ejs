@@ -128,8 +128,24 @@
                         name="password"
                         class="form-control form-control-lg rounded-3"
                         placeholder="Enter new password"
-                        required
+                        
                     >
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="password"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
 
 

@@ -32,11 +32,22 @@
                             value="<%= oldData?.name || '' %>"
                         >
 
-                        <% if(errors?.name){ %>
-                            <small class="text-danger">
-                                <%= errors.name %>
-                            </small>
-                        <% } %>
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="name"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
                     </div>
 
@@ -56,11 +67,22 @@
                             value="<%= oldData?.email || '' %>"
                         >
 
-                        <% if(errors?.email){ %>
-                            <small class="text-danger">
-                                <%= errors.email %>
-                            </small>
-                        <% } %>
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="email"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
                     </div>
 
@@ -80,11 +102,22 @@
                             value="<%= oldData?.phoneNo || '' %>"
                         >
 
-                        <% if(errors?.phoneNo){ %>
-                            <small class="text-danger">
-                                <%= errors.phoneNo %>
-                            </small>
-                        <% } %>
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="phoneNo"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
                     </div>
 
@@ -111,6 +144,22 @@
                             </option>
 
                         </select>
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="messageType"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
                     </div>
 
@@ -130,11 +179,22 @@
                         ><%= oldData?.message || '' %></textarea>
 
 
-                        <% if(errors?.message){ %>
-                            <small class="text-danger">
-                                <%= errors.message %>
-                            </small>
-                        <% } %>
+                    <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="message"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+
+                    <% } %>
+
 
                     </div>
 

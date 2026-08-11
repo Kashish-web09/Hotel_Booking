@@ -1,19 +1,9 @@
-```ejs
 <!-- Header -->
 <div class="mb-4">
     <h2 class="fw-bold mb-1">Add Hotel</h2>
     <p class="text-muted mb-0">Add a new hotel to your system</p>
 </div>
 
-
-<!-- Errors -->
-<% if (errors?.length) { %>
-    <div class="alert alert-danger">
-        <% errors.forEach(error => { %>
-            <div><%= error %></div>
-        <% }) %>
-    </div>
-<% } %>
 
 
 <div class="card border-0 shadow-sm">
@@ -39,8 +29,22 @@
                         class="form-control"
                         placeholder="Enter hotel name"
                         value="<%= oldData?.name || '' %>"
-                        required
+                        
                     >
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="name"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                     <%}%>
                 </div>
 
 
@@ -64,8 +68,22 @@
                         class="form-control"
                         rows="4"
                         placeholder="Enter hotel description"
-                        required
+                        
                     ><%= oldData?.desc || '' %></textarea>
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="desc"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
                 </div>
 
             </div>
@@ -85,8 +103,23 @@
                         class="form-control"
                         placeholder="Enter hotel address"
                         value="<%= oldData?.address || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="address"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -99,8 +132,23 @@
                         class="form-control"
                         placeholder="City"
                         value="<%= oldData?.city || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="city"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -113,8 +161,24 @@
                         class="form-control"
                         placeholder="State"
                         value="<%= oldData?.state || '' %>"
-                        required
+                        
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="state"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -126,8 +190,23 @@
                         name="country"
                         class="form-control"
                         value="<%= oldData?.country || 'India' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="country"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -141,8 +220,23 @@
                         placeholder="6-digit pincode"
                         maxlength="6"
                         value="<%= oldData?.pincode || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="pincode"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
             </div>
@@ -162,8 +256,23 @@
                         class="form-control"
                         placeholder="Hotel phone number"
                         value="<%= oldData?.phone || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="phone"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -176,8 +285,23 @@
                         class="form-control"
                         placeholder="Hotel email"
                         value="<%= oldData?.email || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="email"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
             </div>
@@ -196,8 +320,23 @@
                         name="checkInTime"
                         class="form-control"
                         value="<%= oldData?.checkInTime || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="checkInTime"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
 
@@ -209,8 +348,23 @@
                         name="checkOutTime"
                         class="form-control"
                         value="<%= oldData?.checkOutTime || '' %>"
-                        required
+                        
                     >
+                                         <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="checkOutTime"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                 </div>
 
             </div>
@@ -222,7 +376,7 @@
             <select
                 name="status"
                 class="form-select"
-                required
+                
             >
                 <option
                     value="Active"
@@ -264,4 +418,3 @@
 
     </div>
 </div>
-```

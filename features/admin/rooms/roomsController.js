@@ -40,6 +40,18 @@ const hotels=await this.hotelrepo.getAllHotel();
     }
 async addRoom(req, res, next) {
     try {
+                if (req.validationErrors) {
+
+            const hotels = await this.hotelrepo.getAllHotel();
+
+            return res.status(400).render("admin/addRoom", {
+                title: "Add Room Page",
+                hotels,
+                errors: req.validationErrors,
+                oldData: req.body
+            });
+        }
+
         const {
             hotelId,
             roomNumber,

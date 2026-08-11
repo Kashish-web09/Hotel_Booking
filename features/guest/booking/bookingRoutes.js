@@ -1,6 +1,7 @@
 import express from 'express';
 import bookingController from './bookingController.js';
-
+import { bookingrule } from './bookingValidation.js';
+import validator from '../../../middleware/commonValidation.js'
 const bookingRoutes = express.Router();
 const bookingsController = new bookingController();
 
@@ -12,7 +13,7 @@ bookingRoutes.get('/', (req, res, next) => {
 
 
 // Create booking
-bookingRoutes.post('/create', (req, res, next) => {
+bookingRoutes.post('/create',validator(bookingrule), (req, res, next) => {
     bookingsController.createBooking(req, res, next);
 });
 

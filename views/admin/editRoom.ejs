@@ -15,17 +15,6 @@
 
                 <div class="row g-3">
 
-                    <!-- Hotel ID -->
-                    <!-- <div class="col-md-6">
-                        <label class="form-label">Hotel ID</label>
-
-                        <input
-                            type="text"
-                            name="hotelId"
-                            class="form-control"
-                            value="<%= room.hotelId %>"
-                            required>
-                    </div> -->
 
 
                     <!-- Room Number -->
@@ -37,7 +26,22 @@
                             name="roomNumber"
                             class="form-control"
                             value="<%= room.roomNumber %>"
-                            required>
+                            >
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="roomNumber"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -45,7 +49,7 @@
                     <div class="col-md-3">
                         <label class="form-label">Room Type</label>
 
-                        <select name="roomType" class="form-select" required>
+                        <select name="roomType" class="form-select" >
 
                             <option value="Single" <%= room.roomType === "Single" ? "selected" : "" %>>
                                 Single
@@ -76,6 +80,21 @@
                             </option>
 
                         </select>
+                                             <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="roomType"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -88,7 +107,22 @@
                             name="floor"
                             class="form-control"
                             value="<%= room.floor %>"
-                            required>
+                            >
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="floor"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -102,7 +136,22 @@
                             min="1"
                             class="form-control"
                             value="<%= room.maxGuests %>"
-                            required>
+                            >
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="maxGuests"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -110,7 +159,7 @@
                     <div class="col-md-3">
                         <label class="form-label">Bed Type</label>
 
-                        <select name="bedType" class="form-select" required>
+                        <select name="bedType" class="form-select" >
 
                             <option value="Single" <%= room.bedType === "Single" ? "selected" : "" %>>
                                 Single
@@ -133,6 +182,21 @@
                             </option>
 
                         </select>
+                                             <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="bedType"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -146,6 +210,21 @@
                             min="1"
                             class="form-control"
                             value="<%= room.bedCount %>">
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="bedCount"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -159,7 +238,22 @@
                             min="0"
                             class="form-control"
                             value="<%= room.pricePerNight %>"
-                            required>
+                            >
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="pricePerNight"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -173,6 +267,21 @@
                             min="0"
                             class="form-control"
                             value="<%= room.size || "" %>">
+                                                 <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="size"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -199,6 +308,21 @@
                             </option>
 
                         </select>
+                                             <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="status"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
+
                     </div>
 
 
@@ -236,6 +360,20 @@
                             name="description"
                             class="form-control"
                             rows="3"><%= room.description || "" %></textarea>
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="description"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
 
                     </div>
 
@@ -255,6 +393,20 @@
                                     value="true"
                                     class="form-check-input"
                                     <%= room.hasAC ? "checked" : "" %>>
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="hasAC"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
 
                                 <label class="form-check-label">
                                     AC
@@ -271,6 +423,20 @@
                                     value="true"
                                     class="form-check-input"
                                     <%= room.hasBalcony ? "checked" : "" %>>
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="hasBalcony"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
 
                                 <label class="form-check-label">
                                     Balcony
@@ -287,6 +453,20 @@
                                     value="true"
                                     class="form-check-input"
                                     <%= room.isSmokingAllowed ? "checked" : "" %>>
+                     <% if(errors){ %>
+
+                        <% errors.forEach(error=>{ %>
+
+                            <% if(error.path==="isSmokingAllowed"){ %>
+
+                                <small class="text-danger">
+                                    <%= error.msg %>
+                                </small>
+
+                            <% } %>
+
+                        <% }) %>
+                        <%}%>
 
                                 <label class="form-check-label">
                                     Smoking Allowed

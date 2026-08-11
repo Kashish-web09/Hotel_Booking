@@ -47,89 +47,206 @@
 </div>
 
 <!-- Current Booking -->
-<div class="card shadow border-0 mt-4">
-    <% if (upcomingBooking) { %>
-        <div class="card-header bg-white">
-            <h4>Upcoming Stay 🏝️</h4>
-        </div>
+<% if (upcomingBooking) { %>
 
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <img src="<%= upcomingBooking.roomId?.images?.[0] || '/images/hotel1.jpg' %>"
-                         class="img-fluid rounded"
-                         style="height:200px;width:100%;object-fit:cover;">
+<div class="card-body">
+    <div class="row align-items-center">
+
+        <!-- Hotel Image -->
+        <div class="col-md-4">
+
+            <% if (upcomingBooking.roomId?.hotelId?.hotelImage) { %>
+
+                <img
+                    src="/uploads/<%= upcomingBooking.roomId.hotelId.hotelImage %>"
+                    class="img-fluid rounded"
+                    style="height:200px;width:100%;object-fit:cover;"
+                    alt="Hotel Image"
+                >
+
+            <% } else { %>
+
+                <div
+                    class="bg-light rounded d-flex align-items-center justify-content-center"
+                    style="height:200px;width:100%;"
+                >
+                    <span class="text-muted">No Hotel Image</span>
                 </div>
 
-                <div class="col-md-5">
-                    <h3><%= upcomingBooking.roomId?.hotelName || "Hotel" %></h3>
-                    <p class="text-muted">
-                        📍 <%= upcomingBooking.roomId?.location || "India" %>
-                    </p>
-                    <p>🛏 <%= upcomingBooking.roomId?.roomType || "Room" %> Room</p>
-                    <p>
-                        📅 <%= new Date(upcomingBooking.checkIn).toLocaleDateString("en-IN") %>
-                        -
-                        <%= new Date(upcomingBooking.checkOut).toLocaleDateString("en-IN") %>
-                    </p>
-                    <span class="badge bg-success"><%= upcomingBooking.status %></span>
-                </div>
+            <% } %>
 
-                <div class="col-md-3 text-center">
-                    <a href="/api/guest/booking/<%= upcomingBooking._id %>"
-                       class="btn btn-primary px-4">
-                        View Booking
-                    </a>
-                </div>
-            </div>
         </div>
 
-    <% } else { %>
-        <div class="card-body text-center">
-            <h4>No Upcoming Stay 🏝️</h4>
-            <p class="text-muted">You don't have any upcoming bookings.</p>
-            <a href="/api/guest/rooms" class="btn btn-primary">Browse Rooms</a>
+
+        <!-- Hotel Information -->
+        <div class="col-md-5">
+
+            <h3>
+                <%= upcomingBooking.roomId?.hotelId?.name || "Hotel" %>
+            </h3>
+
+            <p class="text-muted">
+                📍
+                <%= upcomingBooking.roomId?.hotelId?.city || "India" %>
+            </p>
+
+            <p>
+                🛏
+                <%= upcomingBooking.roomId?.roomType || "Room" %> Room
+            </p>
+
+            <p>
+                📅
+                <%= new Date(upcomingBooking.checkIn).toLocaleDateString("en-IN") %>
+                -
+                <%= new Date(upcomingBooking.checkOut).toLocaleDateString("en-IN") %>
+            </p>
+
+            <span class="badge bg-success">
+                <%= upcomingBooking.status %>
+            </span>
+
         </div>
-    <% } %>
+
+
+        <!-- View Booking -->
+        <div class="col-md-3 text-center">
+
+            <a
+                href="/api/guest/booking/details/<%= upcomingBooking. _id %>"
+                class="btn btn-primary px-4"
+            >
+                View Booking
+            </a>
+
+        </div>
+
+    </div>
 </div>
 
-<!-- Recommended Hotels -->
-<h3 class="mt-5 mb-3">Recommended For You 🌎</h3>
+<% } else { %>
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card shadow border-0">
-            <img src="/images/resort.jpg"
-                 class="card-img-top"
-                 style="height:180px;object-fit:cover;">
+<div class="card-body text-center">
 
-            <div class="card-body">
-                <h5>Ocean View Resort</h5>
-                <p class="text-muted">Goa, India</p>
+    <h4>No Upcoming Stay 🏝️</h4>
 
-                <div class="d-flex justify-content-between">
-                    <span>⭐ 4.8</span>
-                    <button class="btn btn-outline-primary btn-sm">Book Now</button>
-                </div>
+    <p class="text-muted">
+        You don't have any upcoming bookings.
+    </p>
+
+    <a href="/api/guest/hotel" class="btn btn-primary">
+        Browse Rooms
+    </a>
+
+</div>
+
+<% } %>
+
+
+<!-- Travel Inspiration -->
+<div class="container-fluid mt-5">
+
+    <h4 class="fw-bold mb-4">
+        Get inspired for your next trip
+    </h4>
+
+
+    <% 
+        const categories = [
+            "Heritage cuisine trails",
+            "Hill stations and mountains",
+            "Cities and cafes"
+        ];
+    %>
+
+
+    <% categories.forEach(category => { %>
+
+        <% 
+            const categoryDestinations = destination.filter(
+                item => item.isActive && item.category === category
+            );
+        %>
+
+
+        <% if (categoryDestinations.length > 0) { %>
+
+            <!-- Category Heading -->
+            <h5 class="fw-bold mb-3">
+                <%= category %>
+            </h5>
+
+
+            <!-- Destinations -->
+            <div class="row g-3 mb-5">
+
+                <% categoryDestinations.forEach(item => { %>
+
+                    <div class="col-md-3">
+
+                        <a
+                            href="/api/guest/rooms?city=<%= encodeURIComponent(item.city) %>"
+                            class="text-decoration-none"
+                        >
+
+                            <div
+                                class="position-relative rounded overflow-hidden"
+                                style="height:220px;"
+                            >
+
+                                <!-- Image -->
+                                <img
+                                    src="/uploads/<%= item.image %>"
+                                    class="w-100 h-100"
+                                    style="object-fit:cover;"
+                                    alt="<%= item.city %>"
+                                >
+
+
+                                <!-- Overlay -->
+                                <div
+                                    class="position-absolute top-0 start-0 w-100 h-100"
+                                    style="
+                                        background:linear-gradient(
+                                            to bottom,
+                                            rgba(0,0,0,.55),
+                                            transparent 50%
+                                        );
+                                    "
+                                >
+                                </div>
+
+
+                                <!-- Destination -->
+                                <div
+                                    class="position-absolute top-0 start-0 p-3 text-white"
+                                >
+
+                                    <small>
+                                        <%= item.country %>
+                                    </small>
+
+                                    <h5 class="fw-bold mb-0">
+                                        <%= item.city %>
+                                    </h5>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                <% }) %>
+
             </div>
-        </div>
-    </div>
 
-    <div class="col-md-4">
-        <div class="card shadow border-0">
-            <img src="/images/mountain.jpg"
-                 class="card-img-top"
-                 style="height:180px;object-fit:cover;">
+        <% } %>
 
-            <div class="card-body">
-                <h5>Mountain Retreat</h5>
-                <p class="text-muted">Manali, India</p>
+    <% }) %>
 
-                <div class="d-flex justify-content-between">
-                    <span>⭐ 4.6</span>
-                    <button class="btn btn-outline-primary btn-sm">Book Now</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+
+
 </div>

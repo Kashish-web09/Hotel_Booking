@@ -9,7 +9,8 @@ const feedbacksController=new feedbackController();
 feedbackRoutes.get('/',(req,res,next)=>{
     feedbacksController.feedbackPage(req,res,next)
 });
-feedbackRoutes.post('/',validator(feedbackRule,'contact'),(req,res,next)=>{
+feedbackRoutes.post('/',validator(feedbackRule),(req,res,next)=>{
+
     feedbacksController.feedback(req,res,next)
 })
 

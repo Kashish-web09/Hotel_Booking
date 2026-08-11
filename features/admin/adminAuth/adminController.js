@@ -24,6 +24,14 @@ export default class adminUserController{
     }
         async register(req,res,next){
         try {
+                         if (req.validationErrors) {
+            return res.status(400).render("admin/register", {
+                title: "Register Page",
+                errors: req.validationErrors,
+                oldData: req.body
+            });
+        }
+
             const {name,email,password,confirmPassword}=req.body;
             const user=await this.adminUserRepo.findUserByEmail(email);
             if(user){
@@ -36,7 +44,7 @@ export default class adminUserController{
             }
             if(password!==confirmPassword){
 logger.warn("Password do not match");
-                return res.render('/admin/register',{
+                return res.render('admin/register',{
                     title:"Register",
                     errors:[],
                     oldData:req.body
@@ -73,9 +81,14 @@ return res.render('/api/admin/login')
     }
         async login(req,res,next){
         try {
-            
+             if (req.validationErrors) {
+            return res.status(400).render("admin/login", {
+                title: "Login Page",
+                errors: req.validationErrors,
+                oldData: req.body
+            });
+        }
           const {email,password}=req.body;
-
           const user=await this.adminUserRepo.findUserByEmail(email);
 
           if(!user){
@@ -142,6 +155,13 @@ maxAge:24*60*60*1000
 
     async forgotPass(req,res,next){
         try {
+            if(req.validationErrors){
+                return res.render('admin/forgotPass',{
+                    title:"Forgot Password Page",
+                    errors:req.validationErrors,
+                    oldData:req.body
+                })
+            }
             const {email}=req.body;
             const user=await this.adminUserRepo.forgotPass(email);
             if(!user){
@@ -181,29 +201,47 @@ maxAge:24*60*60*1000
         }
     }
 
-    async resetPass(req,res,next){
-        try {
-            const {password}=req.body;
-            const {token}=req.params;
-            const hashedPasswrod=await bcrypt.hash(password,12);
-            const result=await this.adminUserRepo.resetPass(token,hashedPasswrod);
-            if(result.modifiedCount===0){
-                                logger.warn(`Invalid or expired reset token: ${token}`);
+async resetPass(req, res, next) {
+    try {
+        const { password } = req.body;
+        const { token } = req.params;
 
-                return res.status(400).render("admin/resetPass", {
-                    token,
-                    errors: [{ msg: "Invalid or expired link" }],
-                    oldData:{}
-                });
-            logger.info("Password reset successful");
-
-            return res.redirect("/api/admin/login");
-
-            }
-        } catch (err) {
-            logger.error(err.message);
-            next(err)
+        if (req.validationErrors) {
+            return res.render('admin/resetPass', {
+                title: "Reset Password Page",
+                token,
+                errors: req.validationErrors,
+                oldData: req.body
+            });
         }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const result = await this.adminUserRepo.resetPass(
+            token,
+            hashedPassword
+        );
+
+        if (result.modifiedCount === 0) {
+            logger.warn(`Invalid or expired reset token: ${token}`);
+
+            return res.status(400).render("admin/resetPass", {
+                title: "Reset Password Page",
+                token,
+                errors: [{ msg: "Invalid or expired link" }],
+                oldData: {}
+            });
+        }
+
+        // Password successfully updated
+        logger.info("Password reset successful");
+
+        return res.redirect("/api/admin/login");
+
+    } catch (err) {
+        logger.error(err.message);
+        next(err);
     }
+}
     
 }

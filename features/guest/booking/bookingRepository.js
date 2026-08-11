@@ -23,22 +23,36 @@ export default class bookingRepo{
             throw new applicationError("Wrong with db",500)
         }
     }
-        async getBookingById(id){
-        try {
-            return await bookingModels.findById(id).populate("roomId"); //populate() is a Mongoose feature that replaces an ObjectId with the actual document it refers to.
-        } catch (err) {
-            throw new applicationError("Wrong with db",500)
-        }
+async getBookingById(id){
+    try {
+        return await bookingModels.findById(id)
+            .populate({
+                path: "roomId",
+                populate: {
+                    path: "hotelId"
+                }
+            });
+    } catch (err) {
+        throw new applicationError("Wrong with db",500)
     }
-    async getUserBooking(id){
-        try {
-            return await bookingModels.find({
-                userId:id
-            }).populate("roomId").sort({createdAt:-1})
-        } catch (err) {
-            throw new applicationError("Wrong with db",500)
-        }
+}
+async getUserBooking(id){
+    try {
+        const booking= await bookingModels.find({
+            userId: id
+        })
+        .populate({
+            path: "roomId",
+            populate: {
+                path: "hotelId"
+            }
+        })
+        .sort({ createdAt: -1 });
+return booking
+    } catch (err) {
+        throw new applicationError("Wrong with db", 500)
     }
+}
     async cancelBooking(id){
         try {
             return await bookingModels.findByIdAndUpdate(

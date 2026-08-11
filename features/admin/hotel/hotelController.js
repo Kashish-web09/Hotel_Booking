@@ -38,6 +38,13 @@ async addHotelPage(req,res,next){
 }
     async addHotel(req,res,next){
         try {
+            if(req.validationErrors){
+                return res.render('admin/addHotel',{
+                    title:"Add Hotel Page",
+                    errors:req.validationErrors,
+                    oldData:req.body
+                })
+            }
             const {
                 name,
                 desc,
@@ -113,5 +120,63 @@ async removeHotel(req, res, next) {
 
     }
 }
+async updateHotelPage(req, res, next) {
+    try {
+        const { id } = req.params;
 
+
+        const hotel = await this.hotelrepo.getOneHotel(id);
+
+        return res.render('admin/updateHotel', {
+            title: "Update Hotel Data",
+            hotel,
+            errors: [],
+            oldData: req.body
+        });
+
+    } catch (err) {
+        logger.error(err.message);
+        next(err);
+    }
+}
+async updateHotel(req, res, next) {
+    try {
+
+        const { id } = req.params;
+
+
+        const {
+            name,
+            desc,
+            address,
+            phone,
+            email,
+            checkInTime,
+            checkOutTime,
+            status
+        } = req.body;
+        const data = {
+            name,
+            desc,
+            address,
+            phone,
+            email,
+            checkInTime,
+            checkOutTime,
+            status
+        };
+
+        if (req.file) {
+            data.image = req.file.filename;
+        }
+
+        await this.hotelrepo.updateHotelById(id, data);
+
+        res.redirect('/api/admin/hotel');
+
+    } catch (err) {
+        logger.error(err.message);
+        next(err);
+    }
+}
 }

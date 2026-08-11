@@ -11,7 +11,9 @@ export default class bookingController{
 
     async getMyBookings(req,res,next){
         try {
-            const bookings=await this.bookingRepo.getMyBookings();
+            const userId=req.userId;
+            
+            const bookings=await this.bookingRepo.getUserBooking(userId);
             return res.render('guest/myBooking',{
                 title:"My Booking Page",
                 bookings,
@@ -28,6 +30,18 @@ export default class bookingController{
     async createBooking(req,res,next){
         try {
             const userId=req.userId;
+            if(req.validationErrors){
+                const room=await this.roomRepo.getRoomById(
+                    req.body.roomId
+                )
+                return res.render('guest/roomDetails',{
+                                    title:`${room.roomType} Room`,
+                                    room,
+                errors:req.validationErrors,
+                oldData:req.body
+
+                })
+            }
             const {
                 roomId,
                 checkIn,

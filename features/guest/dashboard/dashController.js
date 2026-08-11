@@ -1,12 +1,13 @@
 import bookingRepo from "../booking/bookingRepository.js";
 import logger from "../../../middleware/loggerMiddleware.js";
 import userRepo from "../userAuth/userRepository.js";
-
+import travelRepo from "../../admin/travel/travelRepository.js";
 export default class dashController {
 
     constructor() {
         this.bookingRepo = new bookingRepo();
         this.userRepo=new userRepo()
+        this.travelRepo=new travelRepo()
     }
 
 async getDashborad(req, res, next) {
@@ -15,6 +16,7 @@ async getDashborad(req, res, next) {
 
         const bookings = await this.bookingRepo.getUserBooking(userId);
 const totalTrips = bookings.filter(b => b.status === "Completed").length;
+const destination=await this.travelRepo.getAll();
 const user=await this.userRepo.findUserById(req.userId)
 const upcomingCount=bookings.filter(
     b=> b.status==="Confirmed" &&  new Date(b.checkIn)>=new Date()
@@ -24,7 +26,8 @@ const upcomingCount=bookings.filter(
             user,
             upcomingBooking:bookings[0],
             totalTrips,
-            upcomingCount
+            upcomingCount,
+            destination
         });
 
     } catch (err) {

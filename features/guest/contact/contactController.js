@@ -9,8 +9,8 @@ export default class feedbackController{
 try{
             return res.render('guest/contact',{
             title:"Feedback",
-            errors:{},
-            oldData:req.body
+            errors:[],
+            oldData:{}
                 })
 }catch(err){
     logger.error(err.message);
@@ -19,9 +19,16 @@ try{
     }
 async feedback(req,res,next){
     try {
-
-
         const {name,email,phoneNo,messageType,message} = req.body;
+        if(req.validationErrors){
+    return res.render('guest/contact',{
+                    title:"Feedback",
+            errors:req.validationErrors,
+            oldData:req.body
+
+    })
+}
+
         const contact={
             name,
             email,

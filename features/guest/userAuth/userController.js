@@ -26,6 +26,14 @@ export default class userController {
 
     async login(req, res, next) {
         try {
+            if(req.validationErrors){
+               return res.render('guest/login',{
+                                    title: "Login Page",
+                    errors: req.validationErrors,
+                    oldData: req.body
+
+               })
+            }
             const { email, password } = req.body;
 
             const result = await this.userRepo.findUserByEmail(email);
@@ -66,7 +74,6 @@ export default class userController {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000
             });
-
             logger.info(`User logged in: ${email}`);
 
             return res.redirect("/");
@@ -93,6 +100,15 @@ export default class userController {
 
     async register(req, res, next) {
         try {
+                        if(req.validationErrors){
+               return res.render('guest/register',{
+                                    title: "Register Page",
+                    errors: req.validationErrors,
+                    oldData: req.body
+
+               })
+            }
+
             const {
                 name,
                 email,
@@ -179,6 +195,15 @@ export default class userController {
 
     async forgotPass(req, res, next) {
         try {
+                        if(req.validationErrors){
+               return res.render('guest/forgotPass',{
+                                    title: "Forgot Password Page",
+                    errors: req.validationErrors,
+                    oldData: req.body
+
+               })
+            }
+
             const { email } = req.body;
 
             const result = await this.userRepo.forgotPass(email);
@@ -225,33 +250,50 @@ export default class userController {
         }
     }
 
-    async resetPass(req, res, next) {
-        try {
-            const { password } = req.body;
-            const { token } = req.params;
 
-            const hashedPassword = await bcrypt.hash(password, 12);
+async resetPass(req, res, next) {
+    try {
+        const { password } = req.body;
+        const { token } = req.params;
 
-            const result = await this.userRepo.resetPass(
-                token,
-                hashedPassword
-            );
-
-            if (result.modifiedCount === 0) {
-                logger.warn(`Invalid or expired reset token: ${token}`);
-
-                return res.status(400).render("guest/resetPass", {
-                    errors: [{ msg: "Invalid or expired link" }]
-                });
-            }
-
-            logger.info("Password reset successful");
-
-            return res.redirect("/api/auth/login");
-        } catch (err) {
-            logger.error({
-                message: err.message            });
-            next(err);
+        if (req.validationErrors) {
+            return res.render("guest/resetPass", {
+                title: "Reset Password Page",
+                errors: req.validationErrors,
+                oldData: req.body,
+                token
+            });
         }
+
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const result = await this.userRepo.resetPass(
+            token,
+            hashedPassword
+        );
+
+        if (result.modifiedCount === 0) {
+            logger.warn(`Invalid or expired reset token: ${token}`);
+
+            return res.status(400).render("guest/resetPass", {
+                title: "Reset Password Page",
+                errors: [{ msg: "Invalid or expired link" }],
+                oldData: req.body,
+                token
+            });
+        }
+
+        logger.info("Password reset successful");
+
+        return res.redirect("/api/auth/login");
+
+    } catch (err) {
+        logger.error({
+            message: err.message
+        });
+
+        next(err);
     }
+}
+
 }

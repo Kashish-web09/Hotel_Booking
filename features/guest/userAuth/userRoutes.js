@@ -10,13 +10,13 @@ const userControllerAuth=new userController();
 userAuth.get('/login',(req,res,next)=>{
     userControllerAuth.getLogin(req,res,next)
 })
-userAuth.post('/login',validator(userLoginRules,'login'),(req,res,next)=>{
+userAuth.post('/login',validator(userLoginRules),(req,res,next)=>{
     userControllerAuth.login(req,res,next)
 })
 userAuth.get('/register',(req,res,next)=>{
     userControllerAuth.getRegister(req,res,next)
 })
-userAuth.post('/register',upload.single('image'),validator(userRegisterRules,'register'),(req,res,next)=>{
+userAuth.post('/register',upload.single('image'),validator(userRegisterRules),(req,res,next)=>{
     userControllerAuth.register(req,res,next)
 })
 userAuth.get('/logout',(req,res,next)=>{
@@ -25,13 +25,13 @@ userAuth.get('/logout',(req,res,next)=>{
 userAuth.get('/forgot-pass',(req,res,next)=>{
     userControllerAuth.forgotPassPage(req,res,next)
 });
-userAuth.post('/forgot-pass',validator(forgotPassRules,'forgotPass'),(req,res,next)=>{
+userAuth.post('/forgot-pass',validator(forgotPassRules),(req,res,next)=>{
     userControllerAuth.forgotPass(req,res,next)
 });
 userAuth.get('/reset-pass/:token',(req,res,next)=>{
     userControllerAuth.resetPassPage(req,res,next)
 })
-userAuth.post('/reset-pass/:token',validator(resetPassrules,'resetPass'),(req,res,next)=>{
+userAuth.post('/reset-pass/:token',validator(resetPassrules),(req,res,next)=>{
     userControllerAuth.resetPass(req,res,next)
 })
 export default userAuth;
