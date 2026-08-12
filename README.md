@@ -1,65 +1,107 @@
 # 🏨 Hotel Booking Management System
 
-A full-stack hotel booking management web application built using **Node.js, Express.js, MongoDB, Mongoose, and EJS**.
+A full-stack **Hotel Booking Management System** built using **Node.js, Express.js, MongoDB, Mongoose, and EJS**.
 
-The application provides separate workflows for **Guests** and **Administrators**, including authentication, authorization, hotel and room management, room search, booking management, feedback management, profile management, email services, validation, and an admin dashboard with business statistics.
-
-> **Project Status:** Core functionality is implemented, including authentication, authorization, validations, email service, guest/admin profiles, hotel and room management, booking workflows, feedback management, and admin dashboard features.
+The application provides separate workflows for **Guests and Administrators**, including authentication, authorization, hotel and room management, room search, booking management, feedback management, profile management, email notifications, validation, logging, and an admin dashboard with business statistics.
 
 ---
 
-## 🚀 Features
+## 🌐 Live Repository
 
-### 👤 Guest Features
+[Hotel Booking Management System — GitHub Repository](https://github.com/Kashish-web09/Hotel_Booking?utm_source=chatgpt.com)
 
-* User registration and login
+---
+
+## 📌 Project Overview
+
+Hotel Booking Management System is a full-stack web application designed to manage hotel operations and guest bookings.
+
+The application has two primary user roles:
+
+* 👤 **Guest**
+* 🛡️ **Administrator**
+
+Guests can browse hotels and rooms, search for suitable rooms, make and manage bookings, submit feedback, and manage their profiles.
+
+Administrators can manage hotels, rooms, bookings, users, feedback, and their own profile through a dedicated admin dashboard.
+
+The project also includes a reusable **email service using Nodemailer**, application logging using **Winston**, file uploads using **Multer**, and API documentation using **Swagger**.
+
+> **Project Status:** Core functionality is implemented, including authentication, authorization, validation, email services, guest/admin profiles, hotel and room management, booking workflows, feedback management, logging, and admin dashboard features.
+
+---
+
+# 🚀 Features
+
+## 👤 Guest Features
+
+### Authentication
+
+* User registration
+* User login
 * Logout
-* Forgot password
-* Password reset through email
 * JWT-based authentication
 * Cookie-based authentication
-* Guest dashboard
-* Hotel search
-* Hotel details
-* Room listing
-* Room search and filtering
-* Room details
+* Forgot password
+* Password reset through email
+* Secure password hashing using bcrypt
+
+### Hotel & Room
+
+* Browse hotels
+* Search hotels
+* View hotel details
+* View available rooms
+* Search rooms
+* Filter rooms
+* View room details
+
+### Booking
+
 * Create bookings
-* Booking availability validation
+* Check room availability
+* Validate booking dates
+* Validate guest capacity
 * View booking details
 * View booking history
 * Manage bookings
 * Cancel bookings
-* Submit feedback
-* Guest profile management
+* Receive booking confirmation emails
+* Receive booking status emails
+
+### Profile
+
+* View guest profile
 * Update guest profile
 * Change password
-* Email-based password recovery
+* Receive profile update email
+
+### Feedback
+
+* Submit feedback
+* Receive feedback status updates
+
+### Other
+
 * About Us page
+* Contact functionality
 
 ---
 
-### 🛡️ Admin Features
+# 🛡️ Admin Features
 
-* Admin login/logout
-* JWT-based admin authentication
+## Authentication & Authorization
+
+* Admin login
+* Admin logout
+* JWT-based authentication
 * Cookie-based authentication
 * Role-based authorization
-* Admin dashboard
-* Admin profile management
-* Update admin profile
-* Change password
-* Hotel management
-* Room management
-* Room image upload
-* Booking management
-* Booking status updates
-* Feedback management
-* Feedback status updates
-* Email service
-* Dashboard statistics
+* Protected admin routes
 
-### 📊 Admin Dashboard Statistics
+## Dashboard
+
+The admin dashboard provides:
 
 * Total Users
 * Total Hotels
@@ -69,65 +111,164 @@ The application provides separate workflows for **Guests** and **Administrators*
 * Recent Bookings
 * Confirmed Bookings
 
+## Hotel Management
+
+* Add hotels
+* View hotels
+* Update hotel information
+* Manage hotel information
+
+## Room Management
+
+* Add rooms
+* View rooms
+* Update rooms
+* Manage room details
+* Upload room images
+* Manage room status
+
+## Booking Management
+
+* View bookings
+* View booking details
+* Update booking status
+* Manage guest bookings
+
+## Feedback Management
+
+* View guest feedback
+* Review feedback
+* Update feedback status
+* Send feedback status notifications
+
+## User Management
+
+* View users
+* Manage guest accounts
+
+## Admin Profile
+
+* View admin profile
+* Update admin profile
+* Change password
+* Receive profile update email
+
 ---
 
-## 📧 Email Service
+# 📧 Email Service
 
-The application includes an email service for authentication-related workflows.
+The application includes a dedicated email service using **Nodemailer**.
 
-### Email Features
-
-* Forgot password email
-* Password reset link
-* Secure reset-token workflow
-* Email-based user communication
-
-### Email Flow
+The email functionality is separated into configuration and service layers:
 
 ```text
-User
-  ↓
-Forgot Password
-  ↓
-Enter Registered Email
-  ↓
-Generate Reset Token
-  ↓
-Send Email
-  ↓
-User Opens Reset Link
-  ↓
-Reset Password
-  ↓
-Password Updated
+emailService/
+├── emailConfig.js
+└── emailService.js
 ```
 
-The email functionality is implemented using **Nodemailer**.
+The reusable email service handles multiple application workflows.
+
+### ✉️ Available Email Notifications
+
+#### 1. Welcome Email
+
+Sent to a guest after successful registration.
+
+```text
+Guest Registration
+       ↓
+User Created
+       ↓
+Welcome Email
+```
+
+#### 2. New User Registration Notification
+
+An email is sent to the admin when a new guest registers.
+
+```text
+New Guest Registration
+       ↓
+Admin Notification Email
+```
+
+#### 3. Booking Confirmation
+
+Guests receive a confirmation email after their booking is confirmed.
+
+```text
+Booking Confirmed
+       ↓
+Booking Confirmation Email
+```
+
+#### 4. Booking Status Updates
+
+Guests can receive emails based on booking status, including:
+
+* Confirmed
+* Completed
+* Cancelled
+* Other status updates
+
+#### 5. Profile Update Notification
+
+Guests and administrators can receive an email confirming that their profile has been updated.
+
+#### 6. New Feedback Notification
+
+The admin receives an email when a guest submits new feedback.
+
+#### 7. Feedback Status Update
+
+Guests receive an email when the status of their feedback is updated.
+
+#### 8. Password Reset Email
+
+When a guest requests a password reset, the application sends a password reset link through email.
+
+```text
+Forgot Password
+       ↓
+Generate Reset Token
+       ↓
+Create Reset URL
+       ↓
+Send Email
+       ↓
+User Opens Link
+       ↓
+Reset Password
+```
+
+The email service uses a reusable `sendEmail()` function to send HTML emails through the configured transporter.
 
 ---
 
-## 🧰 Tech Stack
+# 🧰 Tech Stack
 
-| Category        | Technologies                            |
-| --------------- | --------------------------------------- |
-| Frontend        | HTML5, CSS3, JavaScript, Bootstrap, EJS |
-| Backend         | Node.js, Express.js                     |
-| Database        | MongoDB, Mongoose                       |
-| Authentication  | JWT, Cookies, bcrypt                    |
-| Validation      | Express Validator                       |
-| Email           | Nodemailer                              |
-| File Upload     | Multer                                  |
-| Logging         | Winston                                 |
-| Configuration   | dotenv                                  |
-| Version Control | Git, GitHub                             |
+| Category          | Technologies                            |
+| ----------------- | --------------------------------------- |
+| Frontend          | HTML5, CSS3, JavaScript, Bootstrap, EJS |
+| Backend           | Node.js, Express.js                     |
+| Database          | MongoDB, Mongoose                       |
+| Authentication    | JWT, Cookies, bcrypt                    |
+| Validation        | Express Validator                       |
+| Email             | Nodemailer                              |
+| File Upload       | Multer                                  |
+| Logging           | Winston                                 |
+| Configuration     | dotenv                                  |
+| API Documentation | Swagger                                 |
+| Version Control   | Git, GitHub                             |
 
 ---
 
-## 🏗️ Architecture
+# 🏗️ Architecture
 
-The application follows a **feature-based architecture** with separation of responsibilities between routes, middleware, controllers, repositories, and models.
+The project follows a **feature-based architecture** with separation of responsibilities between routes, middleware, controllers, repositories, and models.
 
-### Request Flow
+## Request Flow
 
 ```text
 Client Request
@@ -145,7 +286,7 @@ Client Request
    MongoDB
 ```
 
-### Protected Request Flow
+## Protected Request Flow
 
 ```text
 Request
@@ -161,11 +302,11 @@ Business / Database Logic
 MongoDB
 ```
 
-This structure keeps authentication, authorization, routing, business logic, and database operations separated and maintainable.
+This architecture keeps routing, authentication, authorization, business logic, and database operations separated and maintainable.
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
 ```text
 HOTEL_BOOKING/
@@ -175,7 +316,8 @@ HOTEL_BOOKING/
 │   └── mongoose.js
 │
 ├── emailService/
-│   └── ...
+│   ├── emailConfig.js
+│   └── emailService.js
 │
 ├── errorFile/
 │   └── applicationLevelError.js
@@ -228,6 +370,7 @@ HOTEL_BOOKING/
 │   ├── combined.log
 │   └── error.log
 │
+├── swagger.json
 ├── .env
 ├── .gitignore
 ├── app.js
@@ -237,18 +380,18 @@ HOTEL_BOOKING/
 
 ---
 
-## 🔐 Authentication & Authorization
+# 🔐 Authentication & Authorization
 
-Authentication is implemented using **JWT and HTTP cookies**.
+Authentication is implemented using **JWT, HTTP cookies, and bcrypt**.
 
 The application separates Guest and Admin access through dedicated authentication and authorization middleware.
 
-### Guest Authentication
+## Guest Authentication
 
 ```text
 Guest
   ↓
-User Login
+Registration / Login
   ↓
 JWT Generated
   ↓
@@ -259,7 +402,7 @@ Authentication Middleware
 Protected Guest Routes
 ```
 
-### Admin Authentication
+## Admin Authentication
 
 ```text
 Admin
@@ -277,15 +420,15 @@ Role Authorization
 Protected Admin Routes
 ```
 
-Passwords are securely hashed using **bcrypt** before being stored in the database.
+Passwords are hashed using **bcrypt** before being stored in MongoDB.
 
-### Example Protected Admin Route
+### Protected Admin Route
 
 ```js
 app.use('/api/admin/hotel', adminUser, hotelRoutes);
 ```
 
-### Example Protected Guest Route
+### Protected Guest Route
 
 ```js
 app.use('/api/guest/booking', currentUser, bookingRoutes);
@@ -293,20 +436,21 @@ app.use('/api/guest/booking', currentUser, bookingRoutes);
 
 ---
 
-## 👤 Profile Management
+# 👤 Profile Management
 
-Both Guest and Admin users have dedicated profile management functionality.
+Both Guest and Admin users have dedicated profile functionality.
 
-### Guest Profile
+## Guest Profile
 
 Guests can:
 
-* View profile information
+* View profile
 * Update profile details
 * Change password
 * Manage account information
+* Receive profile update notification emails
 
-### Admin Profile
+## Admin Profile
 
 Administrators can:
 
@@ -314,14 +458,15 @@ Administrators can:
 * Update profile details
 * Change password
 * Manage administrator account information
+* Receive profile update notification emails
 
 ---
 
-## 🏨 Hotel & Room Management
+# 🏨 Hotel & Room Management
 
 Administrators can manage hotel and room information through the admin panel.
 
-### Admin Workflow
+## Admin Workflow
 
 ```text
 Admin Login
@@ -337,9 +482,9 @@ Upload Room Images
 Manage Room Details
 ```
 
-### Room Information
+## Room Information
 
-Each room can contain:
+Rooms support information such as:
 
 * Room number
 * Room type
@@ -357,7 +502,7 @@ Each room can contain:
 * Smoking policy
 * Room description
 
-### Room Status
+## Room Status
 
 ```text
 Available
@@ -367,9 +512,9 @@ Cleaning
 
 ---
 
-## 📅 Booking Workflow
+# 📅 Booking Workflow
 
-The guest booking flow is:
+The guest booking workflow is:
 
 ```text
 Search Hotel
@@ -393,7 +538,7 @@ View Booking Details
 Manage / Cancel Booking
 ```
 
-### Booking Information
+## Booking Information
 
 A booking contains:
 
@@ -406,7 +551,7 @@ A booking contains:
 * Total amount
 * Booking status
 
-### Booking Status
+## Booking Status
 
 ```text
 Pending
@@ -417,17 +562,18 @@ Completed
 
 ---
 
-## 💬 Feedback Management
+# 💬 Feedback Management
 
 Guests can submit feedback through the application.
 
-Admins can:
+Administrators can:
 
 * View guest feedback
-* Review feedback details
+* Review feedback
 * Update feedback status
+* Notify guests about feedback status changes
 
-### Feedback Flow
+## Feedback Flow
 
 ```text
 Guest
@@ -441,35 +587,39 @@ MongoDB
 Admin Dashboard
   ↓
 Review / Update Status
+  ↓
+Guest Notification Email
 ```
 
 ---
 
-## 📊 Admin Dashboard
+# 📊 Admin Dashboard
 
-The admin dashboard provides a centralized overview of hotel booking activity.
+The admin dashboard provides a centralized overview of application activity.
 
-### Dashboard Metrics
+## Dashboard Metrics
 
 ```text
-Total Users
-Total Hotels
-Total Rooms
-Total Bookings
-Total Revenue
-Recent Bookings
-Confirmed Bookings
+┌──────────────────────────────┐
+│ Total Users                  │
+│ Total Hotels                 │
+│ Total Rooms                  │
+│ Total Bookings               │
+│ Total Revenue                │
+│ Recent Bookings              │
+│ Confirmed Bookings           │
+└──────────────────────────────┘
 ```
 
-This allows administrators to monitor application activity and booking performance from a single dashboard.
+This allows administrators to monitor the overall activity and booking performance of the hotel booking system.
 
 ---
 
-## 🗄️ Database
+# 🗄️ Database
 
-The application uses **MongoDB** as the primary database with **Mongoose** for schema definition and data modeling.
+The application uses **MongoDB** with **Mongoose** for schema definition, data modeling, and database operations.
 
-### Main Entities
+## Main Entities
 
 ```text
 User
@@ -479,31 +629,29 @@ Booking
 Feedback
 ```
 
-### Entity Relationship
+## Entity Relationship
 
 ```text
 User
   │
-  └──── Booking
-           │
-           └──── Room
-                  │
-                  └──── Hotel
-
-User
+  ├──── Booking
+  │        │
+  │        └──── Room
+  │               │
+  │               └──── Hotel
   │
   └──── Feedback
 ```
 
-MongoDB references are used to connect users, bookings, rooms, hotels, and feedback.
+MongoDB references connect users, bookings, rooms, hotels, and feedback.
 
 ---
 
-## ✅ Validation
+# ✅ Validation
 
-The application implements validation across major workflows using **Express Validator** and application-level validation logic.
+The application implements validation across the major workflows using **Express Validator** and application-level validation.
 
-### User Validation
+## User Validation
 
 * Name validation
 * Email validation
@@ -511,21 +659,21 @@ The application implements validation across major workflows using **Express Val
 * Password validation
 * Confirm password validation
 
-### Authentication Validation
+## Authentication Validation
 
-* Login field validation
+* Login validation
 * Email format validation
 * Password validation
 * Forgot password email validation
 * Reset password validation
 
-### Hotel Validation
+## Hotel Validation
 
-* Required hotel information
-* Hotel field validation
+* Required hotel fields
+* Hotel information validation
 * Data format validation
 
-### Room Validation
+## Room Validation
 
 * Room number validation
 * Room type validation
@@ -537,7 +685,7 @@ The application implements validation across major workflows using **Express Val
 * Room status validation
 * Image upload validation
 
-### Booking Validation
+## Booking Validation
 
 ```text
 Check-out > Check-in
@@ -551,7 +699,7 @@ Room price > 0
 Room must be available for selected dates
 ```
 
-### Feedback Validation
+## Feedback Validation
 
 * Required fields
 * Input validation
@@ -561,9 +709,9 @@ Validation errors are handled and displayed appropriately to users.
 
 ---
 
-## 🔒 Security
+# 🔒 Security
 
-The application implements multiple security mechanisms, including:
+The application includes several security mechanisms:
 
 * bcrypt password hashing
 * JWT authentication
@@ -572,14 +720,14 @@ The application implements multiple security mechanisms, including:
 * Role-based authorization
 * Admin authorization middleware
 * Request validation
-* Environment variables for secrets
+* Environment variables for sensitive configuration
 * File upload middleware
-* Application logging
 * Password reset token workflow
+* Application logging
 
-### Planned Security Improvements
+## Future Security Hardening
 
-The following can be added as further production-level hardening:
+Potential production-level improvements include:
 
 * Rate limiting
 * Helmet
@@ -590,15 +738,13 @@ The following can be added as further production-level hardening:
 
 ---
 
-## 🧪 Error Handling & Logging
+# 🧪 Error Handling & Logging
 
-The application includes centralized application-level error handling and logging.
+The application includes application-level error handling and logging.
 
-### Logging
+## Winston Logging
 
 **Winston** is used for application logging.
-
-Logs include:
 
 ```text
 logs/
@@ -606,14 +752,14 @@ logs/
 └── error.log
 ```
 
-### Error Handling
+## Error Handling
 
-The application handles:
+The application handles errors including:
 
 * Validation errors
 * Authentication errors
 * Authorization errors
-* Invalid ObjectIds
+* Invalid MongoDB ObjectIds
 * Database errors
 * Booking availability errors
 * File upload errors
@@ -621,36 +767,58 @@ The application handles:
 
 ---
 
-## ⚙️ Getting Started
+# 📚 API Documentation
 
-### Prerequisites
+The project includes a **Swagger API specification**:
+
+```text
+swagger.json
+```
+
+The Swagger specification documents the application's API endpoints, including available routes, HTTP methods, parameters, request structures, and responses.
+
+It can be used during development to understand and test the backend API.
+
+---
+
+# ⚙️ Getting Started
+
+## Prerequisites
 
 Make sure you have installed:
 
 * Node.js
 * npm
-* MongoDB / MongoDB Atlas
+* MongoDB or MongoDB Atlas
 * Git
 
-### 1. Clone the Repository
+---
+
+## 1. Clone the Repository
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/Kashish-web09/Hotel_Booking.git
 ```
 
-### 2. Navigate to the Project
+---
+
+## 2. Navigate to the Project
 
 ```bash
-cd hotel_booking
+cd Hotel_Booking
 ```
 
-### 3. Install Dependencies
+---
+
+## 3. Install Dependencies
 
 ```bash
 npm install
 ```
 
-### 4. Configure Environment Variables
+---
+
+## 4. Configure Environment Variables
 
 Create a `.env` file in the project root.
 
@@ -658,16 +826,22 @@ Example:
 
 ```env
 PORT=9090
+
 MONGO_URI=your_mongodb_connection_string
+
 JWT_SECRET=your_jwt_secret
 
 EMAIL_USER=your_email
 EMAIL_PASSWORD=your_email_app_password
 ```
 
-> Never commit your `.env` file or expose your email credentials, JWT secret, or MongoDB credentials publicly.
+Add any additional environment variables required by your local configuration.
 
-### 5. Start the Application
+> ⚠️ **Never commit `.env` to GitHub.** Keep MongoDB credentials, JWT secrets, email credentials, and other sensitive configuration private.
+
+---
+
+## 5. Start the Application
 
 ```bash
 npm start
@@ -681,9 +855,9 @@ http://localhost:9090
 
 ---
 
-## 🔑 Application Workflows
+# 🔄 Application Workflows
 
-### Guest Workflow
+## Guest Workflow
 
 ```text
 Register
@@ -694,16 +868,20 @@ Guest Dashboard
    ↓
 Search Hotel / Rooms
    ↓
+View Room
+   ↓
 Book Room
    ↓
-View Booking
+Check Availability
    ↓
-Manage Booking
+Booking Confirmation
+   ↓
+View / Manage Booking
    ↓
 Profile / Feedback
 ```
 
-### Admin Workflow
+## Admin Workflow
 
 ```text
 Admin Login
@@ -720,14 +898,18 @@ Manage Bookings
    ↓
 Manage Feedback
    ↓
+Manage Users
+   ↓
 Admin Profile
 ```
 
 ---
 
-## 📌 Future Improvements
+# 📈 Future Improvements
 
-The core application functionality is complete. Future improvements may include:
+The core application functionality is implemented.
+
+Possible future improvements include:
 
 * [ ] Automated testing
 * [ ] Rate limiting
@@ -737,21 +919,24 @@ The core application functionality is complete. Future improvements may include:
 * [ ] Hotel ratings and reviews
 * [ ] Production deployment
 * [ ] Advanced analytics
-* [ ] Booking confirmation emails
 * [ ] Improved responsive UI/UX
+* [ ] Enhanced API documentation
 
 ---
 
-## 🎯 Learning Outcomes
+# 🎯 Learning Outcomes
 
 Through this project, I gained practical experience with:
 
 * Full-stack web application development
-* Node.js and Express.js
+* Node.js
+* Express.js
 * REST API development
-* MongoDB and Mongoose
-* JWT authentication and authorization
+* MongoDB
+* Mongoose
+* JWT authentication
 * Cookie-based authentication
+* Role-based authorization
 * Middleware design
 * MVC architecture
 * Feature-based project organization
@@ -763,21 +948,29 @@ Through this project, I gained practical experience with:
 * Email services using Nodemailer
 * Password reset workflows
 * Application logging using Winston
-* Role-based access control
+* Swagger API documentation
 * Git and GitHub
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
-**Kashish Narang**
+## Kashish Narang
 
-Full Stack Developer
+**Full Stack Developer**
 
-**JavaScript | Node.js | Express.js | MongoDB | React**
+`JavaScript` • `Node.js` • `Express.js` • `MongoDB` • `React`
+
+### GitHub
+
+[Kashish-web09 — GitHub](https://github.com/Kashish-web09?utm_source=chatgpt.com)
+
+### Project Repository
+
+[Hotel Booking Management System](https://github.com/Kashish-web09/Hotel_Booking?utm_source=chatgpt.com)
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is developed for **learning and portfolio purposes**.
