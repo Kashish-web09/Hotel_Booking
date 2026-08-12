@@ -1,9 +1,11 @@
 import bookingRepo from "./bookingRepository.js";
 import logger from '../../../middleware/loggerMiddleware.js'
-
+import {bookingStatus} from '../../../emailService/emailServices.js'
+import userRepo from '../../guest/userAuth/userRepository.js'
 export default class bookingController{
     constructor(){
         this.bookingRepo=new bookingRepo();
+        this.userRepo=new userRepo()
     }
     async getAllBookings(req,res,next){
 try {
@@ -49,6 +51,13 @@ try {
                 logger.warn(`No booking found for  ${id}`);
                 return res.redirect('/api/admin/booking')
             }
+            const user=await this.userRepo.findUserById(booking.userId);
+             if (!user) {
+            logger.warn(`User not found for booking ${id}`);
+            return res.redirect(`/api/admin/booking/${id}`);
+        }
+        
+            await bookingStatus(user.email,user.name,id,status)
                         logger.info(`${status} for this ${id} id have been updated`)
 
             return res.redirect(`/api/admin/booking/${id}`);

@@ -1,12 +1,15 @@
 import bookingRepo from "./bookingRepository.js";
 import roomRepo from '../rooms/roomsRepository.js'
 import logger from '../../../middleware/loggerMiddleware.js'
-
+import userRepo from '../userAuth/userRepository.js'
+import hotelRepo from '../hotel/hotelRepository.js'
+import { bookingConfirmation } from "../../../emailService/emailServices.js";
 export default class bookingController{
     constructor(){
         this.bookingRepo=new bookingRepo();
         this.roomRepo=new roomRepo();
-
+        this.hotelRepo=new hotelRepo()
+this.userRepo=new userRepo();
     }
 
     async getMyBookings(req,res,next){
@@ -61,7 +64,7 @@ const startDate=new Date(checkIn);
 const endDate=new Date(checkOut);
 
 if(startDate>=endDate){
-logger.wanr("Check-out date must be after check-in date")
+logger.warn("Check-out date must be after check-in date")
                        return res.status(400).send(`Check-out date must be after check-in date`)
 
 }
@@ -79,7 +82,7 @@ if(!isAvailable){
     )
     const pricePerNight=room.pricePerNight;
     const totalAmount=night*pricePerNight;
-            const booking=await this.bookingRepo.createBooking({
+            const newBooking=await this.bookingRepo.createBooking({
             userId,
             roomId,
             checkIn:startDate,
@@ -88,7 +91,11 @@ if(!isAvailable){
             pricePerNight,
             totalAmount,
         })
-        return res.redirect(`/api/guest/booking/details/${booking._id}`)
+        const user=await this.userRepo.findUserById(userId);
+        const hotelId=room.hotelId
+        const hotel=await this.hotelRepo.getHotelDetailsById(hotelId)
+        await bookingConfirmation(user.email,user.name,hotel,newBooking._id)
+        return res.redirect(`/api/guest/booking/details/${newBooking._id}`)
 
         } catch (err) {
             logger.error(err.message);

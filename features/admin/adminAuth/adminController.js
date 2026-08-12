@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import adminUserRepo from './adminRepository.js';
 import logger from '../../../middleware/loggerMiddleware.js';
+import { adminUserRegister, resetLinkSent } from '../../../emailService/emailServices.js';
 export default class adminUserController{
     constructor(){
         this.adminUserRepo=new adminUserRepo();
@@ -61,6 +62,7 @@ image
 }
 await this.adminUserRepo.register(newUser);
 logger.info(`Admin account created ${newUser.email}`)
+await adminUserRegister(newUser.email,newUser.name)
 return res.redirect('/api/admin/login')
         } catch (err) {
             logger.error(err.message);
@@ -176,10 +178,14 @@ maxAge:24*60*60*1000
             const token=crypto.randomBytes(32).toString('hex');
             const expiry=Date.now()+15*60*1000;
             await this.adminUserRepo.saveResetPass(email,token,expiry);
+            const resetUrl=`http://localhost:9090/api/admin/reset-pass/${token}`
                         logger.info(`Password reset token generated for: ${email}`);
-            
-                        return res.redirect(`/api/admin/reset-pass/${token}`);
-            
+            await resetLinkSent(user.email,user.name,resetUrl);
+  return res.render("admin/forgotPass", {
+            title: "Forgot Password Page",
+            errors: [{ msg: "Password reset link has been sent to your email." }],
+            oldData: {}
+        });            
         } catch (err) {
             logger.error(err.message);
             next(err)

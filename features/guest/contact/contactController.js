@@ -1,3 +1,4 @@
+import { feedbackSent } from '../../../emailService/emailServices.js';
 import logger from '../../../middleware/loggerMiddleware.js';
 import feedbackRepo from './contactRepository.js'
 export default class feedbackController{
@@ -42,10 +43,10 @@ async feedback(req, res, next) {
             messageType,
             message
         };
-
+        
         // Save feedback to database
         await this.feedbackRepo.createFeedback(contact);
-
+await feedbackSent(process.env.ADMIN_EMAIL,name);
 
         return res.redirect("/api/guest/feedback");
 

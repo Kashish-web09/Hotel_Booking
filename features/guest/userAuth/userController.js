@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import userRepo from "./userRepository.js";
 import logger from "../../../middleware/loggerMiddleware.js";
+import { resetLinkSent, userRegister } from "../../../emailService/emailServices.js";
 
 export default class userController {
     constructor() {
@@ -152,11 +153,10 @@ export default class userController {
                 role,
                 image
             };
-
             await this.userRepo.register(newUser);
 
             logger.info(`New user registered: ${email}`);
-
+await userRegister(newUser.email,newUser.name)
             return res.redirect("/api/auth/login");
         } catch (err) {
             logger.error({
@@ -219,13 +219,18 @@ export default class userController {
             }
 
             const token = crypto.randomBytes(32).toString("hex");
-            const expiry = Date.now() + 15 * 60 * 1000;
+        const expiry = Date.now() + 15 * 60 * 1000;
 
             await this.userRepo.saveResetToken(email, token, expiry);
-
+const resetUrl=`http://localhost:9090/api/auth/reset-pass/${token}`
             logger.info(`Password reset token generated for: ${email}`);
+await resetLinkSent(result.email,result.name,resetUrl);
+  return res.render("guest/forgotPass", {
+            title: "Forgot Password Page",
+            errors: [{ msg: "Password reset link has been sent to your email." }],
+            oldData: {}
+        });            
 
-            return res.redirect(`/api/auth/reset-pass/${token}`);
         } catch (err) {
             logger.error({
                 message: err.message            });

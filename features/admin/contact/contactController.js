@@ -1,6 +1,6 @@
 import feedbackRepo from "./contactRepository.js";
 import logger from "../../../middleware/loggerMiddleware.js";
-
+import { feedbackUpdate } from "../../../emailService/emailServices.js";
 export default class contactController{
     constructor(){
         this.feedbackRepo=new feedbackRepo();
@@ -26,7 +26,7 @@ logger.error(err.message);
             const {status,message}=req.body;
             const feedback=await this.feedbackRepo.getFeedbackByID(id);
             if(!feedback){
-                logger.warn(`Feedback not exist :${feedbackId}`);
+                logger.warn(`Feedback not exist :${id}`);
                 return res.render('admin/feedback',{
                                     title:"Feedback Page",
                                     feedback:[],
@@ -36,6 +36,7 @@ logger.error(err.message);
                 })
             }
             await this.feedbackRepo.updateStatus(id,status);
+            await feedbackUpdate(feedback.email,feedback.name,status,feedback.message)
             logger.info(`Feedback status update for ${id} and message sent successfully ${message}`);
             return res.redirect('/api/admin/feedback');
         } catch (err) {
