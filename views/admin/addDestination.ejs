@@ -1,171 +1,122 @@
 <div class="container-fluid">
-
     <!-- Header -->
     <div class="mb-4">
-
         <h2 class="fw-bold mb-1">
             Add Travel Destination
         </h2>
-
         <p class="text-muted mb-0">
             Add a new destination for guests to explore.
         </p>
-
     </div>
-
 
     <!-- Form Card -->
     <div class="card shadow-sm border-0">
-
         <div class="card-body p-4">
-
             <form
                 action="/api/admin/travel/add"
                 method="POST"
                 enctype="multipart/form-data"
             >
-
                 <!-- Category -->
                 <div class="mb-3">
-
                     <label class="form-label fw-semibold">
                         Category
                     </label>
-
                     <select
                         name="category"
                         class="form-select"
-                        
                     >
-
                         <option value="">
                             Select Category
                         </option>
-
                         <option value="Heritage cuisine trails">
                             Heritage cuisine trails
                         </option>
-
                         <option value="Hill stations and mountains">
                             Hill stations and mountains
                         </option>
-
                         <option value="Cities and cafes">
                             Cities and cafes
                         </option>
-
                     </select>
-                                                 <% if(errors){ %>
 
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="category"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <!-- Country -->
                 <div class="mb-3">
-
                     <label class="form-label fw-semibold">
                         Country
                     </label>
-
                     <input
                         type="text"
                         name="country"
                         class="form-control"
                         value="<%= oldData.country || 'India' %>"
                         placeholder="Enter country"
-                        
                     >
-                                                                     <% if(errors){ %>
 
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="country"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
-
+                    <% } %>
                 </div>
-
 
                 <!-- City -->
                 <div class="mb-3">
-
                     <label class="form-label fw-semibold">
                         City / Destination
                     </label>
-
                     <input
                         type="text"
                         name="city"
                         class="form-control"
                         value="<%= oldData.city || '' %>"
                         placeholder="e.g. Goa"
-                        
                     >
-                                                                     <% if(errors){ %>
 
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="city"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
-
+                    <% } %>
                 </div>
-
 
                 <!-- Image -->
                 <div class="mb-3">
-
                     <label class="form-label fw-semibold">
                         Destination Image
                     </label>
-
                     <input
                         type="file"
                         name="image"
                         class="form-control"
                         accept="image/*"
-                        
                     >
-
                     <small class="text-muted">
                         Upload a suitable image for this destination.
                     </small>
-
                 </div>
-
 
                 <!-- Active Status -->
                 <div class="form-check mb-4">
-
                     <input
                         type="checkbox"
                         name="isActive"
@@ -174,20 +125,16 @@
                         id="isActive"
                         checked
                     >
-
                     <label
                         class="form-check-label"
                         for="isActive"
                     >
                         Show this destination to guests
                     </label>
-
                 </div>
-
 
                 <!-- Buttons -->
                 <div class="d-flex gap-2">
-
                     <button
                         type="submit"
                         class="btn btn-dark"
@@ -202,13 +149,8 @@
                     >
                         Cancel
                     </a>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 </div>

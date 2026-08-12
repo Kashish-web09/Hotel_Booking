@@ -8,79 +8,82 @@
         </p>
     </div>
 
-
     <!-- Search -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
-
             <form action="/api/guest/rooms/search" method="GET">
-
                 <div class="row g-2">
 
-
+                    <!-- Guests -->
                     <div class="col-md-2">
                         <label class="form-label">Guests</label>
+
                         <input
                             type="number"
                             name="guests"
                             min="1"
                             value="<%= oldData?.guests || 1 %>"
-                            class="form-control">
+                            class="form-control"
+                        >
                     </div>
 
+                    <!-- Room Type -->
                     <div class="col-md-2">
                         <label class="form-label">Room Type</label>
 
-<select name="roomType" class="form-select">
-    <option value="">All</option>
+                        <select name="roomType" class="form-select">
+                            <option value="">All</option>
 
-    <option value="Single" <%= oldData?.roomType === "Single" ? "selected" : "" %>>
-        Single
-    </option>
+                            <option value="Single"
+                                <%= oldData?.roomType === "Single" ? "selected" : "" %>>
+                                Single
+                            </option>
 
-    <option value="Double" <%= oldData?.roomType === "Double" ? "selected" : "" %>>
-        Double
-    </option>
+                            <option value="Double"
+                                <%= oldData?.roomType === "Double" ? "selected" : "" %>>
+                                Double
+                            </option>
 
-    <option value="Twin" <%= oldData?.roomType === "Twin" ? "selected" : "" %>>
-        Twin
-    </option>
+                            <option value="Twin"
+                                <%= oldData?.roomType === "Twin" ? "selected" : "" %>>
+                                Twin
+                            </option>
 
-    <option value="Deluxe" <%= oldData?.roomType === "Deluxe" ? "selected" : "" %>>
-        Deluxe
-    </option>
+                            <option value="Deluxe"
+                                <%= oldData?.roomType === "Deluxe" ? "selected" : "" %>>
+                                Deluxe
+                            </option>
 
-    <option value="Suite" <%= oldData?.roomType === "Suite" ? "selected" : "" %>>
-        Suite
-    </option>
+                            <option value="Suite"
+                                <%= oldData?.roomType === "Suite" ? "selected" : "" %>>
+                                Suite
+                            </option>
 
-    <option value="Family" <%= oldData?.roomType === "Family" ? "selected" : "" %>>
-        Family
-    </option>
+                            <option value="Family"
+                                <%= oldData?.roomType === "Family" ? "selected" : "" %>>
+                                Family
+                            </option>
 
-    <option value="Executive" <%= oldData?.roomType === "Executive" ? "selected" : "" %>>
-        Executive
-    </option>
-</select>
+                            <option value="Executive"
+                                <%= oldData?.roomType === "Executive" ? "selected" : "" %>>
+                                Executive
+                            </option>
+                        </select>
                     </div>
 
+                    <!-- Search Button -->
                     <div class="col-md-2 d-flex align-items-end">
-
                         <button
                             type="submit"
                             class="btn btn-primary w-100">
                             Search
                         </button>
-
                     </div>
 
                 </div>
-
             </form>
-
         </div>
     </div>
-
 
     <!-- Rooms -->
     <div class="row g-4">
@@ -90,7 +93,6 @@
             <% rooms.forEach(room => { %>
 
                 <div class="col-md-6 col-lg-4">
-
                     <div class="card h-100 shadow-sm">
 
                         <!-- Image -->
@@ -100,15 +102,14 @@
                                 src="/uploads/<%= room.images[0] %>"
                                 class="card-img-top"
                                 style="height:200px; object-fit:cover;"
-                                alt="Room">
+                                alt="Room"
+                            >
 
                         <% } %>
-
 
                         <div class="card-body">
 
                             <div class="d-flex justify-content-between">
-
                                 <h5 class="card-title mb-1">
                                     <%= room.roomType %> Room
                                 </h5>
@@ -116,7 +117,6 @@
                                 <span class="badge bg-success">
                                     Available
                                 </span>
-
                             </div>
 
                             <p class="text-muted mb-2">
@@ -139,17 +139,14 @@
                         </div>
 
                         <div class="card-footer bg-white">
-
                             <a
                                 href="/api/guest/rooms/view_Room/<%= room._id %>"
                                 class="btn btn-outline-primary w-100">
                                 View Room
                             </a>
-
                         </div>
 
                     </div>
-
                 </div>
 
             <% }) %>
@@ -157,17 +154,13 @@
         <% } else { %>
 
             <div class="col-12">
-
                 <div class="text-center py-5">
-
                     <h5>No rooms found</h5>
 
                     <p class="text-muted">
                         Try changing your search criteria.
                     </p>
-
                 </div>
-
             </div>
 
         <% } %>

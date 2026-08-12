@@ -1,6 +1,5 @@
 <footer class="bg-dark text-light mt-5">
     <div class="container py-5">
-
         <div class="row">
 
             <!-- Brand -->
@@ -8,7 +7,6 @@
                 <h4 class="fw-bold">
                     <i class="bi bi-building"></i> Hotel BradMate
                 </h4>
-
                 <p class="text-light-emphasis">
                     Discover comfortable stays at affordable prices.
                     Book hotels with ease and enjoy a hassle-free travel
@@ -19,14 +17,23 @@
             <!-- Quick Links -->
             <div class="col-lg-2 col-md-4 mb-4">
                 <h5>Quick Links</h5>
-
                 <ul class="list-unstyled">
-                    <li><a href="/" class="text-decoration-none text-light">Home</a></li>
-                    <li><a href="/rooms" class="text-decoration-none text-light">Rooms</a></li>
-                    <li><a href="/contact" class="text-decoration-none text-light">Contact</a></li>
+                    <li>
+                        <a href="/" class="text-decoration-none text-light">Home</a>
+                    </li>
+                    <li>
+                        <a href="/rooms" class="text-decoration-none text-light">Rooms</a>
+                    </li>
+                    <li>
+                        <a href="/contact" class="text-decoration-none text-light">Contact</a>
+                    </li>
 
-                    <% if(user){ %>
-                        <li><a href="/bookings" class="text-decoration-none text-light">My Bookings</a></li>
+                    <% if (user) { %>
+                        <li>
+                            <a href="/bookings" class="text-decoration-none text-light">
+                                My Bookings
+                            </a>
+                        </li>
                     <% } %>
                 </ul>
             </div>
@@ -78,9 +85,9 @@
 
         <div class="text-center">
             <p class="mb-0">
-                &copy; <%= new Date().getFullYear() %> Hotel BradMate. All Rights Reserved.
+                &copy; <%= new Date().getFullYear() %> Hotel BradMate.
+                All Rights Reserved.
             </p>
         </div>
-
     </div>
 </footer>

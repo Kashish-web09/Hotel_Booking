@@ -1,207 +1,114 @@
 <div class="container-fluid">
-
-    <!-- Header -->
     <div class="mb-4">
-
-        <h2 class="fw-bold mb-1">
-            Update Destination
-        </h2>
-
-        <p class="text-muted mb-0">
-            Update travel destination information.
-        </p>
-
+        <h2 class="fw-bold mb-1">Update Destination</h2>
+        <p class="text-muted mb-0">Update travel destination information.</p>
     </div>
 
-
     <div class="card shadow-sm border-0">
-
         <div class="card-body p-4">
-
             <form
                 action="/api/admin/travel/update/<%= destination._id %>"
                 method="POST"
                 enctype="multipart/form-data"
             >
-
-                <!-- Category -->
                 <div class="mb-3">
-
-                    <label class="form-label fw-semibold">
-                        Category
-                    </label>
-
-                    <select
-                        name="category"
-                        class="form-select"
-                        
-                    >
-
-                        <option value="">
-                            Select Category
-                        </option>
-
+                    <label class="form-label fw-semibold">Category</label>
+                    <select name="category" class="form-select">
+                        <option value="">Select Category</option>
                         <option
                             value="Heritage cuisine trails"
                             <%= destination.category === "Heritage cuisine trails" ? "selected" : "" %>
                         >
                             Heritage cuisine trails
                         </option>
-
                         <option
                             value="Hill stations and mountains"
                             <%= destination.category === "Hill stations and mountains" ? "selected" : "" %>
                         >
                             Hill stations and mountains
                         </option>
-
                         <option
                             value="Cities and cafes"
                             <%= destination.category === "Cities and cafes" ? "selected" : "" %>
                         >
                             Cities and cafes
                         </option>
-
                     </select>
-                                                 <% if(errors){ %>
 
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="category"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
+                    <% if (errors) { %>
+                        <% errors.forEach(error => { %>
+                            <% if (error.path === "category") { %>
+                                <small class="text-danger"><%= error.msg %></small>
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
 
-
-                <!-- Country -->
                 <div class="mb-3">
-
-                    <label class="form-label fw-semibold">
-                        Country
-                    </label>
-
+                    <label class="form-label fw-semibold">Country</label>
                     <input
                         type="text"
                         name="country"
                         class="form-control"
                         value="<%= destination.country %>"
-                       
                     >
-                                                                     <% if(errors){ %>
 
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="country"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
+                    <% if (errors) { %>
+                        <% errors.forEach(error => { %>
+                            <% if (error.path === "country") { %>
+                                <small class="text-danger"><%= error.msg %></small>
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
-
+                    <% } %>
                 </div>
 
-
-                <!-- City -->
                 <div class="mb-3">
-
-                    <label class="form-label fw-semibold">
-                        City / Destination
-                    </label>
-
+                    <label class="form-label fw-semibold">City / Destination</label>
                     <input
                         type="text"
                         name="city"
                         class="form-control"
                         value="<%= destination.city %>"
-                        
                     >
-                                                                     <% if(errors){ %>
 
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="city"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
+                    <% if (errors) { %>
+                        <% errors.forEach(error => { %>
+                            <% if (error.path === "city") { %>
+                                <small class="text-danger"><%= error.msg %></small>
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
-
+                    <% } %>
                 </div>
 
-
-                <!-- Current Image -->
                 <div class="mb-3">
-
-                    <label class="form-label fw-semibold d-block">
-                        Current Image
-                    </label>
+                    <label class="form-label fw-semibold d-block">Current Image</label>
 
                     <% if (destination.image) { %>
-
                         <img
                             src="/uploads/<%= destination.image %>"
                             alt="<%= destination.city %>"
                             class="rounded mb-2"
-                            style="
-                                width:180px;
-                                height:120px;
-                                object-fit:cover;
-                            "
+                            style="width:180px;height:120px;object-fit:cover;"
                         >
-
                     <% } else { %>
-
-                        <p class="text-muted">
-                            No image available.
-                        </p>
-
+                        <p class="text-muted">No image available.</p>
                     <% } %>
-
                 </div>
 
-
-                <!-- New Image -->
                 <div class="mb-3">
-
-                    <label class="form-label fw-semibold">
-                        Change Image
-                    </label>
-
+                    <label class="form-label fw-semibold">Change Image</label>
                     <input
                         type="file"
                         name="image"
                         class="form-control"
                         accept="image/*"
                     >
-
                     <small class="text-muted">
                         Leave empty if you want to keep the current image.
                     </small>
-
                 </div>
 
-
-                <!-- Active Status -->
                 <div class="form-check mb-4">
-
                     <input
                         type="checkbox"
                         name="isActive"
@@ -210,41 +117,22 @@
                         id="isActive"
                         <%= destination.isActive ? "checked" : "" %>
                     >
-
-                    <label
-                        class="form-check-label"
-                        for="isActive"
-                    >
+                    <label class="form-check-label" for="isActive">
                         Active Destination
                     </label>
-
                 </div>
 
-
-                <!-- Buttons -->
                 <div class="d-flex gap-2">
-
-                    <button
-                        type="submit"
-                        class="btn btn-dark"
-                    >
+                    <button type="submit" class="btn btn-dark">
                         <i class="bi bi-check-circle me-2"></i>
                         Update Destination
                     </button>
 
-                    <a
-                        href="/api/admin/travel"
-                        class="btn btn-outline-secondary"
-                    >
+                    <a href="/api/admin/travel" class="btn btn-outline-secondary">
                         Cancel
                     </a>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 </div>

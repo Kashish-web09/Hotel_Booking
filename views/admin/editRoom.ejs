@@ -1,5 +1,4 @@
 <div class="container-fluid p-4">
-
     <div class="mb-4">
         <h3 class="mb-1">Edit Room</h3>
         <small class="text-muted">Update room details</small>
@@ -7,7 +6,6 @@
 
     <div class="card shadow-sm">
         <div class="card-body">
-
             <form
                 action="/api/admin/rooms/edit/<%= room._id %>"
                 method="POST"
@@ -15,475 +13,314 @@
 
                 <div class="row g-3">
 
-
-
                     <!-- Room Number -->
                     <div class="col-md-3">
                         <label class="form-label">Room Number</label>
-
                         <input
                             type="text"
                             name="roomNumber"
                             class="form-control"
                             value="<%= room.roomNumber %>"
-                            >
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="roomNumber"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="roomNumber"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Room Type -->
                     <div class="col-md-3">
                         <label class="form-label">Room Type</label>
-
-                        <select name="roomType" class="form-select" >
-
-                            <option value="Single" <%= room.roomType === "Single" ? "selected" : "" %>>
-                                Single
-                            </option>
-
-                            <option value="Double" <%= room.roomType === "Double" ? "selected" : "" %>>
-                                Double
-                            </option>
-
-                            <option value="Twin" <%= room.roomType === "Twin" ? "selected" : "" %>>
-                                Twin
-                            </option>
-
-                            <option value="Deluxe" <%= room.roomType === "Deluxe" ? "selected" : "" %>>
-                                Deluxe
-                            </option>
-
-                            <option value="Suite" <%= room.roomType === "Suite" ? "selected" : "" %>>
-                                Suite
-                            </option>
-
-                            <option value="Family" <%= room.roomType === "Family" ? "selected" : "" %>>
-                                Family
-                            </option>
-
-                            <option value="Executive" <%= room.roomType === "Executive" ? "selected" : "" %>>
-                                Executive
-                            </option>
-
+                        <select name="roomType" class="form-select">
+                            <option value="Single" <%= room.roomType === "Single" ? "selected" : "" %>>Single</option>
+                            <option value="Double" <%= room.roomType === "Double" ? "selected" : "" %>>Double</option>
+                            <option value="Twin" <%= room.roomType === "Twin" ? "selected" : "" %>>Twin</option>
+                            <option value="Deluxe" <%= room.roomType === "Deluxe" ? "selected" : "" %>>Deluxe</option>
+                            <option value="Suite" <%= room.roomType === "Suite" ? "selected" : "" %>>Suite</option>
+                            <option value="Family" <%= room.roomType === "Family" ? "selected" : "" %>>Family</option>
+                            <option value="Executive" <%= room.roomType === "Executive" ? "selected" : "" %>>Executive</option>
                         </select>
-                                             <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="roomType"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="roomType"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Floor -->
                     <div class="col-md-3">
                         <label class="form-label">Floor</label>
-
                         <input
                             type="number"
                             name="floor"
                             class="form-control"
                             value="<%= room.floor %>"
-                            >
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="floor"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="floor"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Max Guests -->
                     <div class="col-md-3">
                         <label class="form-label">Max Guests</label>
-
                         <input
                             type="number"
                             name="maxGuests"
                             min="1"
                             class="form-control"
                             value="<%= room.maxGuests %>"
-                            >
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="maxGuests"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="maxGuests"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Bed Type -->
                     <div class="col-md-3">
                         <label class="form-label">Bed Type</label>
-
-                        <select name="bedType" class="form-select" >
-
-                            <option value="Single" <%= room.bedType === "Single" ? "selected" : "" %>>
-                                Single
-                            </option>
-
-                            <option value="Double" <%= room.bedType === "Double" ? "selected" : "" %>>
-                                Double
-                            </option>
-
-                            <option value="Queen" <%= room.bedType === "Queen" ? "selected" : "" %>>
-                                Queen
-                            </option>
-
-                            <option value="King" <%= room.bedType === "King" ? "selected" : "" %>>
-                                King
-                            </option>
-
-                            <option value="Twin" <%= room.bedType === "Twin" ? "selected" : "" %>>
-                                Twin
-                            </option>
-
+                        <select name="bedType" class="form-select">
+                            <option value="Single" <%= room.bedType === "Single" ? "selected" : "" %>>Single</option>
+                            <option value="Double" <%= room.bedType === "Double" ? "selected" : "" %>>Double</option>
+                            <option value="Queen" <%= room.bedType === "Queen" ? "selected" : "" %>>Queen</option>
+                            <option value="King" <%= room.bedType === "King" ? "selected" : "" %>>King</option>
+                            <option value="Twin" <%= room.bedType === "Twin" ? "selected" : "" %>>Twin</option>
                         </select>
-                                             <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="bedType"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="bedType"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Bed Count -->
                     <div class="col-md-3">
                         <label class="form-label">Bed Count</label>
-
                         <input
                             type="number"
                             name="bedCount"
                             min="1"
                             class="form-control"
-                            value="<%= room.bedCount %>">
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="bedCount"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                            value="<%= room.bedCount %>"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="bedCount"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Price -->
                     <div class="col-md-4">
                         <label class="form-label">Price / Night</label>
-
                         <input
                             type="number"
                             name="pricePerNight"
                             min="0"
                             class="form-control"
                             value="<%= room.pricePerNight %>"
-                            >
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="pricePerNight"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="pricePerNight"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Size -->
                     <div class="col-md-4">
                         <label class="form-label">Size (sq ft)</label>
-
                         <input
                             type="number"
                             name="size"
                             min="0"
                             class="form-control"
-                            value="<%= room.size || "" %>">
-                                                 <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="size"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                            value="<%= room.size || "" %>"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="size"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Status -->
                     <div class="col-md-4">
                         <label class="form-label">Status</label>
-
                         <select name="status" class="form-select">
-
-                            <option value="Available" <%= room.status === "Available" ? "selected" : "" %>>
-                                Available
-                            </option>
-
-                            <option value="Booked" <%= room.status === "Booked" ? "selected" : "" %>>
-                                Booked
-                            </option>
-
-                            <option value="Maintenance" <%= room.status === "Maintenance" ? "selected" : "" %>>
-                                Maintenance
-                            </option>
-
-                            <option value="Cleaning" <%= room.status === "Cleaning" ? "selected" : "" %>>
-                                Cleaning
-                            </option>
-
+                            <option value="Available" <%= room.status === "Available" ? "selected" : "" %>>Available</option>
+                            <option value="Booked" <%= room.status === "Booked" ? "selected" : "" %>>Booked</option>
+                            <option value="Maintenance" <%= room.status === "Maintenance" ? "selected" : "" %>>Maintenance</option>
+                            <option value="Cleaning" <%= room.status === "Cleaning" ? "selected" : "" %>>Cleaning</option>
                         </select>
-                                             <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="status"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="status"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Amenities -->
                     <div class="col-md-6">
                         <label class="form-label">Amenities</label>
-
                         <input
                             type="text"
                             name="amenities"
                             class="form-control"
                             value="<%= room.amenities ? room.amenities.join(', ') : '' %>"
-                            placeholder="WiFi, TV, Mini Bar">
+                            placeholder="WiFi, TV, Mini Bar"
+                        >
                     </div>
-
 
                     <!-- Image -->
                     <div class="col-md-6">
                         <label class="form-label">Replace Room Image</label>
-
                         <input
                             type="file"
                             name="image"
                             class="form-control"
-                            accept="image/*">
+                            accept="image/*"
+                        >
                     </div>
-
 
                     <!-- Description -->
                     <div class="col-12">
-
                         <label class="form-label">Description</label>
-
                         <textarea
                             name="description"
                             class="form-control"
                             rows="3"><%= room.description || "" %></textarea>
-                     <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="description"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="description"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
                         <%}%>
-
                     </div>
-
 
                     <!-- Features -->
                     <div class="col-12">
-
                         <label class="form-label">Features</label>
 
                         <div class="d-flex gap-4">
-
                             <div class="form-check">
-
                                 <input
                                     type="checkbox"
                                     name="hasAC"
                                     value="true"
                                     class="form-check-input"
-                                    <%= room.hasAC ? "checked" : "" %>>
-                     <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="hasAC"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
-                        <%}%>
+                                    <%= room.hasAC ? "checked" : "" %>
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="hasAC"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <%}%>
 
                                 <label class="form-check-label">
                                     AC
                                 </label>
-
                             </div>
 
-
                             <div class="form-check">
-
                                 <input
                                     type="checkbox"
                                     name="hasBalcony"
                                     value="true"
                                     class="form-check-input"
-                                    <%= room.hasBalcony ? "checked" : "" %>>
-                     <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="hasBalcony"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
-                        <%}%>
+                                    <%= room.hasBalcony ? "checked" : "" %>
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="hasBalcony"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <%}%>
 
                                 <label class="form-check-label">
                                     Balcony
                                 </label>
-
                             </div>
 
-
                             <div class="form-check">
-
                                 <input
                                     type="checkbox"
                                     name="isSmokingAllowed"
                                     value="true"
                                     class="form-check-input"
-                                    <%= room.isSmokingAllowed ? "checked" : "" %>>
-                     <% if(errors){ %>
-
-                        <% errors.forEach(error=>{ %>
-
-                            <% if(error.path==="isSmokingAllowed"){ %>
-
-                                <small class="text-danger">
-                                    <%= error.msg %>
-                                </small>
-
-                            <% } %>
-
-                        <% }) %>
-                        <%}%>
+                                    <%= room.isSmokingAllowed ? "checked" : "" %>
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="isSmokingAllowed"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <%}%>
 
                                 <label class="form-check-label">
                                     Smoking Allowed
                                 </label>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
 
                 <!-- Buttons -->
                 <div class="mt-4">
-
                     <a
                         href="/api/admin/rooms"
                         class="btn btn-secondary">
@@ -495,12 +332,8 @@
                         class="btn btn-primary">
                         Update Room
                     </button>
-
                 </div>
-
             </form>
-
         </div>
     </div>
-
 </div>

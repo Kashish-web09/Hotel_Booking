@@ -1,32 +1,19 @@
 <%
-    // Prevent "admin is not defined" error
     const adminUser = typeof admin !== "undefined" ? admin : null;
 %>
 
-
 <!-- Admin Navbar -->
 <nav class="navbar navbar-expand-lg bg-white shadow-sm py-2">
-
     <div class="container-fluid px-lg-4">
-
-
-        <!-- ========================= -->
-        <!-- BRAND -->
-        <!-- ========================= -->
-
+        <!-- Brand -->
         <a
             class="navbar-brand fw-bold text-primary d-flex align-items-center gap-2"
-            href="<%= isLogin ? '/api/admin/dashboard' : '/api/admin/login' %>"
-        >
+            href="<%= isLogin ? '/api/admin/dashboard' : '/api/admin/login' %>">
             <i class="bi bi-building fs-4"></i>
             <span>Hotel Admin</span>
         </a>
 
-
-        <!-- ========================= -->
-        <!-- MOBILE TOGGLE -->
-        <!-- ========================= -->
-
+        <!-- Mobile Toggle -->
         <button
             class="navbar-toggler"
             type="button"
@@ -34,346 +21,181 @@
             data-bs-target="#adminNavbar"
             aria-controls="adminNavbar"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-        <!-- ========================= -->
-        <!-- NAVBAR CONTENT -->
-        <!-- ========================= -->
-
+        <!-- Navbar Content -->
         <div class="collapse navbar-collapse" id="adminNavbar">
-
-
             <% if (isLogin) { %>
 
-
-                <!-- ========================= -->
-                <!-- LEFT MENU -->
-                <!-- ========================= -->
-
+                <!-- Left Menu -->
                 <ul class="navbar-nav mx-auto gap-lg-2">
-
-
-                    <!-- Dashboard -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/dashboard"
-                        >
+                        <a class="nav-link px-3" href="/api/admin/dashboard">
                             <i class="bi bi-speedometer2 me-1"></i>
                             Dashboard
                         </a>
-
                     </li>
 
-
-                    <!-- Hotels -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/hotel"
-                        >
+                        <a class="nav-link px-3" href="/api/admin/hotel">
                             <i class="bi bi-building me-1"></i>
                             Hotels
                         </a>
-
                     </li>
 
-
-                    <!-- Rooms -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/rooms"
-                        >
+                        <a class="nav-link px-3" href="/api/admin/rooms">
                             <i class="bi bi-door-open me-1"></i>
                             Rooms
                         </a>
-
                     </li>
 
-
-                    <!-- Bookings -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/booking"
-                        >
+                        <a class="nav-link px-3" href="/api/admin/booking">
                             <i class="bi bi-calendar-check me-1"></i>
                             Bookings
                         </a>
-
                     </li>
 
-<!-- Travel Destination -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/travel"
-                        >
-                            <i class="bi bi-calendar-check me-1"></i>
+                        <a class="nav-link px-3" href="/api/admin/travel">
+                            <i class="bi bi-geo-alt me-1"></i>
                             Destination
                         </a>
-
                     </li>
 
-
-<!-- Feedback -->
                     <li class="nav-item">
-
-                        <a
-                            class="nav-link px-3"
-                            href="/api/admin/feedback"
-                        >
+                        <a class="nav-link px-3" href="/api/admin/feedback">
                             <i class="bi bi-chat-left-text me-1"></i>
                             Feedback
                         </a>
-
                     </li>
-
                 </ul>
 
-
-                <!-- ========================= -->
-                <!-- RIGHT SIDE -->
-                <!-- ========================= -->
-
+                <!-- Right Side -->
                 <div class="d-flex align-items-center">
-
-
-                    <!-- Profile Dropdown -->
                     <div class="dropdown">
-
-
                         <button
                             class="btn profile-btn d-flex align-items-center gap-2 px-2 py-1"
                             type="button"
                             data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                        >
-
-
-                            <!-- Admin Image -->
+                            aria-expanded="false">
 
                             <% if (adminUser?.image) { %>
-
                                 <img
                                     src="/uploads/<%= adminUser.image %>"
                                     alt="Admin"
                                     class="rounded-circle border"
                                     width="40"
                                     height="40"
-                                    style="object-fit: cover;"
-                                >
-
+                                    style="object-fit: cover;">
                             <% } else { %>
-
-                                <!-- Default Avatar -->
-
                                 <span
                                     class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                    style="width:40px;height:40px;"
-                                >
+                                    style="width:40px;height:40px;">
                                     <i class="bi bi-person-fill"></i>
                                 </span>
-
                             <% } %>
-
-
-                            <!-- Admin Name -->
 
                             <span class="d-none d-md-inline fw-semibold text-dark">
                                 <%= adminUser?.name || "Admin" %>
                             </span>
 
-
                             <i class="bi bi-chevron-down small text-muted"></i>
-
-
                         </button>
 
-
-                        <!-- ========================= -->
-                        <!-- DROPDOWN -->
-                        <!-- ========================= -->
-
+                        <!-- Dropdown -->
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2">
-
-
-                            <!-- Account Header -->
-
                             <li>
-
                                 <div class="dropdown-header py-3">
-
                                     <div class="d-flex align-items-center gap-3">
-
-
                                         <% if (adminUser?.image) { %>
-
                                             <img
                                                 src="/uploads/<%= adminUser.image %>"
                                                 alt="Admin"
                                                 class="rounded-circle"
                                                 width="45"
                                                 height="45"
-                                                style="object-fit: cover;"
-                                            >
-
+                                                style="object-fit: cover;">
                                         <% } else { %>
-
                                             <span
                                                 class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                                style="width:45px;height:45px;"
-                                            >
+                                                style="width:45px;height:45px;">
                                                 <i class="bi bi-person-fill"></i>
                                             </span>
-
                                         <% } %>
 
-
                                         <div>
-
                                             <div class="fw-semibold text-dark">
                                                 <%= adminUser?.name || "Admin" %>
                                             </div>
-
                                             <small class="text-muted">
                                                 Administrator
                                             </small>
-
                                         </div>
-
-
                                     </div>
-
                                 </div>
-
                             </li>
 
+                            <li><hr class="dropdown-divider"></li>
 
                             <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-
-                            <!-- Profile -->
-
-                            <li>
-
-                                <a
-                                    class="dropdown-item py-2"
-                                    href="/api/admin/profile"
-                                >
+                                <a class="dropdown-item py-2" href="/api/admin/profile">
                                     <i class="bi bi-person me-2"></i>
                                     Profile
                                 </a>
-
                             </li>
 
-
-                            <!-- Dashboard -->
-
                             <li>
-
-                                <a
-                                    class="dropdown-item py-2"
-                                    href="/api/admin/dashboard"
-                                >
+                                <a class="dropdown-item py-2" href="/api/admin/dashboard">
                                     <i class="bi bi-speedometer2 me-2"></i>
                                     Dashboard
                                 </a>
-
                             </li>
 
+                            <li><hr class="dropdown-divider"></li>
 
                             <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-
-                            <!-- Logout -->
-
-                            <li>
-
                                 <a
                                     class="dropdown-item text-danger py-2"
-                                    href="/api/admin/logout"
-                                >
+                                    href="/api/admin/logout">
                                     <i class="bi bi-box-arrow-right me-2"></i>
                                     Logout
                                 </a>
-
                             </li>
-
-
                         </ul>
-
-
                     </div>
-
-
                 </div>
-
 
             <% } else { %>
 
-
-                <!-- ========================= -->
-                <!-- NOT LOGGED IN -->
-                <!-- ========================= -->
-
+                <!-- Not Logged In -->
                 <div class="ms-auto">
-
                     <a
                         href="/api/admin/login"
-                        class="btn btn-primary px-4 d-flex align-items-center gap-2"
-                    >
+                        class="btn btn-primary px-4 d-flex align-items-center gap-2">
                         <i class="bi bi-box-arrow-in-right"></i>
                         Login
                     </a>
-
                 </div>
 
-
             <% } %>
-
-
         </div>
-
     </div>
-
 </nav>
 
-
-<!-- ========================= -->
-<!-- NAVBAR CSS -->
-<!-- ========================= -->
-
+<!-- Navbar CSS -->
 <style>
-
     .navbar {
         min-height: 70px;
     }
-
-
-    /* Brand */
 
     .navbar-brand {
         font-size: 1.25rem;
         letter-spacing: -0.3px;
     }
-
-
-    /* Navigation */
 
     .nav-link {
         color: #555 !important;
@@ -381,13 +203,9 @@
         transition: all 0.2s ease;
     }
 
-
     .nav-link:hover {
         color: #0d6efd !important;
     }
-
-
-    /* Profile Button */
 
     .profile-btn {
         border: none;
@@ -395,24 +213,18 @@
         transition: 0.2s ease;
     }
 
-
     .profile-btn:hover {
         background-color: #f5f7fa;
     }
-
 
     .profile-btn:focus {
         box-shadow: none;
     }
 
-
-    /* Dropdown */
-
     .dropdown-menu {
         min-width: 240px;
         border-radius: 10px;
     }
-
 
     .dropdown-item {
         border-radius: 6px;
@@ -421,30 +233,21 @@
         transition: 0.2s ease;
     }
 
-
     .dropdown-item:hover {
         background-color: #f5f7fa;
     }
 
-
-    /* Mobile */
-
     @media (max-width: 991px) {
-
         .navbar-nav {
             padding-top: 10px;
         }
-
 
         .navbar-nav .nav-link {
             padding: 10px 5px;
         }
 
-
         .profile-btn {
             margin-top: 10px;
         }
-
     }
-
 </style>

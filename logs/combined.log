@@ -403,3 +403,18 @@
 {"level":"warn","message":"Invalid email id:narang2305@gmail.com","timestamp":"2026-08-12T12:26:00.945Z"}
 {"level":"info","message":"Admin login in: supportshoehub@gmail.com","timestamp":"2026-08-12T12:26:07.508Z"}
 {"level":"info","message":"Hotel and all its rooms deleted successfully 6a7bfb36a167adbf5b090e3c","timestamp":"2026-08-12T12:26:12.453Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-08-12T12:42:05.762Z"}
+{"level":"error","message":"Cannot read properties of null (reading '_id')","timestamp":"2026-08-12T12:47:45.655Z"}
+{"level":"error","message":"TypeError: Cannot read properties of null (reading '_id')\n    at hotelController.addHotel (file:///C:/Users/priya/OneDrive%20-%20Climate%20Collective%20Foundation/Desktop/fullstack_practice/hotel_booking/features/admin/hotel/hotelController.js:84:37)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)","timestamp":"2026-08-12T12:47:45.661Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-12T12:47:50.069Z"}
+{"level":"warn","message":"Invalid email id:supportshoehub@gmail.com","timestamp":"2026-08-12T12:47:54.152Z"}
+{"level":"warn","message":"Invalid email id:narang2305@gmail.com","timestamp":"2026-08-12T12:47:56.698Z"}
+{"level":"warn","message":"Invalid email id:supportshoehub@gmail.com","timestamp":"2026-08-12T12:48:07.976Z"}
+{"level":"info","message":"Admin account created narang2305@gmail.com","timestamp":"2026-08-12T12:48:36.263Z"}
+{"level":"info","message":"Admin login in: narang2305@gmail.com","timestamp":"2026-08-12T12:48:43.272Z"}
+{"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-08-12T12:49:03.540Z"}
+{"level":"info","message":"Room added successfully!","timestamp":"2026-08-12T12:49:20.263Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-12T12:49:37.688Z"}
+{"level":"error","message":"Error: Wrong with db\n    at bookingRepo.createBooking (file:///C:/Users/priya/OneDrive%20-%20Climate%20Collective%20Foundation/Desktop/fullstack_practice/hotel_booking/features/guest/booking/bookingRepository.js:23:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async bookingController.createBooking (file:///C:/Users/priya/OneDrive%20-%20Climate%20Collective%20Foundation/Desktop/fullstack_practice/hotel_booking/features/guest/booking/bookingController.js:85:30)","timestamp":"2026-08-12T12:49:37.691Z"}
+{"level":"error","message":"Wrong with db","timestamp":"2026-08-12T12:50:18.814Z"}
+{"level":"error","message":"Error: Wrong with db\n    at bookingRepo.createBooking (file:///C:/Users/priya/OneDrive%20-%20Climate%20Collective%20Foundation/Desktop/fullstack_practice/hotel_booking/features/guest/booking/bookingRepository.js:23:19)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async bookingController.createBooking (file:///C:/Users/priya/OneDrive%20-%20Climate%20Collective%20Foundation/Desktop/fullstack_practice/hotel_booking/features/guest/booking/bookingController.js:85:30)","timestamp":"2026-08-12T12:50:18.818Z"}

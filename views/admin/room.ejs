@@ -1,28 +1,20 @@
-
 <div class="container-fluid p-4">
 
     <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
-
         <div>
             <h3 class="mb-1">Rooms</h3>
             <small class="text-muted">Manage hotel rooms</small>
         </div>
-
         <a href="/api/admin/rooms/add" class="btn btn-primary">
             + Add Room
         </a>
-
     </div>
-
 
     <!-- Filter -->
     <div class="card mb-4">
-
         <div class="card-body">
-
             <form action="/api/admin/rooms/filter" method="GET">
-
                 <div class="row g-2">
 
                     <div class="col-md-4">
@@ -34,9 +26,7 @@
                     </div>
 
                     <div class="col-md-3">
-
                         <select name="roomType" class="form-select">
-
                             <option value="">All Room Types</option>
                             <option value="Single">Single</option>
                             <option value="Double">Double</option>
@@ -45,63 +35,45 @@
                             <option value="Suite">Suite</option>
                             <option value="Family">Family</option>
                             <option value="Executive">Executive</option>
-
                         </select>
-
                     </div>
-                    <!-- Status -->
-<!-- Status -->
-<div class="col-md-3">
 
-    <select name="status" class="form-select">
-
-        <option value="">All</option>
-        <option value="Available">Available</option>
-        <option value="Booked">Booked</option>
-        <option value="Maintenance">Maintenance</option>
-        <option value="Cleaning">Cleaning</option>
-
-    </select>
-
-</div>
                     <div class="col-md-3">
+                        <select name="status" class="form-select">
+                            <option value="">All</option>
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Cleaning">Cleaning</option>
+                        </select>
+                    </div>
 
+                    <div class="col-md-3">
                         <input
                             type="text"
                             name="roomNumber"
                             class="form-control"
                             placeholder="Room Number">
-
                     </div>
 
                     <div class="col-md-2">
-
                         <button type="submit" class="btn btn-dark w-100">
                             Filter
                         </button>
-
                     </div>
 
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
 
     <!-- Rooms -->
     <div class="card">
-
         <div class="card-body p-0">
-
             <div class="table-responsive">
-
                 <table class="table table-hover align-middle mb-0">
 
                     <thead class="table-light">
-
                         <tr>
                             <th>Room</th>
                             <th>Type</th>
@@ -111,69 +83,47 @@
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
-
                     </thead>
 
                     <tbody>
-
                         <% if (rooms && rooms.length > 0) { %>
 
                             <% rooms.forEach(room => { %>
-
                                 <tr>
 
                                     <td>
                                         <strong><%= room.roomNumber %></strong>
                                     </td>
 
-                                    <td>
-                                        <%= room.roomType %>
-                                    </td>
+                                    <td><%= room.roomType %></td>
+
+                                    <td><%= room.floor %></td>
+
+                                    <td><%= room.maxGuests %></td>
+
+                                    <td>₹<%= room.pricePerNight %></td>
 
                                     <td>
-                                        <%= room.floor %>
-                                    </td>
-
-                                    <td>
-                                        <%= room.maxGuests %>
-                                    </td>
-
-                                    <td>
-                                        ₹<%= room.pricePerNight %>
-                                    </td>
-
-                                    <td>
-
                                         <% if (room.status === "Available") { %>
-
                                             <span class="badge bg-success">
                                                 Available
                                             </span>
-
                                         <% } else if (room.status === "Booked") { %>
-
                                             <span class="badge bg-danger">
                                                 Booked
                                             </span>
-
                                         <% } else if (room.status === "Maintenance") { %>
-
                                             <span class="badge bg-warning text-dark">
                                                 Maintenance
                                             </span>
-
                                         <% } else { %>
-
                                             <span class="badge bg-info">
                                                 Cleaning
                                             </span>
-
                                         <% } %>
-
                                     </td>
 
                                     <td>
-
                                         <a
                                             href="/api/admin/rooms/edit/<%= room._id %>"
                                             class="btn btn-sm btn-outline-primary">
@@ -193,11 +143,9 @@
                                             </button>
 
                                         </form>
-
                                     </td>
 
                                 </tr>
-
                             <% }) %>
 
                         <% } else { %>
@@ -209,15 +157,11 @@
                             </tr>
 
                         <% } %>
-
                     </tbody>
 
                 </table>
-
             </div>
-
         </div>
-
     </div>
 
 </div>

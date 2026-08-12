@@ -4,53 +4,38 @@
     <p class="text-muted mb-0">Add a new hotel to your system</p>
 </div>
 
-
-
 <div class="card border-0 shadow-sm">
     <div class="card-body p-4">
-
         <form
             action="/api/admin/hotel/add"
             method="POST"
             enctype="multipart/form-data"
         >
-
             <!-- Basic Information -->
             <h5 class="fw-bold mb-3">Basic Information</h5>
-
             <div class="row g-3">
-
                 <div class="col-md-6">
                     <label class="form-label">Hotel Name</label>
-
                     <input
                         type="text"
                         name="name"
                         class="form-control"
                         placeholder="Enter hotel name"
                         value="<%= oldData?.name || '' %>"
-                        
                     >
-                     <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="name"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                     <%}%>
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-6">
                     <label class="form-label">Hotel Image</label>
-
                     <input
                         type="file"
                         name="hotelImage"
@@ -59,160 +44,110 @@
                     >
                 </div>
 
-
                 <div class="col-12">
                     <label class="form-label">Description</label>
-
                     <textarea
                         name="desc"
                         class="form-control"
                         rows="4"
                         placeholder="Enter hotel description"
-                        
                     ><%= oldData?.desc || '' %></textarea>
-                     <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="desc"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
+                    <% } %>
                 </div>
-
             </div>
-
 
             <!-- Location -->
             <h5 class="fw-bold mt-4 mb-3">Location</h5>
-
             <div class="row g-3">
-
                 <div class="col-12">
                     <label class="form-label">Address</label>
-
                     <input
                         type="text"
                         name="address"
                         class="form-control"
                         placeholder="Enter hotel address"
                         value="<%= oldData?.address || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="address"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-4">
                     <label class="form-label">City</label>
-
                     <input
                         type="text"
                         name="city"
                         class="form-control"
                         placeholder="City"
                         value="<%= oldData?.city || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="city"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-4">
                     <label class="form-label">State</label>
-
                     <input
                         type="text"
                         name="state"
                         class="form-control"
                         placeholder="State"
                         value="<%= oldData?.state || '' %>"
-                        
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="state"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-4">
                     <label class="form-label">Country</label>
-
                     <input
                         type="text"
                         name="country"
                         class="form-control"
                         value="<%= oldData?.country || 'India' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="country"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-4">
                     <label class="form-label">Pincode</label>
-
                     <input
                         type="text"
                         name="pincode"
@@ -220,163 +155,110 @@
                         placeholder="6-digit pincode"
                         maxlength="6"
                         value="<%= oldData?.pincode || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="pincode"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
             </div>
-
 
             <!-- Contact -->
             <h5 class="fw-bold mt-4 mb-3">Contact Details</h5>
-
             <div class="row g-3">
-
                 <div class="col-md-6">
                     <label class="form-label">Phone</label>
-
                     <input
                         type="tel"
                         name="phone"
                         class="form-control"
                         placeholder="Hotel phone number"
                         value="<%= oldData?.phone || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="phone"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-6">
                     <label class="form-label">Email</label>
-
                     <input
                         type="email"
                         name="email"
                         class="form-control"
                         placeholder="Hotel email"
                         value="<%= oldData?.email || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="email"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
             </div>
-
 
             <!-- Timings -->
             <h5 class="fw-bold mt-4 mb-3">Hotel Timings</h5>
-
             <div class="row g-3">
-
                 <div class="col-md-6">
                     <label class="form-label">Check In Time</label>
-
                     <input
                         type="time"
                         name="checkInTime"
                         class="form-control"
                         value="<%= oldData?.checkInTime || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="checkInTime"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
 
                 <div class="col-md-6">
                     <label class="form-label">Check Out Time</label>
-
                     <input
                         type="time"
                         name="checkOutTime"
                         class="form-control"
                         value="<%= oldData?.checkOutTime || '' %>"
-                        
                     >
-                                         <% if(errors){ %>
-
+                    <% if(errors){ %>
                         <% errors.forEach(error=>{ %>
-
                             <% if(error.path==="checkOutTime"){ %>
-
                                 <small class="text-danger">
                                     <%= error.msg %>
                                 </small>
-
                             <% } %>
-
                         <% }) %>
-                        <%}%>
-
+                    <% } %>
                 </div>
-
             </div>
-
 
             <!-- Status -->
             <h5 class="fw-bold mt-4 mb-3">Status</h5>
-
             <select
                 name="status"
                 class="form-select"
-                
             >
                 <option
                     value="Active"
@@ -384,7 +266,6 @@
                 >
                     Active
                 </option>
-
                 <option
                     value="Inactive"
                     <%= oldData?.status === "Inactive" ? "selected" : "" %>
@@ -393,10 +274,8 @@
                 </option>
             </select>
 
-
             <!-- Buttons -->
             <div class="d-flex justify-content-end gap-2 mt-4">
-
                 <a
                     href="/api/admin/hotel"
                     class="btn btn-outline-secondary"
@@ -411,10 +290,7 @@
                     <i class="bi bi-plus-circle me-2"></i>
                     Add Hotel
                 </button>
-
             </div>
-
         </form>
-
     </div>
 </div>
