@@ -7,6 +7,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import { connectToMongoose } from './cofnig/mongoose.js';
 import expressEjsLayouts from 'express-ejs-layouts';
+import swagger from 'swagger-ui-express';
 // features routes 
 import { currentUser } from './middleware/jwtAuthMiddleware.js';
 import feedbackRoutes from './features/guest/contact/contactRoutes.js';
@@ -26,6 +27,9 @@ import profileRoutes from './features/guest/profile/profileRoutes.js';
 import profileRoute from './features/admin/profile/profileRoutes.js';
 import travelRoutes from './features/admin/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
+import apiDocs from './swagger.json' with{type:'json'}
+
+
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -35,6 +39,9 @@ app.use(cors(corsOption))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser())
+
+// Swagge API documentation
+app.use('/api-docs',swagger.serve,swagger.setup(apiDocs))
 app.use((req,res,next)=>{
 
     res.locals.isLogin = false;

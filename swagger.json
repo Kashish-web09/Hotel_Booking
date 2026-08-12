@@ -1,0 +1,269 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "version": "1.0.0",
+    "title": "BradMate Hotel Booking",
+    "description": "An API for Hotel Booking Clone"
+  },
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "summary": "User Login",
+        "description": "Authenticate a user using email and password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+
+
+    "/api/auth/forgot-pass":{
+              "post": {
+        "summary": "User Forgot Pass",
+        "description": "Reset the user password by getting the email address",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email found"
+          },
+          "400": {
+            "description": "Invalid Email"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+"/api/auth/reset-pass/{token}": {
+  "post": {
+    "summary": "Enter new password",
+    "parameters": [
+      {
+        "name": "token",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["password"],
+            "properties": {
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Password updated successfully"
+      },
+      "400": {
+        "description": "Validation Error"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+},
+"/api/guest/hotel":{
+"get":{
+    "summary":"User Get All Hotels",
+    "description":"Renders the guest hotel.ejs page",
+    "responses":{
+        "200":{"description" :"Hotel list page rendered successfully"},
+        "500":{"description":"Internal server error"}
+    }
+}
+},
+"/api/guest/rooms":{
+"get":{
+    "summary":"Get All rooms",
+    "description":"Render the guest room.ejs page",
+    "responses":{
+        "200":{"description":"Room list page render successfully!"},
+        "500":{"description":"Internal server error"}
+    }
+}
+},
+"/api/guest/booking":{
+"get":{
+    "summary":"Get All bookings",
+    "description":"Render the guest myBooking.ejs.ejs page",
+    "responses":{
+        "200":{"description":"My Booking page render successfully!"},
+        "500":{"description":"Internal server error"}
+    }
+}
+},
+
+
+        "/api/admin/login": {
+        
+      "post": {
+        "summary": "Admin Login",
+        "description": "Authenticate a admin user using email and password.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "password"],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+        "/api/admin/forgotPass":{
+              "post": {
+        "summary": "Admin Forgot Pass",
+        "description": "Reset the admin password by getting the email address",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email found"
+          },
+          "400": {
+            "description": "Invalid Email"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+"/api/admin/reset-pass/{token}": {
+  "post": {
+    "summary": "Enter new password",
+    "parameters": [
+      {
+        "name": "token",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    ],
+    "requestBody": {
+      "required": true,
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "required": ["password"],
+            "properties": {
+              "password": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Password updated successfully"
+      },
+      "400": {
+        "description": "Validation Error"
+      },
+      "500": {
+        "description": "Internal server error"
+      }
+    }
+  }
+}
+  }
+}

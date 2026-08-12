@@ -383,3 +383,23 @@
 {"level":"warn","message":"Login failed: Invalid password (supportshoehub@gmail.com)","timestamp":"2026-08-12T05:46:02.622Z"}
 {"level":"info","message":"User logged in: supportshoehub@gmail.com","timestamp":"2026-08-12T05:46:07.531Z"}
 {"level":"info","message":"Admin logout","timestamp":"2026-08-12T05:51:28.979Z"}
+{"level":"error","message":"SyntaxError: Unexpected token 'a', ...\"ssword\": narang0909\n\"... is not valid JSON\n    at JSON.parse (<anonymous>)\n    at parse (C:\\Users\\priya\\OneDrive - Climate Collective Foundation\\Desktop\\fullstack_practice\\hotel_booking\\node_modules\\body-parser\\lib\\types\\json.js:91:21)\n    at C:\\Users\\priya\\OneDrive - Climate Collective Foundation\\Desktop\\fullstack_practice\\hotel_booking\\node_modules\\body-parser\\lib\\read.js:162:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:213:14)\n    at invokeCallback (C:\\Users\\priya\\OneDrive - Climate Collective Foundation\\Desktop\\fullstack_practice\\hotel_booking\\node_modules\\raw-body\\index.js:238:16)\n    at done (C:\\Users\\priya\\OneDrive - Climate Collective Foundation\\Desktop\\fullstack_practice\\hotel_booking\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (C:\\Users\\priya\\OneDrive - Climate Collective Foundation\\Desktop\\fullstack_practice\\hotel_booking\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:508:28)\n    at endReadableNT (node:internal/streams/readable:1701:12)\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)","timestamp":"2026-08-12T10:35:28.324Z"}
+{"level":"info","message":"User logged in: supportshoehub@gmail.com","timestamp":"2026-08-12T10:36:17.673Z"}
+{"level":"info","message":"Admin login in: supportshoehub@gmail.com","timestamp":"2026-08-12T10:41:23.314Z"}
+{"level":"info","message":"Password reset token generated for: supportshoehub@gmail.com","timestamp":"2026-08-12T10:50:34.334Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-12T10:53:01.953Z"}
+{"level":"info","message":"Password reset token generated for: supportshoehub@gmail.com","timestamp":"2026-08-12T10:56:07.783Z"}
+{"level":"info","message":"Password reset successful","timestamp":"2026-08-12T10:56:51.109Z"}
+{"level":"warn","message":"Invalid email id:supportshoehub@gmail.com","timestamp":"2026-08-12T10:57:30.927Z"}
+{"level":"info","message":"Admin login in: supportshoehub@gmail.com","timestamp":"2026-08-12T10:57:38.405Z"}
+{"level":"warn","message":"Login failed: Invalid password (supportshoehub@gmail.com)","timestamp":"2026-08-12T10:58:03.134Z"}
+{"level":"info","message":"User logged in: supportshoehub@gmail.com","timestamp":"2026-08-12T10:58:11.291Z"}
+{"level":"info","message":"User logged in: supportshoehub@gmail.com","timestamp":"2026-08-12T12:02:55.326Z"}
+{"level":"info","message":"User logged in: supportshoehub@gmail.com","timestamp":"2026-08-12T12:05:47.637Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-12T12:25:38.498Z"}
+{"level":"info","message":"Admin login in: supportshoehub@gmail.com","timestamp":"2026-08-12T12:25:43.255Z"}
+{"level":"info","message":"Admin logout","timestamp":"2026-08-12T12:25:49.051Z"}
+{"level":"warn","message":"Invalid email id:supportshoehub@gmail.com","timestamp":"2026-08-12T12:25:55.413Z"}
+{"level":"warn","message":"Invalid email id:narang2305@gmail.com","timestamp":"2026-08-12T12:26:00.945Z"}
+{"level":"info","message":"Admin login in: supportshoehub@gmail.com","timestamp":"2026-08-12T12:26:07.508Z"}
+{"level":"info","message":"Hotel and all its rooms deleted successfully 6a7bfb36a167adbf5b090e3c","timestamp":"2026-08-12T12:26:12.453Z"}
