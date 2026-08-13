@@ -1,0 +1,104 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-4 text-center">Complete Your Payment</h3>
+
+                    <% if (errors && errors.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <% errors.forEach(error => { %>
+                                <div><%= error %></div>
+                            <% }) %>
+                        </div>
+                    <% } %>
+
+                    <!-- Booking Summary -->
+                    <div class="bg-light rounded p-3 mb-4">
+                        <h5 class="fw-bold mb-3">Booking Summary</h5>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Room</span>
+                            <strong><%= room.roomType %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Room Number</span>
+                            <strong><%= room.roomNumber %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Check-in</span>
+                            <strong><%= new Date(bookingData.checkIn).toLocaleDateString() %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Check-out</span>
+                            <strong><%= new Date(bookingData.checkOut).toLocaleDateString() %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Guests</span>
+                            <strong><%= bookingData.guests %></strong>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold">Price per night</span>
+                            <strong class="text-primary fs-5">₹<%= room.pricePerNight %></strong>
+                        </div>
+                    </div>
+
+                    <!-- Payment Form -->
+                    <form action="/api/guest/payment" method="POST">
+                        <!-- Pass booking information to backend -->
+                        <input type="hidden" name="roomId" value="<%= bookingData.roomId %>">
+                        <input type="hidden" name="checkIn" value="<%= bookingData.checkIn %>">
+                        <input type="hidden" name="checkOut" value="<%= bookingData.checkOut %>">
+                        <input type="hidden" name="guests" value="<%= bookingData.guests %>">
+
+                        <h5 class="fw-bold mb-3">Select Payment Method</h5>
+
+                        <!-- UPI -->
+                        <div class="form-check border rounded p-3 mb-2">
+                            <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" value="UPI" id="upi" required>
+                            <label class="form-check-label" for="upi">
+                                <i class="bi bi-phone me-2"></i>UPI
+                            </label>
+                        </div>
+
+                        <!-- Card -->
+                        <div class="form-check border rounded p-3 mb-2">
+                            <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" value="Credit Card" id="card">
+                            <label class="form-check-label" for="card">
+                                <i class="bi bi-credit-card me-2"></i>Credit / Debit Card
+                            </label>
+                        </div>
+
+                        <!-- Net Banking -->
+                        <div class="form-check border rounded p-3 mb-2">
+                            <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" value="NetBanking" id="netbanking">
+                            <label class="form-check-label" for="netbanking">
+                                <i class="bi bi-bank me-2"></i>Net Banking
+                            </label>
+                        </div>
+
+                        <!-- Cash -->
+                        <div class="form-check border rounded p-3 mb-4">
+                            <input class="form-check-input ms-0 me-2" type="radio" name="paymentMethod" value="Cash" id="cash">
+                            <label class="form-check-label" for="cash">
+                                <i class="bi bi-cash-stack me-2"></i>Pay at Hotel
+                            </label>
+                        </div>
+
+                        <!-- Confirm Payment -->
+                        <button type="submit" class="btn btn-primary w-100 py-2">
+                            Pay ₹<%= room.pricePerNight %>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@ import roomRepo from '../rooms/roomsRepository.js'
 import logger from '../../../middleware/loggerMiddleware.js'
 import userRepo from '../userAuth/userRepository.js'
 import hotelRepo from '../hotel/hotelRepository.js'
-import { bookingConfirmation } from "../../../emailService/emailServices.js";
+import { bookingConfirmation, cancelBooking } from "../../../emailService/emailServices.js";
 export default class bookingController{
     constructor(){
         this.bookingRepo=new bookingRepo();
@@ -32,6 +32,9 @@ this.userRepo=new userRepo();
 
     async createBooking(req,res,next){
         try {
+            console.log("🔥 CREATE BOOKING CONTROLLER HIT");
+console.log("CHECK-IN:", req.body.checkIn);
+console.log("CHECK-OUT:", req.body.checkOut);
             const userId=req.userId;
             if(req.validationErrors){
                 const room=await this.roomRepo.getRoomById(
@@ -67,6 +70,13 @@ if(startDate>=endDate){
 logger.warn("Check-out date must be after check-in date")
                        return res.status(400).send(`Check-out date must be after check-in date`)
 
+}
+if (endDate <= startDate) {
+    logger.warn("Check-out date must be after check-in date");
+
+    return res.status(400).send(
+        "Check-out date must be after check-in date"
+    );
 }
 const isAvailable=await this.bookingRepo.checkRoomAvailability(roomId,startDate,endDate);
 if(!isAvailable){
@@ -128,31 +138,113 @@ async bookingDetails(req, res, next) {
 
     }
 }
-async cancelBooking(req, res, next) {
-    try {
+ async cancelBooking(req, res, next) {
 
-        const { id } = req.params;
+        try {
 
-        const booking =
-            await this.bookingRepo.cancelBooking(id);
+            const { id } = req.params;
+            const userId = req.userId;
 
-        if (!booking) {
 
-            logger.warn(
-                `Booking not found: ${id}`
+            const existingBooking =
+                await this.bookingRepo.getBookingById(id);
+
+            if (!existingBooking) {
+
+                logger.warn(
+                    `Booking not found: ${id}`
+                );
+
+                return res.status(404).send(
+                    "Booking not found"
+                );
+            }
+            if (
+                existingBooking.userId.toString() !==
+                userId.toString()
+            ) {
+
+                return res.status(403).send(
+                    "You are not authorized to cancel this booking"
+                );
+            }
+
+            if (
+                existingBooking.status ===
+                "Cancelled"
+            ) {
+
+                return res.status(400).send(
+                    "Booking is already cancelled"
+                );
+            }
+
+
+            // --------------------------------
+            // Cancel booking
+            // --------------------------------
+            const booking =
+                await this.bookingRepo.cancelBooking(id);
+
+            if (!booking) {
+
+                logger.warn(
+                    `Unable to cancel booking: ${id}`
+                );
+
+                return res.status(400).send(
+                    "Unable to cancel booking"
+                );
+            }
+
+
+            // --------------------------------
+            // Find user
+            // --------------------------------
+            const user =
+                await this.userRepo.findUserById(
+                    userId
+                );
+
+            if (!user) {
+
+                return res.status(404).send(
+                    "User not found"
+                );
+            }
+
+
+            // --------------------------------
+            // Cancellation email
+            // --------------------------------
+            try {
+
+                await cancelBooking(
+                    user.email,
+                    id,
+                    booking.totalAmount,
+                    booking.paymentMethod
+                );
+
+            } catch (emailError) {
+
+                logger.error(
+                    `Cancellation email failed: ${emailError.message}`
+                );
+
+            }
+
+
+            return res.redirect(
+                "/api/guest/booking"
             );
 
-            return res.status(404).send(
-                "Booking not found"
-            );
+
+        } catch (err) {
+
+            logger.error(err.message);
+            next(err);
+
         }
-
-        return res.redirect("/api/guest/booking");
-
-    } catch (err) {
-
-        logger.error(err.message);
-        next(err);
-
     }
-}}
+}

@@ -93,4 +93,18 @@ async checkRoomAvailability(roomId, checkIn, checkOut) {
         throw new applicationError("Wrong with db", 500);
     }
 }
+async updateBookingStatus(bookingId,status){
+    try {
+        return await bookingModels.findByIdAndUpdate(
+            bookingId,
+            {status},
+            {
+                returnDocument:"after"
+            }
+        )
+    } catch (err) {
+        throw new applicationError("Wrong with db", 500);
+    }
+}
+
 }

@@ -80,6 +80,8 @@ export const adminUserRegister = async (adminEmail, userName) => {
 // ==================== BOOKING ====================
 
 export const bookingConfirmation = async (userEmail, userName,hotel, bookingId) => {
+     console.log("CONFIRMATION EMAIL FUNCTION CALLED");
+    console.log("EMAIL:", userEmail);
     return sendEmail({
         to: userEmail,
         subject: "Booking Confirmation - Hotel BradMate",
@@ -423,5 +425,105 @@ export const resetLinkSent = async (
                 <strong>Hotel BradMate Team</strong>
             </p>
         `
+    });
+};
+
+
+export const cancelBooking = async (
+    userEmail,
+    bookingId,
+    refundAmount,
+    paymentMethod
+) => {
+
+    console.log("CANCEL EMAIL FUNCTION CALLED");
+    console.log("EMAIL:", userEmail);
+    console.log("BOOKING:", bookingId);
+    console.log("AMOUNT:", refundAmount);
+    console.log("PAYMENT METHOD:", paymentMethod);
+
+    const isCash = paymentMethod === "Cash";
+
+    return sendEmail({
+
+        to: userEmail,
+
+        subject: isCash
+            ? "Hotel Booking Cancelled - Hotel BradMate"
+            : "Hotel Booking Cancelled & Refund Initiated - Hotel BradMate",
+
+        html: isCash
+            ? `
+                <h2>Booking Cancelled</h2>
+
+                <p>Hello,</p>
+
+                <p>
+                    Your hotel booking has been cancelled successfully.
+                </p>
+
+                <p>
+                    <strong>Booking ID:</strong> ${bookingId}
+                </p>
+
+                <p>
+                    <strong>Payment Method:</strong> Pay at Hotel
+                </p>
+
+                <p>
+                    No refund is applicable because no online payment
+                    was made.
+                </p>
+
+                <p>
+                    Thank you for choosing
+                    <strong>Hotel BradMate</strong>.
+                </p>
+
+                <br>
+
+                <p>
+                    Regards,<br>
+                    <strong>Hotel BradMate Team</strong>
+                </p>
+            `
+            : `
+                <h2>Booking Cancelled & Refund Initiated</h2>
+
+                <p>Hello,</p>
+
+                <p>
+                    Your hotel booking has been cancelled successfully.
+                </p>
+
+                <p>
+                    <strong>Booking ID:</strong> ${bookingId}
+                </p>
+
+                <p>
+                    <strong>Payment Method:</strong> ${paymentMethod}
+                </p>
+
+                <p>
+                    <strong>Refund Amount:</strong> ₹${refundAmount}
+                </p>
+
+                <p>
+                    Your refund has been initiated and will be credited
+                    back to your original payment method.
+                </p>
+
+                <p>
+                    Thank you for choosing
+                    <strong>Hotel BradMate</strong>.
+                </p>
+
+                <br>
+
+                <p>
+                    Regards,<br>
+                    <strong>Hotel BradMate Team</strong>
+                </p>
+            `
     });
 };

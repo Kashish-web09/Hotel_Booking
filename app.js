@@ -28,6 +28,8 @@ import profileRoute from './features/admin/profile/profileRoutes.js';
 import travelRoutes from './features/admin/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
+import paymentRoutes from './features/guest/payment/paymentRoutes.js';
+import paymentRoute from './features/admin/payment/paymentRoutes.js';
 
 
 const app=express();
@@ -80,6 +82,7 @@ app.use('/api/guest/profile',currentUser,profileRoutes)
 app.use('/api/guest/feedback',currentUser,feedbackRoutes)
 app.use('/api/guest/hotel',currentUser,hotelRoute)
 app.use('/api/guest/rooms',currentUser,roomRoute)
+app.use('/api/guest/payment',currentUser,paymentRoutes)
 app.use('/api/guest/booking',currentUser,bookingRoutes)
 // admin routes
 app.use('/api/admin',adminUserRoutes) 
@@ -88,7 +91,7 @@ app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
 app.use('/api/admin/profile',adminUser,profileRoute)
 app.use('/api/admin/feedback',adminUser,feedbackRoute)
 app.use('/api/admin/hotel',adminUser,hotelRoutes)
-
+app.use('/api/admin/payment',adminUser,paymentRoute)
 app.use('/api/admin/rooms',adminUser,roomRoutes)
 app.use('/api/admin/travel',adminUser,travelRoutes)
 app.use('/api/admin/booking',adminUser,bookingRoute);

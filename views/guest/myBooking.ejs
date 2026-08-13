@@ -109,7 +109,7 @@
                                 ) { %>
 
                                     <form
-                                        action="/api/guest/booking/<%= booking._id %>"
+                                        action="/api/guest/payment/refund/?bookingId=<%= booking._id %>"
                                         method="POST"
                                         onsubmit="return confirm('Cancel this booking?')">
 
