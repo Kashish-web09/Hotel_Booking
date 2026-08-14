@@ -20,7 +20,11 @@ import mongoose from "mongoose";
       type: String,
       required: true
         },
-
+// hotelId:{
+// type: mongoose.Schema.Types.ObjectId,
+//       ref: "Hotel",
+//       required: true
+// },
     image: {
       type: String,
       default: null,

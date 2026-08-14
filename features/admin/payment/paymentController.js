@@ -13,7 +13,8 @@ export default class paymentController{
     }
     async getAllPayemnts(req,res,next){
       try {
-         const payments=await this.paymentRepo.getAllPayments();
+        const adminId=req.adminId;
+         const payments=await this.paymentRepo.getAllPayments(adminId);
         return res.render('admin/payment',{
             title:"Payment History Page",
             payments,

@@ -32,9 +32,6 @@ this.userRepo=new userRepo();
 
     async createBooking(req,res,next){
         try {
-            console.log("🔥 CREATE BOOKING CONTROLLER HIT");
-console.log("CHECK-IN:", req.body.checkIn);
-console.log("CHECK-OUT:", req.body.checkOut);
             const userId=req.userId;
             if(req.validationErrors){
                 const room=await this.roomRepo.getRoomById(

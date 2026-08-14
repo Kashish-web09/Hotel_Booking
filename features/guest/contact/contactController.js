@@ -1,9 +1,11 @@
 import { feedbackSent } from '../../../emailService/emailServices.js';
 import logger from '../../../middleware/loggerMiddleware.js';
 import feedbackRepo from './contactRepository.js'
+import adminUserRepo from '../../admin/adminAuth/adminRepository.js'
 export default class feedbackController{
     constructor(){
         this.feedbackRepo=new feedbackRepo();
+        this.adminUserRepo=new adminUserRepo();
     }
 
     async feedbackPage(req,res,next){
@@ -35,13 +37,17 @@ async feedback(req, res, next) {
                 oldData: req.body
             });
         }
+        const admin=await this.adminUserRepo.findUserByEmail(
+            process.env.ADMIN_EMAIL
+        )
 
         const contact = {
             name,
             email,
             phoneNo,
             messageType,
-            message
+            message,
+            adminId:admin._id
         };
         
         // Save feedback to database

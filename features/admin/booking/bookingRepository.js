@@ -5,9 +5,9 @@ import applicationError from '../../../errorFile/applicationLevelError.js'
 const bookingModels=mongoose.models.booking || mongoose.model('booking',bookingSchema);
 
 export default class bookingRepo{
-    async getAllBookings(){
+    async getAllBookings(adminId){
 try {
-    return await bookingModels.find().sort({createdAt:-1});
+    return await bookingModels.find({adminId}).sort({createdAt:-1});
 } catch (err) {
     throw new applicationError("Wrong with db",500)
 }

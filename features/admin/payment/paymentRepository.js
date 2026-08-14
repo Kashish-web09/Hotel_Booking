@@ -4,9 +4,9 @@ import applicationError from '../../../errorFile/applicationLevelError.js'
 const paymentModels=mongoose.models.payment || mongoose.model('payment', paymentSchema);
 
 export default class paymentRepo{
-    async getAllPayments(){
+    async getAllPayments(adminId){
         try {
-            return await paymentModels.find().sort({createdAt:-1});
+            return await paymentModels.find({adminId}).sort({createdAt:-1});
         } catch (err) {
             throw new applicationError("Wrong with db",500)
         }
@@ -70,7 +70,7 @@ async searchPayment(bookingId) {
                     }
                 },
                 {
-                    returnDocument:"After"
+                    returnDocument:"after"
                 }
             )
         } catch (err) {

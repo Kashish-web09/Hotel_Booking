@@ -20,6 +20,7 @@ export default class bookingRepo{
             await newBooking.save();
             return newBooking
         } catch (err) {
+            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
     }

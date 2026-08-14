@@ -7,6 +7,9 @@ export const bookingSchema = new mongoose.Schema(
             ref: "users",
             required: true
         },
+        adminId:{type:mongoose.Schema.Types.ObjectId,
+            ref:"Admin",required:true
+        },
 
         roomId: {
             type: mongoose.Schema.Types.ObjectId,

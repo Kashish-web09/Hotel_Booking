@@ -11,7 +11,8 @@ export default class hotelController{
 
     async getAllHotels(req,res,next){
         try {
-     const hotels=await this.hotelrepo.getAllHotel();
+            const adminId=req.adminId;
+     const hotels=await this.hotelrepo.getAllHotel(adminId);
      return res.render('admin/hotel',{
         title:"Hotel Page",
         hotels,

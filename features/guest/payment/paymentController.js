@@ -121,7 +121,6 @@ async createPayment(req, res, next) {
             paymentMethod
         } = req.body;
 
-
         // ==========================================
         // 1. VALIDATE PAYMENT METHOD
         // ==========================================
@@ -181,7 +180,9 @@ async createPayment(req, res, next) {
                 title: "Payment Page",
                 room,
                 bookingData: req.body,
-                errors: ["Please enter a valid number of guests."],
+                errors: [
+                    "Please enter a valid number of guests."
+                ],
                 oldData: req.body
             });
         }
@@ -239,7 +240,6 @@ async createPayment(req, res, next) {
         today.setHours(0, 0, 0, 0);
 
         if (checkInDate < today) {
-
             logger.warn(
                 `Past check-in date attempted by user ${userId}: ${checkIn}`
             );
@@ -261,7 +261,6 @@ async createPayment(req, res, next) {
         // ==========================================
 
         if (checkOutDate <= checkInDate) {
-
             logger.warn(
                 `Invalid checkout date for user ${userId}`
             );
@@ -290,7 +289,6 @@ async createPayment(req, res, next) {
             );
 
         if (!isAvailable) {
-
             logger.warn(
                 `Room ${roomId} is not available from ${checkIn} to ${checkOut}`
             );
@@ -357,11 +355,61 @@ async createPayment(req, res, next) {
 
 
         // ==========================================
-        // 13. CREATE BOOKING
+        // 13. GET HOTEL
+        // ==========================================
+
+        const hotel =
+            await this.hotelRepo.getHotelDetailsById(
+                room.hotelId
+            );
+
+        if (!hotel) {
+            logger.warn(
+                `Hotel not found for room ${roomId}`
+            );
+
+            return res.status(404).render("guest/payment", {
+                title: "Payment Page",
+                room,
+                bookingData: req.body,
+                errors: [
+                    "Hotel not found."
+                ],
+                oldData: req.body
+            });
+        }
+
+
+        // ==========================================
+        // 14. GET ADMIN ID
+        // ==========================================
+
+        const adminId = hotel.createdBy;
+
+        if (!adminId) {
+            logger.error(
+                `Admin not found for hotel ${hotel._id}`
+            );
+
+            return res.status(500).render("guest/payment", {
+                title: "Payment Page",
+                room,
+                bookingData: req.body,
+                errors: [
+                    "Hotel administrator information is missing."
+                ],
+                oldData: req.body
+            });
+        }
+
+
+        // ==========================================
+        // 15. CREATE BOOKING
         // ==========================================
 
         const newBooking = {
             userId,
+            adminId,
             roomId,
             checkIn: checkInDate,
             checkOut: checkOutDate,
@@ -382,7 +430,7 @@ async createPayment(req, res, next) {
 
 
         // ==========================================
-        // 14. CREATE PAYMENT
+        // 16. CREATE PAYMENT
         // ==========================================
 
         let paymentStatus = "Pending";
@@ -397,10 +445,10 @@ async createPayment(req, res, next) {
             paidAt = new Date();
         }
 
-
         const newPayment = {
             bookingId: booking._id,
             userId,
+            adminId,
             amount: totalAmount,
             paymentMethod,
             status: paymentStatus,
@@ -418,11 +466,10 @@ async createPayment(req, res, next) {
 
 
         // ==========================================
-        // 15. UPDATE BOOKING STATUS
+        // 17. UPDATE BOOKING STATUS
         // ==========================================
 
         if (paymentStatus === "Success") {
-
             await this.bookingRepo.updateBookingStatus(
                 booking._id,
                 "Confirmed"
@@ -433,21 +480,10 @@ async createPayment(req, res, next) {
 
 
         // ==========================================
-        // 16. GET HOTEL
-        // ==========================================
-
-        const hotel =
-            await this.hotelRepo.getHotelDetailsById(
-                room.hotelId
-            );
-
-
-        // ==========================================
-        // 17. SEND CONFIRMATION EMAIL
+        // 18. SEND CONFIRMATION EMAIL
         // ==========================================
 
         try {
-
             await bookingConfirmation(
                 user.email,
                 user.name,
@@ -460,7 +496,6 @@ async createPayment(req, res, next) {
             );
 
         } catch (emailError) {
-
             logger.error(
                 `Booking confirmation email failed: ${emailError.message}`
             );
@@ -468,7 +503,7 @@ async createPayment(req, res, next) {
 
 
         // ==========================================
-        // 18. SUCCESS PAGE
+        // 19. SUCCESS PAGE
         // ==========================================
 
         return res.render(

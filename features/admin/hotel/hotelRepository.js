@@ -34,7 +34,7 @@ async updateHotelById(hotelId, data) {
                 $set: data
             },
             {
-                new: true,
+                returnDocument:'after',
                 runValidators: true
             }
         );
@@ -64,9 +64,11 @@ async updateHotelById(hotelId, data) {
         }
 
     }
-    async getAllHotel(){
+    async getAllHotel(adminId){
         try {
-            return await hotelModel.find().sort({createdAt:-1});
+            return await hotelModel.find({
+                createdBy:adminId
+            }).sort({createdAt:-1});
         } catch (err) {
                         throw new applicationError("Wrong with db",500)
 

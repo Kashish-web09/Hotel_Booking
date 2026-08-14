@@ -9,7 +9,8 @@ export default class bookingController{
     }
     async getAllBookings(req,res,next){
 try {
-    const booking=await this.bookingRepo.getAllBookings();
+    const adminId=req.adminId;
+    const booking=await this.bookingRepo.getAllBookings(adminId);
     return res.render('admin/allBookings',{
         title:"Guest Bookings Page",
         booking,

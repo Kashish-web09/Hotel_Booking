@@ -7,7 +7,8 @@ export default class contactController{
     }
 async getFeedbackPage(req,res,next){
             try {
-                const feedback=await this.feedbackRepo.getAllFeedback();
+                const adminId=req.adminId;
+                const feedback=await this.feedbackRepo.getAllFeedback(adminId);
             return res.render('admin/feedback',{
                 title:"Feedback Page",
                 feedback,

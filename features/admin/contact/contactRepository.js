@@ -7,9 +7,9 @@ const feedbackModels=mongoose.models.feedback || mongoose.model('feedback',feedb
 
 export default class feedbackRepo{
 
-    async getAllFeedback(){
+    async getAllFeedback(adminId){
 try {
-    return await feedbackModels.find().sort({createdAt:-1});
+    return await feedbackModels.find({adminId}).sort({createdAt:-1});
     
 } catch (err) {
     throw new applicationError("Wrong with db",500)

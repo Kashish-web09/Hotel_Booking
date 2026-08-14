@@ -18,9 +18,14 @@ async getDashborad(req, res, next) {
 const totalTrips = bookings.filter(b => b.status === "Completed").length;
 const destination=await this.travelRepo.getAll();
 const user=await this.userRepo.findUserById(req.userId)
-const upcomingCount=bookings.filter(
-    b=> b.status==="Confirmed" &&  new Date(b.checkIn)>=new Date()
-).length;
+const today=new Date();
+today.setHours(0,0,0,0);
+const upcomingCount = bookings.filter(b => {
+    const checkIn = new Date(b.checkIn);
+    checkIn.setHours(0, 0, 0, 0);
+
+    return b.status === "Confirmed" && checkIn >= today;
+}).length;
         return res.render("guest/dashboard", {
             title: "Dashboard Page",
             user,

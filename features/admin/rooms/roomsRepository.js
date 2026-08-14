@@ -13,10 +13,15 @@ export default class roomRepo{
             throw new applicationError("Wrong with db",500)
         }
     }
-    async getAllRooms(){
+    async getAllRooms(hotelId){
                 try {
-            return await roomModels.find().sort({createdAt:-1});
+            return await roomModels.find({
+                hotelId:{
+                    $in:hotelId
+                }
+            }).sort({createdAt:-1});
         } catch (err) {
+            console.log(err)
             throw new applicationError("Wrong with db",500)
         }
 
@@ -106,3 +111,5 @@ try {
     //     }
     // }
 }
+
+// Find documents where this field matches any value in this list -> $in

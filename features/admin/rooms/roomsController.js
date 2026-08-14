@@ -10,7 +10,11 @@ export default class roomController{
     }
     async getAllRooms(req,res,next){
 try {
-    const rooms=await this.roomRepo.getAllRooms();
+    const adminId=req.adminId;
+    const hotels=await this.hotelrepo.getAllHotel(adminId);
+const hotelId=hotels.map(hotel=>hotel._id);
+    const rooms=await this.roomRepo.getAllRooms(hotelId);
+
     return res.render('admin/room',{
     title:"Rooms page",
     rooms,
@@ -25,7 +29,10 @@ try {
     
     async addRoomPage(req,res,next){
 try {
-const hotels=await this.hotelrepo.getAllHotel();
+    const adminId=req.adminId;
+
+const hotels=await this.hotelrepo.getAllHotel(adminId);
+
     return res.render('admin/addRoom',{
         title:"Add Room Page",
         hotels,
