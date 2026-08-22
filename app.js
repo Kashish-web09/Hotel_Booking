@@ -12,26 +12,25 @@ import swagger from 'swagger-ui-express';
 import { currentUser } from './middleware/jwtAuthMiddleware.js';
 import feedbackRoutes from './features/guest/contact/contactRoutes.js';
 import userAuth from './features/guest/userAuth/userRoutes.js';
-import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
-import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
-import feedbackRoute from './features/admin/contact/contactRoutes.js';
-import roomRoutes from './features/admin/rooms/roomsRoutes.js';
+// import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
+// import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
+// import feedbackRoute from './features/admin/contact/contactRoutes.js';
+// import roomRoutes from './features/admin/rooms/roomsRoutes.js';
 import roomRoute from './features/guest/rooms/roomsRoutes.js';
 import bookingRoutes from './features/guest/booking/bookingRoutes.js';
 import dashRoutes from './features/guest/dashboard/dashRoutes.js';
-import bookingRoute from './features/admin/booking/bookingRoutes.js';
-import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
-import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
+// import bookingRoute from './features/admin/booking/bookingRoutes.js';
+// import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
+// import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
 import hotelRoute from './features/guest/hotel/hotelRoutes.js';
 import profileRoutes from './features/guest/profile/profileRoutes.js';
-import profileRoute from './features/admin/profile/profileRoutes.js';
-import travelRoutes from './features/admin/travel/travelRoutes.js';
+// import profileRoute from './features/admin/profile/profileRoutes.js';
+// import travelRoutes from './features/admin/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
 import paymentRoutes from './features/guest/payment/paymentRoutes.js';
-import paymentRoute from './features/admin/payment/paymentRoutes.js';
-
-
+// import paymentRoute from './features/admin/payment/paymentRoutes.js';
+import router from './aiService/aiRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -57,13 +56,7 @@ app.use(expressEjsLayouts)
 app.set("view engine",'ejs');
 app.set("views",'./views')
 app.use((req, res, next) => {
-
-    if (req.originalUrl.startsWith("/api/admin")) {
-        res.locals.layout = "layout/adminLayout";
-    } else {
-        res.locals.layout = "layout/layout";
-    }
-
+    res.locals.layout = "layout/layout";
     next();
 });
 app.use(express.static('./public'));
@@ -78,23 +71,28 @@ app.use((req,res,next)=>{
 // guest routes
 app.use('/api/auth',userAuth);
 app.use('/',dashRoutes)
-app.use('/api/guest/profile',currentUser,profileRoutes)
-app.use('/api/guest/feedback',currentUser,feedbackRoutes)
-app.use('/api/guest/hotel',currentUser,hotelRoute)
-app.use('/api/guest/rooms',currentUser,roomRoute)
-app.use('/api/guest/payment',currentUser,paymentRoutes)
-app.use('/api/guest/booking',currentUser,bookingRoutes)
+app.use('/api/auth/profile',currentUser,profileRoutes)
+app.use('/api/feedback',currentUser,feedbackRoutes)
+app.use('/api/hotel',currentUser,hotelRoute)
+app.use('/api/rooms',currentUser,roomRoute)
+app.use('/api/payment',currentUser,paymentRoutes)
+app.use('/api/booking',currentUser,bookingRoutes)
 // admin routes
-app.use('/api/admin',adminUserRoutes) 
+// app.use('/api/admin',adminUserRoutes) 
 
-app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
-app.use('/api/admin/profile',adminUser,profileRoute)
-app.use('/api/admin/feedback',adminUser,feedbackRoute)
-app.use('/api/admin/hotel',adminUser,hotelRoutes)
-app.use('/api/admin/payment',adminUser,paymentRoute)
-app.use('/api/admin/rooms',adminUser,roomRoutes)
-app.use('/api/admin/travel',adminUser,travelRoutes)
-app.use('/api/admin/booking',adminUser,bookingRoute);
+// app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
+// app.use('/api/admin/profile',adminUser,profileRoute)
+// app.use('/api/admin/feedback',adminUser,feedbackRoute)
+// app.use('/api/admin/hotel',adminUser,hotelRoutes)
+// app.use('/api/admin/payment',adminUser,paymentRoute)
+// app.use('/api/admin/rooms',adminUser,roomRoutes)
+// app.use('/api/admin/travel',adminUser,travelRoutes)
+// app.use('/api/admin/booking',adminUser,bookingRoute);
+
+
+//ai prompt
+
+app.use('/api/ai',router)
 
 // error handler page
 

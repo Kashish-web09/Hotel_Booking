@@ -34,7 +34,7 @@ export const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      enum: ["Guest", "Hotel Partner"],
+      enum: ["Guest", "Admin"],
       default: "Guest",
       required: true
     },

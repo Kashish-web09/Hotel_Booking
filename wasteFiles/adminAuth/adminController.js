@@ -63,7 +63,7 @@ image
 await this.adminUserRepo.register(newUser);
 logger.info(`Admin account created ${newUser.email}`)
 await adminUserRegister(newUser.email,newUser.name)
-return res.redirect('/api/admin/login')
+return res.redirect('/api/admin/dashboard')
         } catch (err) {
             logger.error(err.message);
             next(err)

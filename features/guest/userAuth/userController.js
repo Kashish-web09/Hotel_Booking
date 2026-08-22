@@ -12,7 +12,7 @@ export default class userController {
 
     async getLogin(req, res, next) {
         try {
-            return res.render("guest/login", {
+            return res.render("login", {
                 title: "Login",
                 errors: [],
                 oldData: {}
@@ -28,7 +28,7 @@ export default class userController {
     async login(req, res, next) {
         try {
             if(req.validationErrors){
-               return res.render('guest/login',{
+               return res.render('login',{
                                     title: "Login Page",
                     errors: req.validationErrors,
                     oldData: req.body
@@ -38,11 +38,10 @@ export default class userController {
             const { email, password } = req.body;
 
             const result = await this.userRepo.findUserByEmail(email);
-
             if (!result) {
                 logger.warn(`Login failed: User not found (${email})`);
 
-                return res.status(400).render("guest/login", {
+                return res.status(400).render("login", {
                     title: "Login Page",
                     errors: [{ msg: "Invalid email or password" }],
                     oldData: { email }
@@ -54,7 +53,7 @@ export default class userController {
             if (!isMatch) {
                 logger.warn(`Login failed: Invalid password (${email})`);
 
-                return res.status(400).render("guest/login", {
+                return res.status(400).render("login", {
                     title: "Login Page",
                     errors: [{ msg: "Invalid email or password" }],
                     oldData: { email }
@@ -63,7 +62,8 @@ export default class userController {
 
             const token = jwt.sign(
                 {
-                    userId: result._id
+                    userId: result._id,
+                    role:result.role
                 },
                 process.env.JWT_SECRET,
                 {
@@ -75,9 +75,16 @@ export default class userController {
                 httpOnly: true,
                 maxAge: 24 * 60 * 60 * 1000
             });
-            logger.info(`User logged in: ${email}`);
+logger.info(`User logged in: ${email}`);
 
-            return res.redirect("/");
+if (result.role === "Admin") {
+    return res.redirect("/admin/dashboard");
+}
+
+if (result.role === "Guest") {
+    return res.redirect("/");
+}
+
         } catch (err) {
             logger.error({
                 message: err.message            });
@@ -87,7 +94,7 @@ export default class userController {
 
     async getRegister(req, res, next) {
         try {
-            return res.render("guest/register", {
+            return res.render("register", {
                 title: "Register Page",
                 errors: [],
                 oldData: {}
@@ -102,7 +109,7 @@ export default class userController {
     async register(req, res, next) {
         try {
                         if(req.validationErrors){
-               return res.render('guest/register',{
+               return res.render('register',{
                                     title: "Register Page",
                     errors: req.validationErrors,
                     oldData: req.body
@@ -124,7 +131,7 @@ export default class userController {
             if (user) {
                 logger.warn(`Registration failed: ${email} already exists`);
 
-                return res.status(400).render("guest/register", {
+                return res.status(400).render("register", {
                     title: "Register Page",
                     errors: [{ msg: "User already exists" }],
                     oldData: req.body
@@ -134,7 +141,7 @@ export default class userController {
             if (confirmPassword !== password) {
                 logger.warn(`Registration failed: Password mismatch (${email})`);
 
-                return res.status(400).render("guest/register", {
+                return res.status(400).render("register", {
                     title: "Register Page",
                     errors: [{ msg: "Passwords don't match" }],
                     oldData: req.body
@@ -173,6 +180,7 @@ await userRegister(newUser.email,newUser.name)
 
             return res.redirect("/api/auth/login");
         } catch (err) {
+
             logger.error({
                 message: err.message            });
             next(err);
@@ -181,7 +189,7 @@ await userRegister(newUser.email,newUser.name)
 
     async forgotPassPage(req, res, next) {
         try {
-            return res.render("guest/forgotPass", {
+            return res.render("forgotPass", {
                 title: "Forgot Password",
                 errors: [],
                 oldData: {}
@@ -196,7 +204,7 @@ await userRegister(newUser.email,newUser.name)
     async forgotPass(req, res, next) {
         try {
                         if(req.validationErrors){
-               return res.render('guest/forgotPass',{
+               return res.render('forgotPass',{
                                     title: "Forgot Password Page",
                     errors: req.validationErrors,
                     oldData: req.body
@@ -211,7 +219,7 @@ await userRegister(newUser.email,newUser.name)
             if (!result) {
                 logger.warn(`Password reset requested for unknown email: ${email}`);
 
-                return res.status(400).render("guest/forgotPass", {
+                return res.status(400).render("forgotPass", {
                     title: "Forgot Password Page",
                     errors: [{ msg: "User email not found!" }],
                     oldData: {}
@@ -225,7 +233,7 @@ await userRegister(newUser.email,newUser.name)
 const resetUrl=`http://localhost:9090/api/auth/reset-pass/${token}`
             logger.info(`Password reset token generated for: ${email}`);
 await resetLinkSent(result.email,result.name,resetUrl);
-  return res.render("guest/forgotPass", {
+  return res.render("forgotPass", {
             title: "Forgot Password Page",
             errors: [{ msg: "Password reset link has been sent to your email." }],
             oldData: {}
@@ -242,7 +250,7 @@ await resetLinkSent(result.email,result.name,resetUrl);
         try {
             const { token } = req.params;
 
-            return res.render("guest/resetPass", {
+            return res.render("resetPass", {
                 title: "Reset Password",
                 token,
                 errors: [],
@@ -262,7 +270,7 @@ async resetPass(req, res, next) {
         const { token } = req.params;
 
         if (req.validationErrors) {
-            return res.render("guest/resetPass", {
+            return res.render("resetPass", {
                 title: "Reset Password Page",
                 errors: req.validationErrors,
                 oldData: req.body,
@@ -280,7 +288,7 @@ async resetPass(req, res, next) {
         if (result.modifiedCount === 0) {
             logger.warn(`Invalid or expired reset token: ${token}`);
 
-            return res.status(400).render("guest/resetPass", {
+            return res.status(400).render("resetPass", {
                 title: "Reset Password Page",
                 errors: [{ msg: "Invalid or expired link" }],
                 oldData: req.body,

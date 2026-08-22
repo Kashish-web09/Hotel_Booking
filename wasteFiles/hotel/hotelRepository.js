@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { hotelSchema } from "./hotelSchema.js";
-import applicationError from '../../../errorFile/applicationLevelError.js'
+import { hotelSchema } from "../../features/guest/hotel/hotelSchema.js";
+import applicationError from '../../errorFile/applicationLevelError.js'
 
 const hotelModel=mongoose.models.hotel || mongoose.model('hotel',hotelSchema)
 
@@ -89,5 +89,14 @@ async filterhotel(hotelId,city){
                     throw new applicationError("Wrong with db",500)
 
     }
+}
+async findHotelById(hotelId){
+        try {
+        return await hotelModel.findById(hotelId)
+    } catch (err) {
+                    throw new applicationError("Wrong with db",500)
+
+    }
+
 }
 }

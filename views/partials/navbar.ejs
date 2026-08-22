@@ -33,20 +33,20 @@
                     </a>
                 </li>
 <li class="nav-item">
-    <a href="/api/admin/dashboard" class="nav-link">
+    <a href="/api/dashboard" class="nav-link">
         <i class="bi bi-person-gear me-1"></i>
         Admin
     </a>
 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="/api/guest/hotel">
+                    <a class="nav-link px-3" href="/api/hotel">
                         <i class="bi bi-building me-1"></i>
                         Hotels
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="/api/guest/rooms">
+                    <a class="nav-link px-3" href="/api/rooms">
                         <i class="bi bi-door-open me-1"></i>
                         Rooms
                     </a>
@@ -60,7 +60,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link px-3" href="/api/guest/feedback">
+                    <a class="nav-link px-3" href="/api/feedback">
                         <i class="bi bi-envelope me-1"></i>
                         Contact
                     </a>
@@ -68,7 +68,7 @@
 
                 <% if (isLogin) { %>
                     <li class="nav-item">
-                        <a class="nav-link px-3" href="/api/guest/booking">
+                        <a class="nav-link px-3" href="/api/booking">
                             <i class="bi bi-calendar-check me-1"></i>
                             My Bookings
                         </a>
@@ -85,7 +85,7 @@
                     <!-- Profile -->
                     <li class="nav-item">
                         <a
-                            href="/api/guest/profile"
+                            href="/api/profile"
                             class="d-flex align-items-center text-decoration-none px-2 py-1 rounded-pill profile-link">
 
                             <% if (user?.image) { %>

@@ -1,7 +1,8 @@
 import hotelrepo from "./hotelRepository.js";
-import logger from '../../../middleware/loggerMiddleware.js'
+import logger from '../../middleware/loggerMiddleware.js'
 import adminUserRepo from "../adminAuth/adminRepository.js";
-import roomRepo from "../rooms/roomsRepository.js";
+import roomRepo from "../../features/admin/rooms/roomsRepository.js";
+import { generateHotelDescription } from "../../aiService/aiService.js";
 export default class hotelController{
     constructor(){
         this.hotelrepo=new hotelrepo();
@@ -39,6 +40,8 @@ async addHotelPage(req,res,next){
 }
     async addHotel(req,res,next){
         try {
+                    console.log("🔥 ADD HOTEL CONTROLLER HIT");
+
             if(req.validationErrors){
                 return res.render('admin/addHotel',{
                     title:"Add Hotel Page",
@@ -48,7 +51,6 @@ async addHotelPage(req,res,next){
             }
             const {
                 name,
-                desc,
                 address,
                 city,
                 state,
@@ -60,7 +62,15 @@ async addHotelPage(req,res,next){
                 checkOutTime,
                 status
             }=req.body;
-
+            const location=`${city}, ${state}, ${country}`;
+            console.log("Generating AI description...");
+console.log("Hotel:", name);
+console.log("Location:", location);
+const desc=await generateHotelDescription({
+    hotelName:name,
+    location
+});
+console.log("AI DESCRIPTION:", desc);
             const image=req.file ? req.file.filename :"default.png";
             const adminUser=await this.adminUserRepo.findUserById(req.adminId);
 

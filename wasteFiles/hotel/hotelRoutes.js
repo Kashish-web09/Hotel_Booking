@@ -1,8 +1,8 @@
 import express from 'express';
 import hotelController from './hotelController.js';
-import { upload } from '../../../middleware/fileUploadMiddleware.js';
-import validator from '../../../middleware/commonValidation.js';
-import { hotelrules } from './hotelValidation.js';
+import { upload } from '../../middleware/fileUploadMiddleware.js';
+import validator from '../../middleware/commonValidation.js';
+import { hotelrules } from '../../features/guest/hotel/hotelValidation.js';
 
 const hotelRoutes=express.Router();
 const hotelsController=new hotelController();
