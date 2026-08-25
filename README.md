@@ -1,315 +1,105 @@
-# 🏨 Hotel Booking Management System
+# Bradmate — Hotel Booking Management System
 
-A full-stack **Hotel Booking Management System** built using **Node.js, Express.js, MongoDB, Mongoose, and EJS**.
+Bradmate is a full-stack **hotel booking and management system** built with Node.js, Express.js, MongoDB, Mongoose, EJS, Bootstrap, JWT authentication, and role-based access control.
 
-The application provides separate workflows for **Guests and Administrators**, including authentication, authorization, hotel and room management, room search, booking management, feedback management, profile management, email notifications, validation, logging, and an admin dashboard with business statistics.
-
----
-
-## 🌐 Live Repository
-
-[Hotel Booking Management System — GitHub Repository](https://github.com/Kashish-web09/Hotel_Booking?utm_source=chatgpt.com)
+The project uses a **feature-based architecture** where the `features/user` module contains functionality for both **guest and admin users**, with access controlled through authentication and authorization middleware.
 
 ---
 
-## 📌 Project Overview
+## 🚀 Features
 
-Hotel Booking Management System is a full-stack web application designed to manage hotel operations and guest bookings.
+### 👤 User / Guest
 
-The application has two primary user roles:
-
-* 👤 **Guest**
-* 🛡️ **Administrator**
-
-Guests can browse hotels and rooms, search for suitable rooms, make and manage bookings, submit feedback, and manage their profiles.
-
-Administrators can manage hotels, rooms, bookings, users, feedback, and their own profile through a dedicated admin dashboard.
-
-The project also includes a reusable **email service using Nodemailer**, application logging using **Winston**, file uploads using **Multer**, and API documentation using **Swagger**.
-
-> **Project Status:** Core functionality is implemented, including authentication, authorization, validation, email services, guest/admin profiles, hotel and room management, booking workflows, feedback management, logging, and admin dashboard features.
-
----
-
-# 🚀 Features
-
-## 👤 Guest Features
-
-### Authentication
-
-* User registration
-* User login
-* Logout
+* User registration and login
 * JWT-based authentication
-* Cookie-based authentication
-* Forgot password
-* Password reset through email
-* Secure password hashing using bcrypt
+* Profile management
+* Hotel browsing
+* Hotel details
+* Room browsing
+* Room details
+* Room booking
+* Booking history
+* Booking details
+* Payment records
+* Travel and destination information
+* Contact/feedback submission
+* Password reset functionality
 
-### Hotel & Room
+### 👨‍💼 Admin
 
-* Browse hotels
-* Search hotels
-* View hotel details
-* View available rooms
-* Search rooms
-* Filter rooms
-* View room details
+Administrators can access protected functionality for:
 
-### Booking
+* Admin dashboard
+* Hotel management
+* Room management
+* Booking management
+* Payment management
+* User/profile management
+* Destination/travel management
+* Feedback/contact management
 
-* Create bookings
-* Check room availability
-* Validate booking dates
-* Validate guest capacity
-* View booking details
-* View booking history
-* Manage bookings
-* Cancel bookings
-* Receive booking confirmation emails
-* Receive booking status emails
+The project does **not duplicate the complete feature structure into separate `guest` and `admin` folders**. Instead, common functionality is organized under:
 
-### Profile
+```text
+features/user/
+```
 
-* View guest profile
-* Update guest profile
-* Change password
-* Receive profile update email
-
-### Feedback
-
-* Submit feedback
-* Receive feedback status updates
-
-### Other
-
-* About Us page
-* Contact functionality
+Role-specific access is controlled using middleware.
 
 ---
 
-# 🛡️ Admin Features
+## 🛠️ Tech Stack
 
-## Authentication & Authorization
+### Backend
 
-* Admin login
-* Admin logout
-* JWT-based authentication
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
 * Cookie-based authentication
+* MVC architecture
+* Repository pattern
 * Role-based authorization
-* Protected admin routes
+* Multer
 
-## Dashboard
+### Frontend
 
-The admin dashboard provides:
+* EJS
+* HTML5
+* CSS3
+* Bootstrap
+* JavaScript
 
-* Total Users
-* Total Hotels
-* Total Rooms
-* Total Bookings
-* Total Revenue
-* Recent Bookings
-* Confirmed Bookings
+### Services
 
-## Hotel Management
+* Email Service
+* AI Service
+* Application-level error handling
+* Logging
+* Swagger/OpenAPI
 
-* Add hotels
-* View hotels
-* Update hotel information
-* Manage hotel information
+### Planned Integrations
 
-## Room Management
-
-* Add rooms
-* View rooms
-* Update rooms
-* Manage room details
-* Upload room images
-* Manage room status
-
-## Booking Management
-
-* View bookings
-* View booking details
-* Update booking status
-* Manage guest bookings
-
-## Feedback Management
-
-* View guest feedback
-* Review feedback
-* Update feedback status
-* Send feedback status notifications
-
-## User Management
-
-* View users
-* Manage guest accounts
-
-## Admin Profile
-
-* View admin profile
-* Update admin profile
-* Change password
-* Receive profile update email
+* Razorpay
+* AI-powered travel assistant
+* AI hotel recommendations
+* Notifications
+* Analytics
+* Automated testing
+* CI/CD
 
 ---
 
-# 📧 Email Service
-
-The application includes a dedicated email service using **Nodemailer**.
-
-The email functionality is separated into configuration and service layers:
+## 📁 Project Structure
 
 ```text
-emailService/
-├── emailConfig.js
-└── emailService.js
-```
-
-The reusable email service handles multiple application workflows.
-
-### ✉️ Available Email Notifications
-
-#### 1. Welcome Email
-
-Sent to a guest after successful registration.
-
-```text
-Guest Registration
-       ↓
-User Created
-       ↓
-Welcome Email
-```
-
-#### 2. New User Registration Notification
-
-An email is sent to the admin when a new guest registers.
-
-```text
-New Guest Registration
-       ↓
-Admin Notification Email
-```
-
-#### 3. Booking Confirmation
-
-Guests receive a confirmation email after their booking is confirmed.
-
-```text
-Booking Confirmed
-       ↓
-Booking Confirmation Email
-```
-
-#### 4. Booking Status Updates
-
-Guests can receive emails based on booking status, including:
-
-* Confirmed
-* Completed
-* Cancelled
-* Other status updates
-
-#### 5. Profile Update Notification
-
-Guests and administrators can receive an email confirming that their profile has been updated.
-
-#### 6. New Feedback Notification
-
-The admin receives an email when a guest submits new feedback.
-
-#### 7. Feedback Status Update
-
-Guests receive an email when the status of their feedback is updated.
-
-#### 8. Password Reset Email
-
-When a guest requests a password reset, the application sends a password reset link through email.
-
-```text
-Forgot Password
-       ↓
-Generate Reset Token
-       ↓
-Create Reset URL
-       ↓
-Send Email
-       ↓
-User Opens Link
-       ↓
-Reset Password
-```
-
-The email service uses a reusable `sendEmail()` function to send HTML emails through the configured transporter.
-
----
-
-# 🧰 Tech Stack
-
-| Category          | Technologies                            |
-| ----------------- | --------------------------------------- |
-| Frontend          | HTML5, CSS3, JavaScript, Bootstrap, EJS |
-| Backend           | Node.js, Express.js                     |
-| Database          | MongoDB, Mongoose                       |
-| Authentication    | JWT, Cookies, bcrypt                    |
-| Validation        | Express Validator                       |
-| Email             | Nodemailer                              |
-| File Upload       | Multer                                  |
-| Logging           | Winston                                 |
-| Configuration     | dotenv                                  |
-| API Documentation | Swagger                                 |
-| Version Control   | Git, GitHub                             |
-
----
-
-# 🏗️ Architecture
-
-The project follows a **feature-based architecture** with separation of responsibilities between routes, middleware, controllers, repositories, and models.
-
-## Request Flow
-
-```text
-Client Request
-      ↓
-    Route
-      ↓
-  Middleware
-      ↓
-  Controller
-      ↓
-  Repository
-      ↓
- Mongoose Model
-      ↓
-   MongoDB
-```
-
-## Protected Request Flow
-
-```text
-Request
-   ↓
-JWT Authentication
-   ↓
-Authorization
-   ↓
-Controller
-   ↓
-Business / Database Logic
-   ↓
-MongoDB
-```
-
-This architecture keeps routing, authentication, authorization, business logic, and database operations separated and maintainable.
-
----
-
-# 📁 Project Structure
-
-```text
-HOTEL_BOOKING/
+bradmate/
+│
+├── aiService/
+│   ├── aiController.js
+│   ├── aiRoutes.js
+│   └── aiService.js
 │
 ├── config/
 │   ├── mongoDb.js
@@ -317,434 +107,583 @@ HOTEL_BOOKING/
 │
 ├── emailService/
 │   ├── emailConfig.js
-│   └── emailService.js
+│   └── emailServices.js
 │
 ├── errorFile/
 │   └── applicationLevelError.js
 │
 ├── features/
-│   │
-│   ├── admin/
-│   │   ├── adminAuth/
-│   │   ├── adminDashboard/
-│   │   ├── booking/
-│   │   ├── contact/
-│   │   ├── hotel/
-│   │   ├── profile/
-│   │   └── rooms/
-│   │
-│   └── guest/
+│   └── user/
+│       │
 │       ├── booking/
+│       │   ├── bookingController.js
+│       │   ├── bookingRepository.js
+│       │   ├── bookingRoutes.js
+│       │   ├── bookingSchema.js
+│       │   └── bookingValidation.js
+│       │
 │       ├── contact/
+│       │   ├── contactController.js
+│       │   ├── contactRepository.js
+│       │   ├── contactRoutes.js
+│       │   ├── contactSchema.js
+│       │   └── contactValidation.js
+│       │
 │       ├── dashboard/
+│       │   ├── dashController.js
+│       │   └── dashRoutes.js
+│       │
 │       ├── hotel/
-│       ├── profile/
+│       │   ├── hotelController.js
+│       │   ├── hotelRepository.js
+│       │   ├── hotelRoutes.js
+│       │   ├── hotelSchema.js
+│       │   └── hotelValidation.js
+│       │
+│       ├── payment/
+│       │   ├── paymentController.js
+│       │   ├── paymentRepository.js
+│       │   └── paymentRoutes.js
+│       │
 │       ├── rooms/
+│       │   ├── roomsController.js
+│       │   ├── roomsRepository.js
+│       │   ├── roomsRoutes.js
+│       │   ├── roomsSchema.js
+│       │   └── roomsValidation.js
+│       │
+│       ├── travel/
+│       │   ├── travelController.js
+│       │   ├── travelRepository.js
+│       │   ├── travelRoutes.js
+│       │   ├── travelSchema.js
+│       │   └── travelValidation.js
+│       │
 │       └── userAuth/
+│           ├── userController.js
+│           ├── userRepository.js
+│           ├── userRoutes.js
+│           ├── userSchema.js
+│           └── userValidation.js
 │
 ├── middleware/
-│   ├── adminJwtAuthMiddleware.js
+│   ├── adminMiddleware.js
 │   ├── commonValidation.js
 │   ├── fileUploadMiddleware.js
 │   ├── jwtAuthMiddleware.js
 │   └── loggerMiddleware.js
 │
 ├── public/
-│   └── css/
-│       └── style.css
+│   ├── css/
+│   └── images/
 │
 ├── uploads/
 │
 ├── views/
-│   ├── admin/
-│   ├── guest/
 │   ├── layout/
-│   │   ├── adminLayout.ejs
 │   │   └── layout.ejs
-│   └── partials/
-│       ├── adminNavbar.ejs
-│       ├── footer.ejs
-│       └── navbar.ejs
+│   ├── partials/
+│   │   ├── adminNavbar.ejs
+│   │   ├── footer.ejs
+│   │   └── navbar.ejs
+│   ├── errorPages/
+│   │   ├── 404Error.ejs
+│   │   └── 500Error.ejs
+│   └── *.ejs
 │
-├── logs/
-│   ├── combined.log
-│   └── error.log
-│
-├── swagger.json
-├── .env
-├── .gitignore
 ├── app.js
 ├── package.json
+├── package-lock.json
+├── swagger.json
+├── .env
 └── README.md
 ```
 
 ---
 
-# 🔐 Authentication & Authorization
+## 🏗️ Architecture
 
-Authentication is implemented using **JWT, HTTP cookies, and bcrypt**.
+Bradmate follows a **feature-based MVC + Repository architecture**.
 
-The application separates Guest and Admin access through dedicated authentication and authorization middleware.
-
-## Guest Authentication
+The typical request flow is:
 
 ```text
-Guest
+Client
   ↓
-Registration / Login
+Route
   ↓
-JWT Generated
+Authentication / Authorization Middleware
   ↓
-JWT Stored in Cookie
+Controller
   ↓
-Authentication Middleware
+Repository
   ↓
-Protected Guest Routes
+Mongoose
+  ↓
+MongoDB
 ```
 
-## Admin Authentication
+### Controller
+
+Controllers handle:
+
+* HTTP requests
+* Business-flow logic
+* Response handling
+* Role-specific operations
+
+### Repository
+
+Repositories handle database operations and keep MongoDB queries separate from controllers.
+
+### Schema
+
+Mongoose schemas define the structure of MongoDB documents.
+
+### Validation
+
+Validation modules validate incoming request data before it reaches the main business logic.
+
+---
+
+## 👥 Guest + Admin System
+
+The `features/user` directory contains both **guest-facing and admin-related functionality**.
+
+For example:
 
 ```text
-Admin
-  ↓
-Admin Login
-  ↓
-Admin JWT Generated
-  ↓
-JWT Stored in Cookie
-  ↓
-Admin Authentication Middleware
-  ↓
-Role Authorization
-  ↓
-Protected Admin Routes
+features/user/
+├── booking/
+├── contact/
+├── dashboard/
+├── hotel/
+├── payment/
+├── rooms/
+├── travel/
+└── userAuth/
 ```
 
-Passwords are hashed using **bcrypt** before being stored in MongoDB.
+The same feature can contain operations for both roles.
 
-### Protected Admin Route
+For example:
 
-```js
-app.use('/api/admin/hotel', adminUser, hotelRoutes);
+```text
+Hotel
+├── Guest → View hotels
+└── Admin → Add / edit / delete hotels
 ```
 
-### Protected Guest Route
+```text
+Room
+├── Guest → View rooms
+└── Admin → Add / edit / delete rooms
+```
 
-```js
-app.use('/api/guest/booking', currentUser, bookingRoutes);
+```text
+Booking
+├── Guest → Create/view bookings
+└── Admin → Manage bookings
+```
+
+Access is controlled through:
+
+```text
+JWT Authentication
+        ↓
+Identify User
+        ↓
+Identify Role
+        ↓
+Admin Middleware (when required)
+        ↓
+Controller
+```
+
+This avoids unnecessarily duplicating controllers and repositories between separate `guest` and `admin` folders.
+
+---
+
+## 🔐 Authentication & Authorization
+
+Bradmate uses JWT authentication.
+
+The authentication process is:
+
+```text
+Login
+  ↓
+Validate credentials
+  ↓
+Generate JWT
+  ↓
+Store token in cookie
+  ↓
+Authenticated request
+  ↓
+jwtAuthMiddleware
+  ↓
+Decode userId + role
+  ↓
+Allow / reject request
+```
+
+Admin-only routes additionally pass through:
+
+```text
+adminMiddleware
+```
+
+This ensures that a normal guest cannot access administrator operations.
+
+---
+
+# 🏨 Core Modules
+
+## User Authentication
+
+Responsible for:
+
+* Registration
+* Login
+* Logout
+* Password management
+* User validation
+* User profile information
+
+## Hotels
+
+Responsible for:
+
+* Hotel listing
+* Hotel details
+* Hotel management
+* Hotel database operations
+
+## Rooms
+
+Responsible for:
+
+* Room listing
+* Room details
+* Room creation
+* Room editing
+* Room management
+* Availability-related operations
+
+## Booking
+
+Responsible for:
+
+* Creating bookings
+* Booking details
+* Booking history
+* Booking management
+* Booking validation
+
+## Payment
+
+Responsible for:
+
+* Payment records
+* Payment history
+* Payment status
+* Admin payment management
+
+## Travel
+
+Responsible for:
+
+* Destinations
+* Travel information
+* Destination management
+* Travel-related content
+
+## Contact / Feedback
+
+Responsible for:
+
+* Contact forms
+* Feedback submission
+* Feedback management
+* Feedback status
+
+## Dashboard
+
+Provides:
+
+* User dashboard
+* Admin dashboard
+* Application statistics
+* Booking-related information
+
+---
+
+# 🤖 AI Service
+
+Bradmate already contains an AI service layer:
+
+```text
+aiService/
+├── aiController.js
+├── aiRoutes.js
+└── aiService.js
+```
+
+The AI service is designed to become an intelligent layer of the application.
+
+### Future AI Features
+
+* AI travel assistant
+* Hotel recommendations
+* Destination recommendations
+* Personalized travel suggestions
+* Budget-based hotel recommendations
+* Natural-language hotel search
+* AI itinerary generation
+* Trip planning
+* Recommendation based on previous bookings
+
+Example:
+
+```text
+User:
+"I want a 3-day budget trip to Shimla."
+
+        ↓
+
+AI Service
+
+        ↓
+
+Destination + Hotel + Room
+Recommendations
+
+        ↓
+
+Suggested Itinerary
 ```
 
 ---
 
-# 👤 Profile Management
+# 💳 Razorpay Integration — Future
 
-Both Guest and Admin users have dedicated profile functionality.
+Razorpay will be integrated as the application's online payment gateway.
 
-## Guest Profile
-
-Guests can:
-
-* View profile
-* Update profile details
-* Change password
-* Manage account information
-* Receive profile update notification emails
-
-## Admin Profile
-
-Administrators can:
-
-* View admin profile
-* Update profile details
-* Change password
-* Manage administrator account information
-* Receive profile update notification emails
-
----
-
-# 🏨 Hotel & Room Management
-
-Administrators can manage hotel and room information through the admin panel.
-
-## Admin Workflow
+Planned flow:
 
 ```text
-Admin Login
-     ↓
-Admin Dashboard
-     ↓
-Manage Hotels
-     ↓
-Add / Manage Rooms
-     ↓
-Upload Room Images
-     ↓
-Manage Room Details
-```
-
-## Room Information
-
-Rooms support information such as:
-
-* Room number
-* Room type
-* Floor
-* Maximum guests
-* Bed type
-* Bed count
-* Price per night
-* Room size
-* Amenities
-* Room images
-* Room status
-* AC availability
-* Balcony availability
-* Smoking policy
-* Room description
-
-## Room Status
-
-```text
-Available
-Maintenance
-Cleaning
-```
-
----
-
-# 📅 Booking Workflow
-
-The guest booking workflow is:
-
-```text
-Search Hotel
-     ↓
-View Hotel Details
-     ↓
-View Available Rooms
-     ↓
 Select Room
-     ↓
-Enter Booking Details
-     ↓
-Validate Booking
-     ↓
-Check Room Availability
-     ↓
+    ↓
 Create Booking
-     ↓
-View Booking Details
-     ↓
-Manage / Cancel Booking
+    ↓
+Create Razorpay Order
+    ↓
+Razorpay Checkout
+    ↓
+Payment
+    ↓
+Server-side Signature Verification
+    ↓
+Update Payment Status
+    ↓
+Update Booking Status
+    ↓
+Send Confirmation Email
 ```
 
-## Booking Information
-
-A booking contains:
-
-* User
-* Room
-* Check-in date
-* Check-out date
-* Number of guests
-* Price per night
-* Total amount
-* Booking status
-
-## Booking Status
+Possible payment states:
 
 ```text
 Pending
-Confirmed
-Cancelled
-Completed
+Paid
+Failed
+Refunded
 ```
+
+Future implementation will also include:
+
+* Razorpay webhooks
+* Payment verification
+* Refund processing
+* Failed-payment handling
+* Payment reconciliation
 
 ---
 
-# 💬 Feedback Management
+# 📧 Email Service
 
-Guests can submit feedback through the application.
-
-Administrators can:
-
-* View guest feedback
-* Review feedback
-* Update feedback status
-* Notify guests about feedback status changes
-
-## Feedback Flow
+Bradmate contains an email service layer:
 
 ```text
-Guest
-  ↓
-Submit Feedback
-  ↓
-Validation
-  ↓
-MongoDB
-  ↓
-Admin Dashboard
-  ↓
-Review / Update Status
-  ↓
-Guest Notification Email
+emailService/
+├── emailConfig.js
+└── emailServices.js
+```
+
+Potential email notifications include:
+
+* Registration confirmation
+* Booking confirmation
+* Payment confirmation
+* Booking cancellation
+* Password reset
+* Admin notifications
+
+Future improvements can include reusable HTML email templates and transactional email tracking.
+
+---
+
+# 📊 Future Implementations
+
+## 1. Razorpay Payment Gateway
+
+* [ ] Razorpay order creation
+* [ ] Razorpay Checkout
+* [ ] Server-side payment verification
+* [ ] Payment webhooks
+* [ ] Refund system
+* [ ] Payment reconciliation
+
+## 2. AI Travel Assistant
+
+* [ ] AI chatbot
+* [ ] Hotel recommendations
+* [ ] Destination recommendations
+* [ ] AI itinerary generation
+* [ ] Budget planning
+* [ ] Natural-language search
+
+## 3. Advanced Search
+
+* [ ] Destination filtering
+* [ ] Price filtering
+* [ ] Room type filtering
+* [ ] Hotel rating filtering
+* [ ] Amenities filtering
+* [ ] Availability filtering
+* [ ] Price/rating sorting
+
+## 4. Reviews & Ratings
+
+* [ ] Hotel reviews
+* [ ] Star ratings
+* [ ] Verified-user reviews
+* [ ] Review moderation
+* [ ] Average hotel ratings
+
+## 5. Notifications
+
+* [ ] Booking notifications
+* [ ] Payment notifications
+* [ ] Cancellation notifications
+* [ ] Email notifications
+* [ ] Admin alerts
+
+## 6. Admin Analytics
+
+Planned dashboard analytics:
+
+* [ ] Total users
+* [ ] Total bookings
+* [ ] Total revenue
+* [ ] Occupancy rate
+* [ ] Popular hotels
+* [ ] Popular destinations
+* [ ] Monthly revenue
+* [ ] Booking trends
+* [ ] User growth
+
+## 7. Security Improvements
+
+* [ ] Rate limiting
+* [ ] Helmet
+* [ ] CSRF protection
+* [ ] Input sanitization
+* [ ] Strong password policies
+* [ ] Refresh-token strategy
+* [ ] Secure production cookies
+* [ ] Audit logs
+* [ ] Better authorization checks
+
+## 8. Automated Testing
+
+Planned testing with:
+
+* Jest
+* Supertest
+
+Testing areas:
+
+* [ ] Authentication
+* [ ] Authorization
+* [ ] Booking APIs
+* [ ] Hotel APIs
+* [ ] Room APIs
+* [ ] Payment APIs
+* [ ] Validation
+* [ ] Repository functions
+
+## 9. Deployment & DevOps
+
+* [ ] Docker
+* [ ] Production environment configuration
+* [ ] CI/CD
+* [ ] Cloud deployment
+* [ ] Health-check endpoint
+* [ ] Production monitoring
+* [ ] Centralized logging
+
+---
+
+# ⚙️ Installation
+
+### 1. Clone the project
+
+```bash
+git clone <your-repository-url>
+cd hotel_booking
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file.
+
+Example:
+
+```env
+PORT=9090
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+
+EMAIL_USER=your_email
+EMAIL_PASSWORD=your_email_password
+
+AI_API_KEY=your_ai_api_key
+
+RAZORPAY_KEY_ID=your_razorpay_key
+RAZORPAY_KEY_SECRET=your_razorpay_secret
+```
+
+Never commit `.env` to Git.
+
+### 4. Start the application
+
+```bash
+npm start
 ```
 
 ---
 
-# 📊 Admin Dashboard
+# 📝 Logging
 
-The admin dashboard provides a centralized overview of application activity.
-
-## Dashboard Metrics
-
-```text
-┌──────────────────────────────┐
-│ Total Users                  │
-│ Total Hotels                 │
-│ Total Rooms                  │
-│ Total Bookings               │
-│ Total Revenue                │
-│ Recent Bookings              │
-│ Confirmed Bookings           │
-└──────────────────────────────┘
-```
-
-This allows administrators to monitor the overall activity and booking performance of the hotel booking system.
-
----
-
-# 🗄️ Database
-
-The application uses **MongoDB** with **Mongoose** for schema definition, data modeling, and database operations.
-
-## Main Entities
-
-```text
-User
-Hotel
-Room
-Booking
-Feedback
-```
-
-## Entity Relationship
-
-```text
-User
-  │
-  ├──── Booking
-  │        │
-  │        └──── Room
-  │               │
-  │               └──── Hotel
-  │
-  └──── Feedback
-```
-
-MongoDB references connect users, bookings, rooms, hotels, and feedback.
-
----
-
-# ✅ Validation
-
-The application implements validation across the major workflows using **Express Validator** and application-level validation.
-
-## User Validation
-
-* Name validation
-* Email validation
-* Mobile number validation
-* Password validation
-* Confirm password validation
-
-## Authentication Validation
-
-* Login validation
-* Email format validation
-* Password validation
-* Forgot password email validation
-* Reset password validation
-
-## Hotel Validation
-
-* Required hotel fields
-* Hotel information validation
-* Data format validation
-
-## Room Validation
-
-* Room number validation
-* Room type validation
-* Maximum guest validation
-* Bed type validation
-* Bed count validation
-* Room price validation
-* Room size validation
-* Room status validation
-* Image upload validation
-
-## Booking Validation
-
-```text
-Check-out > Check-in
-
-Guests >= 1
-
-Guests <= Room maximum capacity
-
-Room price > 0
-
-Room must be available for selected dates
-```
-
-## Feedback Validation
-
-* Required fields
-* Input validation
-* Data format validation
-
-Validation errors are handled and displayed appropriately to users.
-
----
-
-# 🔒 Security
-
-The application includes several security mechanisms:
-
-* bcrypt password hashing
-* JWT authentication
-* Cookie-based authentication
-* Protected routes
-* Role-based authorization
-* Admin authorization middleware
-* Request validation
-* Environment variables for sensitive configuration
-* File upload middleware
-* Password reset token workflow
-* Application logging
-
-## Future Security Hardening
-
-Potential production-level improvements include:
-
-* Rate limiting
-* Helmet
-* CSRF protection
-* Stronger cookie configuration
-* Additional input sanitization
-* Advanced security monitoring
-
----
-
-# 🧪 Error Handling & Logging
-
-The application includes application-level error handling and logging.
-
-## Winston Logging
-
-**Winston** is used for application logging.
+Application logs are stored inside:
 
 ```text
 logs/
@@ -752,225 +691,120 @@ logs/
 └── error.log
 ```
 
-## Error Handling
-
-The application handles errors including:
-
-* Validation errors
-* Authentication errors
-* Authorization errors
-* Invalid MongoDB ObjectIds
-* Database errors
-* Booking availability errors
-* File upload errors
-* Application-level errors
+Logging can be extended for production monitoring and debugging.
 
 ---
 
 # 📚 API Documentation
 
-The project includes a **Swagger API specification**:
+Swagger/OpenAPI documentation is maintained in:
 
 ```text
 swagger.json
 ```
 
-The Swagger specification documents the application's API endpoints, including available routes, HTTP methods, parameters, request structures, and responses.
-
-It can be used during development to understand and test the backend API.
+As new endpoints are added, the Swagger documentation can be expanded accordingly.
 
 ---
 
-# ⚙️ Getting Started
+# 🎯 Development Roadmap
 
-## Prerequisites
+### Completed
 
-Make sure you have installed:
+* [x] User authentication
+* [x] JWT authentication
+* [x] Role-based authorization
+* [x] Hotel module
+* [x] Room module
+* [x] Booking module
+* [x] Payment module
+* [x] Travel module
+* [x] Contact/feedback module
+* [x] User profile
+* [x] Email service
+* [x] AI service foundation
+* [x] Feature-based architecture
+* [x] Repository pattern
+* [x] Application logging
+* [x] Swagger foundation
 
-* Node.js
-* npm
-* MongoDB or MongoDB Atlas
-* Git
+### Upcoming
 
----
-
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/Kashish-web09/Hotel_Booking.git
-```
-
----
-
-## 2. Navigate to the Project
-
-```bash
-cd Hotel_Booking
-```
-
----
-
-## 3. Install Dependencies
-
-```bash
-npm install
-```
-
----
-
-## 4. Configure Environment Variables
-
-Create a `.env` file in the project root.
-
-Example:
-
-```env
-PORT=9090
-
-MONGO_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_jwt_secret
-
-EMAIL_USER=your_email
-EMAIL_PASSWORD=your_email_app_password
-```
-
-Add any additional environment variables required by your local configuration.
-
-> ⚠️ **Never commit `.env` to GitHub.** Keep MongoDB credentials, JWT secrets, email credentials, and other sensitive configuration private.
-
----
-
-## 5. Start the Application
-
-```bash
-npm start
-```
-
-The application will run at:
-
-```text
-http://localhost:9090
-```
-
----
-
-# 🔄 Application Workflows
-
-## Guest Workflow
-
-```text
-Register
-   ↓
-Login
-   ↓
-Guest Dashboard
-   ↓
-Search Hotel / Rooms
-   ↓
-View Room
-   ↓
-Book Room
-   ↓
-Check Availability
-   ↓
-Booking Confirmation
-   ↓
-View / Manage Booking
-   ↓
-Profile / Feedback
-```
-
-## Admin Workflow
-
-```text
-Admin Login
-   ↓
-Admin Dashboard
-   ↓
-View Statistics
-   ↓
-Manage Hotels
-   ↓
-Manage Rooms
-   ↓
-Manage Bookings
-   ↓
-Manage Feedback
-   ↓
-Manage Users
-   ↓
-Admin Profile
-```
-
----
-
-# 📈 Future Improvements
-
-The core application functionality is implemented.
-
-Possible future improvements include:
-
+* [ ] Razorpay integration
+* [ ] AI travel assistant
+* [ ] AI hotel recommendation engine
+* [ ] Reviews and ratings
+* [ ] Advanced search
+* [ ] Notification system
+* [ ] Admin analytics
 * [ ] Automated testing
-* [ ] Rate limiting
-* [ ] Helmet security middleware
-* [ ] CSRF protection
-* [ ] Payment gateway integration
-* [ ] Hotel ratings and reviews
+* [ ] Docker
+* [ ] CI/CD
 * [ ] Production deployment
-* [ ] Advanced analytics
-* [ ] Improved responsive UI/UX
-* [ ] Enhanced API documentation
 
 ---
 
-# 🎯 Learning Outcomes
+# 💡 Why Bradmate?
 
-Through this project, I gained practical experience with:
+Bradmate is designed to demonstrate how a real-world hotel booking platform can be structured using a scalable backend architecture.
 
-* Full-stack web application development
-* Node.js
-* Express.js
-* REST API development
-* MongoDB
-* Mongoose
-* JWT authentication
-* Cookie-based authentication
-* Role-based authorization
-* Middleware design
-* MVC architecture
-* Feature-based project organization
-* Repository pattern
-* EJS server-side rendering
-* File uploads using Multer
-* Form validation
-* Error handling
-* Email services using Nodemailer
-* Password reset workflows
-* Application logging using Winston
-* Swagger API documentation
-* Git and GitHub
+The feature-based approach keeps:
 
----
+```text
+Routes
+Controllers
+Repositories
+Schemas
+Validation
+```
 
-# 👨‍💻 Author
+organized by business functionality rather than putting everything into large global folders.
 
-## Kashish Narang
+This makes the application easier to:
 
-**Full Stack Developer**
-
-`JavaScript` • `Node.js` • `Express.js` • `MongoDB` • `React`
-
-### GitHub
-
-[Kashish-web09 — GitHub](https://github.com/Kashish-web09?utm_source=chatgpt.com)
-
-### Project Repository
-
-[Hotel Booking Management System](https://github.com/Kashish-web09/Hotel_Booking?utm_source=chatgpt.com)
+* Maintain
+* Debug
+* Test
+* Scale
+* Add new features
+* Integrate third-party services
+* Implement role-based access
 
 ---
 
-# 📄 License
+# 🌍 Future Vision
 
-This project is developed for **learning and portfolio purposes**.
+Bradmate aims to evolve from a hotel booking application into an **AI-powered travel platform** combining:
+
+```text
+Hotel Discovery
+       +
+Room Booking
+       +
+Online Payments
+       +
+Travel Planning
+       +
+AI Recommendations
+       +
+Personalized Experiences
+       +
+Admin Management
+```
+
+The long-term goal is to provide users with a complete platform for **discovering destinations, finding hotels, planning trips, booking rooms, making payments, and receiving intelligent AI-powered travel recommendations.**
+
+---
+
+## 👨‍💻 Project Information
+
+**Project:** Bradmate
+**Type:** Hotel Booking & Management System
+**Architecture:** Feature-based MVC + Repository Pattern
+**Backend:** Node.js + Express.js
+**Database:** MongoDB + Mongoose
+**Frontend:** EJS + Bootstrap
+**Authentication:** JWT
+**Payments:** Razorpay — planned
+**AI:** AI Service — foundation implemented
+**API Documentation:** Swagger/OpenAPI
