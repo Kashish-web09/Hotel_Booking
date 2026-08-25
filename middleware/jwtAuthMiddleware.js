@@ -15,7 +15,6 @@ req.userId=payload.userId;
 req.role=payload.role
 res.locals.isLogin=true;
 res.locals.role=payload.role;
-        console.log("CURRENT USER ROLE:", res.locals.role);
 
 
 next();

@@ -14,7 +14,7 @@ import feedbackRoutes from './features/guest/contact/contactRoutes.js';
 import userAuth from './features/guest/userAuth/userRoutes.js';
 // import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
 // import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
-// import feedbackRoute from './features/admin/contact/contactRoutes.js';
+// import feedbackRoute from './features/contact/contactRoutes.js';
 // import roomRoutes from './features/admin/rooms/roomsRoutes.js';
 import roomRoute from './features/guest/rooms/roomsRoutes.js';
 import bookingRoutes from './features/guest/booking/bookingRoutes.js';
@@ -25,12 +25,13 @@ import dashRoutes from './features/guest/dashboard/dashRoutes.js';
 import hotelRoute from './features/guest/hotel/hotelRoutes.js';
 import profileRoutes from './features/guest/profile/profileRoutes.js';
 // import profileRoute from './features/admin/profile/profileRoutes.js';
-// import travelRoutes from './features/admin/travel/travelRoutes.js';
+// import travelRoutes from './features/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
 import paymentRoutes from './features/guest/payment/paymentRoutes.js';
 // import paymentRoute from './features/admin/payment/paymentRoutes.js';
 import router from './aiService/aiRoutes.js';
+import travelRoutes from './features/guest/travel/travelRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`
@@ -70,23 +71,24 @@ app.use((req,res,next)=>{
 
 // guest routes
 app.use('/api/auth',userAuth);
-app.use('/',dashRoutes)
+app.use('/',currentUser,dashRoutes)
 app.use('/api/auth/profile',currentUser,profileRoutes)
 app.use('/api/feedback',currentUser,feedbackRoutes)
 app.use('/api/hotel',currentUser,hotelRoute)
 app.use('/api/rooms',currentUser,roomRoute)
 app.use('/api/payment',currentUser,paymentRoutes)
 app.use('/api/booking',currentUser,bookingRoutes)
+app.use('/api/travel',currentUser,travelRoutes)
 // admin routes
 // app.use('/api/admin',adminUserRoutes) 
 
-// app.use('/api/admin/dashboard',adminUser,adminDashRoutes)
+// app.use('/api/dashboard/admin',adminUser,adminDashRoutes)
 // app.use('/api/admin/profile',adminUser,profileRoute)
-// app.use('/api/admin/feedback',adminUser,feedbackRoute)
+// app.use('/api/feedback',adminUser,feedbackRoute)
 // app.use('/api/admin/hotel',adminUser,hotelRoutes)
 // app.use('/api/admin/payment',adminUser,paymentRoute)
 // app.use('/api/admin/rooms',adminUser,roomRoutes)
-// app.use('/api/admin/travel',adminUser,travelRoutes)
+// app.use('/api/travel',adminUser,travelRoutes)
 // app.use('/api/admin/booking',adminUser,bookingRoute);
 
 

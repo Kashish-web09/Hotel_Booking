@@ -96,7 +96,6 @@ async hotelDetailsPage(req, res, next) {
     }
         async addHotel(req,res,next){
             try {
-                        console.log("🔥 ADD HOTEL CONTROLLER HIT");
     
                 if(req.validationErrors){
                     return res.render('addHotel',{

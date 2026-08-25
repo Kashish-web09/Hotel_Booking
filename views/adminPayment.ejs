@@ -1,0 +1,207 @@
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Payment History</h2>
+            <p class="text-muted mb-0">Manage and monitor all hotel payments</p>
+        </div>
+        <span class="badge bg-primary px-3 py-2">Total Payments: <%= payments.length %></span>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+        <%
+            const successCount = payments.filter(p => p.status === "Success").length;
+            const pendingCount = payments.filter(p => p.status === "Pending").length;
+            const refundedCount = payments.filter(p => p.status === "Refunded").length;
+        %>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Total Payments</p>
+                        <h4 class="fw-bold mb-0"><%= payments.length %></h4>
+                    </div>
+                    <i class="bi bi-credit-card fs-2 text-primary"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Successful</p>
+                        <h4 class="fw-bold mb-0"><%= successCount %></h4>
+                    </div>
+                    <i class="bi bi-check-circle fs-2 text-success"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Pending</p>
+                        <h4 class="fw-bold mb-0"><%= pendingCount %></h4>
+                    </div>
+                    <i class="bi bi-clock fs-2 text-warning"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body d-flex justify-content-between">
+                    <div>
+                        <p class="text-muted mb-1">Refunded</p>
+                        <h4 class="fw-bold mb-0"><%= refundedCount %></h4>
+                    </div>
+                    <i class="bi bi-arrow-counterclockwise fs-2 text-danger"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Table -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0">Payment Transactions</h5>
+
+                <!-- Search -->
+                <form action="/api/payment/search" method="GET" class="d-flex gap-2">
+                    <input type="text" name="bookingId" class="form-control" placeholder="Search by booking ID..." value="<%= bookingId || '' %>">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <% if (!payments || payments.length === 0) { %>
+                <div class="text-center py-5">
+                    <i class="bi bi-credit-card fs-1 text-muted"></i>
+                    <h5 class="mt-3">No payments found</h5>
+                    <p class="text-muted mb-0">Payment transactions will appear here.</p>
+                </div>
+            <% } else { %>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-3">#</th>
+                                <th>Payment ID</th>
+                                <th>Booking ID</th>
+                                <th>User ID</th>
+                                <th>Amount</th>
+                                <th>Payment Method</th>
+                                <th>Status</th>
+                                <th>Paid At</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% payments.forEach((payment, index) => { %>
+                                <tr>
+                                    <td class="px-3"><%= index + 1 %></td>
+
+                                    <td>
+                                        <small class="text-muted"><%= payment._id %></small>
+                                    </td>
+
+                                    <td>
+                                        <small><%= payment.bookingId || "—" %></small>
+                                    </td>
+
+                                    <td>
+                                        <small><%= payment.userId || "—" %></small>
+                                    </td>
+
+                                    <td>
+                                        <strong>₹<%= Number(payment.amount).toLocaleString("en-IN") %></strong>
+                                    </td>
+
+                                    <td>
+                                        <% if (payment.paymentMethod === "UPI") { %>
+                                            <span class="badge bg-info text-dark">
+                                                <i class="bi bi-phone"></i> UPI
+                                            </span>
+                                        <% } else if (payment.paymentMethod === "Credit Card") { %>
+                                            <span class="badge bg-primary">
+                                                <i class="bi bi-credit-card"></i> Credit Card
+                                            </span>
+                                        <% } else if (payment.paymentMethod === "NetBanking") { %>
+                                            <span class="badge bg-secondary">
+                                                <i class="bi bi-bank"></i> NetBanking
+                                            </span>
+                                        <% } else { %>
+                                            <span class="badge bg-dark">
+                                                <i class="bi bi-cash"></i> Cash
+                                            </span>
+                                        <% } %>
+                                    </td>
+
+                                    <td>
+                                        <% if (payment.status === "Success") { %>
+                                            <span class="badge bg-success">
+                                                <i class="bi bi-check-circle"></i> Success
+                                            </span>
+                                        <% } else if (payment.status === "Pending") { %>
+                                            <span class="badge bg-warning text-dark">
+                                                <i class="bi bi-clock"></i> Pending
+                                            </span>
+                                        <% } else if (payment.status === "Failed") { %>
+                                            <span class="badge bg-secondary">
+                                                <i class="bi bi-x-circle"></i> Failed
+                                            </span>
+                                        <% } else if (payment.status === "Refunded") { %>
+                                            <span class="badge bg-danger">
+                                                <i class="bi bi-arrow-counterclockwise"></i> Refunded
+                                            </span>
+                                        <% } else { %>
+                                            <span class="badge bg-secondary"><%= payment.status %></span>
+                                        <% } %>
+                                    </td>
+
+                                    <td>
+                                        <% if (payment.paidAt) { %>
+                                            <small><%= new Date(payment.paidAt).toLocaleDateString("en-IN") %></small>
+                                        <% } else { %>
+                                            —
+                                        <% } %>
+                                    </td>
+
+                                    <td>
+                                        <small><%= new Date(payment.createdAt).toLocaleDateString("en-IN") %></small>
+                                    </td>
+
+                                    <td>
+                                        <% if (payment.status === "Success" && payment.paymentMethod !== "Cash") { %>
+                                            <form action="/api/payment/refund?bookingId=<%= payment.bookingId %>" method="POST" onsubmit="return confirm('Are you sure you want to refund this payment?');">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-arrow-counterclockwise"></i> Refund
+                                                </button>
+                                            </form>
+                                        <% } else if (payment.status === "Refunded") { %>
+                                            <span class="badge bg-success">
+                                                <i class="bi bi-check-circle"></i> Refunded
+                                            </span>
+                                        <% } else { %>
+                                            —
+                                        <% } %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,355 @@
+<% if (errors && errors.length > 0) { %>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <% errors.forEach(error => { %>
+                <li><%= error.msg %></li>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
+
+<div class="container-fluid p-4">
+    <div class="mb-4">
+        <h3 class="mb-1">Add Room</h3>
+        <small class="text-muted">Add a new room</small>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form
+                action="/api/rooms/add"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+                <div class="row g-3">
+                    <!-- Hotel -->
+                    <div class="col-md-6">
+                        <label class="form-label">Hotel</label>
+                        <select name="hotelId" class="form-select">
+                            <option value="">Select Hotel</option>
+                            <% hotels.forEach(hotel => { %>
+                                <option value="<%= hotel._id %>">
+                                    <%= hotel.name %> - <%= hotel.city %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <!-- Room Number -->
+                    <div class="col-md-3">
+                        <label class="form-label">Room Number</label>
+                        <input
+                            type="text"
+                            name="roomNumber"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="roomNumber"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Room Type -->
+                    <div class="col-md-3">
+                        <label class="form-label">Room Type</label>
+                        <select name="roomType" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Twin">Twin</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Suite">Suite</option>
+                            <option value="Family">Family</option>
+                            <option value="Executive">Executive</option>
+                        </select>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="roomType"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Floor -->
+                    <div class="col-md-3">
+                        <label class="form-label">Floor</label>
+                        <input
+                            type="number"
+                            name="floor"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="floor"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Max Guests -->
+                    <div class="col-md-3">
+                        <label class="form-label">Max Guests</label>
+                        <input
+                            type="number"
+                            name="maxGuests"
+                            min="1"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="maxGuests"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Bed Type -->
+                    <div class="col-md-3">
+                        <label class="form-label">Bed Type</label>
+                        <select name="bedType" class="form-select">
+                            <option value="">Select</option>
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
+                            <option value="Queen">Queen</option>
+                            <option value="King">King</option>
+                            <option value="Twin">Twin</option>
+                        </select>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="bedType"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Bed Count -->
+                    <div class="col-md-3">
+                        <label class="form-label">Bed Count</label>
+                        <input
+                            type="number"
+                            name="bedCount"
+                            min="1"
+                            value="1"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="bedCount"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="col-md-4">
+                        <label class="form-label">Price / Night</label>
+                        <input
+                            type="number"
+                            name="pricePerNight"
+                            min="0"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="pricePerNight"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="col-md-4">
+                        <label class="form-label">Size (sq ft)</label>
+                        <input
+                            type="number"
+                            name="size"
+                            min="0"
+                            class="form-control"
+                        >
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="size"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-4">
+                        <label class="form-label">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="Available">Available</option>
+                            <option value="Booked">Booked</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Cleaning">Cleaning</option>
+                        </select>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="status"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Amenities -->
+                    <div class="col-md-6">
+                        <label class="form-label">Amenities</label>
+                        <input
+                            type="text"
+                            name="amenities"
+                            class="form-control"
+                            placeholder="WiFi, TV, Mini Bar"
+                        >
+                    </div>
+
+                    <!-- Image -->
+                    <div class="col-md-6">
+                        <label class="form-label">Room Image</label>
+                        <input
+                            type="file"
+                            name="image"
+                            class="form-control"
+                            accept="image/*"
+                        >
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12">
+                        <label class="form-label">Description</label>
+                        <textarea
+                            name="description"
+                            class="form-control"
+                            rows="3"
+                            placeholder="Room description"
+                        ></textarea>
+                        <% if(errors){ %>
+                            <% errors.forEach(error=>{ %>
+                                <% if(error.path==="description"){ %>
+                                    <small class="text-danger">
+                                        <%= error.msg %>
+                                    </small>
+                                <% } %>
+                            <% }) %>
+                        <% } %>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="col-12">
+                        <label class="form-label">Features</label>
+                        <div class="d-flex gap-4">
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    name="hasAC"
+                                    value="true"
+                                    class="form-check-input"
+                                    checked
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="hasAC"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
+                                <label class="form-check-label">
+                                    AC
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    name="hasBalcony"
+                                    value="true"
+                                    class="form-check-input"
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="hasBalcony"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
+                                <label class="form-check-label">
+                                    Balcony
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input
+                                    type="checkbox"
+                                    name="isSmokingAllowed"
+                                    value="true"
+                                    class="form-check-input"
+                                >
+                                <% if(errors){ %>
+                                    <% errors.forEach(error=>{ %>
+                                        <% if(error.path==="isSmokingAllowed"){ %>
+                                            <small class="text-danger">
+                                                <%= error.msg %>
+                                            </small>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
+                                <label class="form-check-label">
+                                    Smoking Allowed
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-4">
+                    <a
+                        href="/api/rooms"
+                        class="btn btn-secondary"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        Add Room
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

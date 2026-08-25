@@ -1,0 +1,91 @@
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Success Card -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5 text-center">
+                    <!-- Success Icon -->
+                    <div class="rounded-circle bg-success bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                        <i class="bi bi-check-lg text-success" style="font-size: 45px;"></i>
+                    </div>
+
+                    <!-- Heading -->
+                    <h2 class="fw-bold mb-2">Booking Confirmed!</h2>
+
+                    <p class="text-muted mb-4">
+                        Your payment has been successfully processed and your room has been booked.
+                    </p>
+
+                    <!-- Booking Details -->
+                    <div class="bg-light rounded p-4 text-start mb-4">
+                        <h5 class="fw-bold mb-3">Booking Details</h5>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Booking ID</span>
+                            <strong><%= booking._id %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Room</span>
+                            <strong><%= booking.roomId.roomType || "Room" %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Check-in</span>
+                            <strong><%= new Date(booking.checkIn).toLocaleDateString() %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Check-out</span>
+                            <strong><%= new Date(booking.checkOut).toLocaleDateString() %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Guests</span>
+                            <strong><%= booking.guests %></strong>
+                        </div>
+
+                        <hr>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-bold">Total Amount</span>
+                            <strong class="text-primary fs-5">₹<%= booking.totalAmount %></strong>
+                        </div>
+                    </div>
+
+                    <!-- Payment Details -->
+                    <div class="bg-light rounded p-4 text-start mb-4">
+                        <h5 class="fw-bold mb-3">Payment Details</h5>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Payment Method</span>
+                            <strong><%= payment.paymentMethod %></strong>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted">Payment Status</span>
+
+                            <% if (payment.status === "Success") { %>
+                                <span class="badge bg-success">Successful</span>
+                            <% } else { %>
+                                <span class="badge bg-warning text-dark"><%= payment.status %></span>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2">
+                        <a href="/api/booking" class="btn btn-primary">
+                            <i class="bi bi-calendar-check me-2"></i>
+                            View My Bookings
+                        </a>
+
+                        <a href="/api/rooms" class="btn btn-outline-secondary">
+                            Browse More Rooms
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

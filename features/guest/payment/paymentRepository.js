@@ -11,7 +11,6 @@ export default class paymentRepo{
             await newPayment.save();
             return newPayment;
         } catch (err) {
-                    console.log("PAYMENT DB ERROR:", err);
 
             throw new applicationError("Wrong with db",500)
         }

@@ -78,7 +78,7 @@ export default class userController {
 logger.info(`User logged in: ${email}`);
 
 if (result.role === "Admin") {
-    return res.redirect("/admin/dashboard");
+    return res.redirect("/admin/");
 }
 
 if (result.role === "Guest") {

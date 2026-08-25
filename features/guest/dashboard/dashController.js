@@ -70,148 +70,106 @@ async getGuestDashboard(req, res, next) {
     // ADMIN DASHBOARD
     // =========================
 
-    // async getAdminDashboard(req, res, next) {
-    //     try {
+    async getAdminDashboard(req, res, next) {
+        try {
 
-    //         // Admin is also stored in the users collection
-    //         const adminId = req.userId;
+            // Admin is also stored in the users collection
+            const adminId = req.userId;
 
-    //         const admin =
-    //             await this.userRepo.findUserById(adminId);
+            const admin =
+                await this.userRepo.findUserById(adminId);
 
-    //         if (!admin) {
-    //             return res.status(404).render("404");
-    //         }
+            if (!admin) {
+                return res.status(404).render("404");
+            }
 
-    //         const users =
-    //             await this.userRepo.getAll();
+            const users =
+                await this.userRepo.getAll();
 
-    //         const hotels =
-    //             await this.hotelRepo.getAllHotel(adminId);
+            const hotels =
+                await this.hotelRepo.getAllHotels()
 
-    //         const hotel = hotels[0];
+            const hotel = hotels[0];
 
-    //         const rooms = hotel
-    //             ? await this.roomRepo.getAllRooms(hotel._id)
-    //             : [];
+            const rooms = hotel
+                ? await this.roomRepo.getAll()
+                : [];
 
-    //         const bookings =
-    //             await this.bookingRepo.getAllBookings(adminId);
-
-
-    //         const totalRevenue = bookings
-    //             .filter(
-    //                 b =>
-    //                     b.status === "Confirmed" ||
-    //                     b.status === "Completed"
-    //             )
-    //             .reduce(
-    //                 (total, b) =>
-    //                     total + (b.totalAmount || 0),
-    //                 0
-    //             );
+            const bookings =
+                await this.bookingRepo.getAllBookings(adminId);
 
 
-    //         const confirmedBookings =
-    //             bookings.filter(
-    //                 b => b.status === "Confirmed"
-    //             ).length;
-
-    //         const pendingBookings =
-    //             bookings.filter(
-    //                 b => b.status === "Pending"
-    //             ).length;
-
-    //         const cancelledBookings =
-    //             bookings.filter(
-    //                 b => b.status === "Cancelled"
-    //             ).length;
+            const totalRevenue = bookings
+                .filter(
+                    b =>
+                        b.status === "Confirmed" ||
+                        b.status === "Completed"
+                )
+                .reduce(
+                    (total, b) =>
+                        total + (b.totalAmount || 0),
+                    0
+                );
 
 
-    //         const recentBookings =
-    //             bookings.slice(0, 5);
+            const confirmedBookings =
+                bookings.filter(
+                    b => b.status === "Confirmed"
+                ).length;
+
+            const pendingBookings =
+                bookings.filter(
+                    b => b.status === "Pending"
+                ).length;
+
+            const cancelledBookings =
+                bookings.filter(
+                    b => b.status === "Cancelled"
+                ).length;
 
 
-    //         return res.render(
-    //             "admin/adminDashboard",
-    //             {
-    //                 title: "Admin Dashboard Page",
+            const recentBookings =
+                bookings.slice(0, 5);
 
-    //                 admin,
 
-    //                 totalUsers: users.length,
+            return res.render(
+                "adminDashboard",
+                {
+                    title: "Admin Dashboard Page",
 
-    //                 totalRooms: rooms.length,
+                    admin,
 
-    //                 totalBookings: bookings.length,
+                    totalUsers: users.length,
 
-    //                 totalRevenue,
+                    totalRooms: rooms.length,
 
-    //                 hotelListedCount: hotels.length,
+                    totalBookings: bookings.length,
 
-    //                 recentBookings,
+                    totalRevenue,
 
-    //                 confirmedBookings,
+                    hotelListedCount: hotels.length,
 
-    //                 pendingBookings,
+                    recentBookings,
 
-    //                 cancelledBookings,
+                    confirmedBookings,
 
-    //                 errors: [],
+                    pendingBookings,
 
-    //                 oldData: {}
-    //             }
-    //         );
+                    cancelledBookings,
 
-    //     } catch (err) {
+                    errors: [],
 
-    //         logger.error(err.message);
-    //         next(err);
+                    oldData: {}
+                }
+            );
 
-    //     }
-    // }
-async getAdminDashboard(req, res, next) {
-    try {
+        } catch (err) {
 
-        const admin = await this.userRepo.findUserById(req.userId);
+            logger.error(err.message);
+            next(err);
 
-        if (!admin) {
-            return res.status(404).render("404");
         }
-
-        return res.render("adminDashboard", {
-            title: "Admin Dashboard",
-
-            admin,
-
-            totalUsers: 0,
-            totalRooms: 0,
-            totalBookings: 0,
-            totalRevenue: 0,
-            hotelListedCount: 0,
-
-            recentBookings: [],
-
-            confirmedBookings: 0,
-            pendingBookings: 0,
-            cancelledBookings: 0,
-
-            errors: [],
-            oldData: {}
-        });
-
-    } catch (err) {
-
-        logger.error(err.message);
-        next(err);
-
     }
-}
-
-    // =========================
-    // ABOUT US
-    // =========================
-
     async aboutUsPage(req, res, next) {
 
         try {

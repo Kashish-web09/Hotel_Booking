@@ -32,12 +32,6 @@
                         Home
                     </a>
                 </li>
-<li class="nav-item">
-    <a href="/api/dashboard" class="nav-link">
-        <i class="bi bi-person-gear me-1"></i>
-        Admin
-    </a>
-</li>
                 <li class="nav-item">
                     <a class="nav-link px-3" href="/api/hotel">
                         <i class="bi bi-building me-1"></i>
@@ -85,7 +79,7 @@
                     <!-- Profile -->
                     <li class="nav-item">
                         <a
-                            href="/api/profile"
+                            href="/api/auth/profile"
                             class="d-flex align-items-center text-decoration-none px-2 py-1 rounded-pill profile-link">
 
                             <% if (user?.image) { %>

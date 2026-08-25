@@ -14,9 +14,9 @@ export const feedbackSchema = new mongoose.Schema(
             trim: true,
             match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         },
-        adminId: {
+        userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Admin",
+    ref: "User",
     required: true
 },
 

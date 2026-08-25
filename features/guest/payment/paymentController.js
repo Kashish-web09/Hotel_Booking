@@ -35,7 +35,7 @@ export default class paymentController {
             const room = await this.roomRepo.getRoomById(roomId);
 
             if (!room) {
-                return res.status(404).render("guest/payment", {
+                return res.status(404).render("payment", {
                     title: "Payment Page",
                     errors: ["Room not found"],
                     oldData: req.query
@@ -51,7 +51,7 @@ export default class paymentController {
                 );
 
             if (!isAvailable) {
-                return res.status(409).render("guest/payment", {
+                return res.status(409).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.query,
@@ -62,7 +62,7 @@ export default class paymentController {
                 });
             }
 
-            return res.render("guest/payment", {
+            return res.render("payment", {
                 title: "Payment Page",
                 room,
                 bookingData: {
@@ -101,23 +101,28 @@ export default class paymentController {
             // ==========================================
 
             if (!paymentMethod) {
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     errors: ["Payment method is required"],
                     oldData: req.body
                 });
             }
+            console.log("========== PAYMENT DEBUG ==========");
+console.log("BODY:", req.body);
+console.log("PARAMS:", req.params);
+console.log("ROOM ID:", roomId);
+console.log("===================================");
 
             // ==========================================
             // 2. GET ROOM
             // ==========================================
 
             const room = await this.roomRepo.getRoomById(roomId);
-
+console.log("ROOM ID:", roomId);
             if (!room) {
                 logger.warn(`Room not found: ${roomId}`);
 
-                return res.status(404).render("guest/payment", {
+                return res.status(404).render("payment", {
                     title: "Payment Page",
                     errors: ["Room not found"],
                     oldData: req.body
@@ -129,7 +134,7 @@ export default class paymentController {
             // ==========================================
 
             if (!roomId || !checkIn || !checkOut || !guests) {
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -148,7 +153,7 @@ export default class paymentController {
                 !Number.isInteger(numberOfGuests) ||
                 numberOfGuests <= 0
             ) {
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -164,7 +169,7 @@ export default class paymentController {
                     `Too many guests for room ${roomId}. Maximum: ${room.maxGuests}`
                 );
 
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -190,7 +195,7 @@ export default class paymentController {
                 isNaN(checkInDate.getTime()) ||
                 isNaN(checkOutDate.getTime())
             ) {
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -213,7 +218,7 @@ export default class paymentController {
                     `Past check-in date attempted by user ${userId}: ${checkIn}`
                 );
 
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -233,7 +238,7 @@ export default class paymentController {
                     `Invalid checkout date for user ${userId}`
                 );
 
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -260,7 +265,7 @@ export default class paymentController {
                     `Room ${roomId} is not available from ${checkIn} to ${checkOut}`
                 );
 
-                return res.status(409).render("guest/payment", {
+                return res.status(409).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -284,7 +289,7 @@ export default class paymentController {
             );
 
             if (nights <= 0) {
-                return res.status(400).render("guest/payment", {
+                return res.status(400).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -330,7 +335,7 @@ export default class paymentController {
                     `Hotel not found for room ${roomId}`
                 );
 
-                return res.status(404).render("guest/payment", {
+                return res.status(404).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -352,7 +357,7 @@ export default class paymentController {
                     `Admin not found for hotel ${hotel._id}`
                 );
 
-                return res.status(500).render("guest/payment", {
+                return res.status(500).render("payment", {
                     title: "Payment Page",
                     room,
                     bookingData: req.body,
@@ -462,7 +467,7 @@ export default class paymentController {
             // ==========================================
 
             return res.render(
-                "guest/paymentSuccess",
+                "paymentSuccess",
                 {
                     title: "Payment Successful",
                     payment,

@@ -42,7 +42,6 @@ async getHotelDetailsById(hotelId){
     try {
         return await hotelModel.findById(hotelId)
     } catch (err) {
-        console.log(err)
                             throw new applicationError('Wrong with db',500)
 
     }

@@ -1,0 +1,276 @@
+<div class="container-fluid py-4">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-1">Customer Feedback</h2>
+            <p class="text-muted mb-0">Manage and review customer feedback.</p>
+        </div>
+        <span class="badge bg-primary fs-6">
+            <%= feedback?.length || 0 %> Feedback
+        </span>
+    </div>
+
+    <!-- Filters -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <form action="/api/feedback/filter" method="GET">
+                <div class="row g-3 align-items-end">
+                    <!-- Email -->
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input
+                            type="text"
+                            name="email"
+                            class="form-control"
+                            placeholder="Search by email"
+                            value="<%= oldData?.email || '' %>"
+                        >
+                    </div>
+
+                    <!-- Status -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Status</label>
+                        <select name="status" class="form-select">
+                            <option value="">All Status</option>
+                            <% ['Pending','Resolved','Rejected'].forEach(s => { %>
+                                <option
+                                    value="<%= s %>"
+                                    <%= oldData?.status == s ? 'selected' : '' %>
+                                >
+                                    <%= s %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <!-- Message Type -->
+                    <div class="col-md-3">
+                        <label class="form-label fw-semibold">Message Type</label>
+                        <select name="messageType" class="form-select">
+                            <option value="">All Types</option>
+                            <% ['Inquiry','Complaint','Feedback'].forEach(type => { %>
+                                <option
+                                    value="<%= type %>"
+                                    <%= oldData?.messageType == type ? 'selected' : '' %>
+                                >
+                                    <%= type %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="col-md-2 d-flex gap-2">
+                        <button class="btn btn-primary w-100">
+                            <i class="bi bi-search"></i>
+                            Filter
+                        </button>
+                        <a href="/api/feedback" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-clockwise"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+            <h5 class="fw-bold mb-0">All Feedback</h5>
+        </div>
+
+        <div class="card-body p-0">
+            <% if (feedback?.length) { %>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th class="px-4">#</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% feedback.forEach((item, index) => { %>
+                                <tr>
+                                    <td class="px-4 fw-semibold">
+                                        <%= index + 1 %>
+                                    </td>
+
+                                    <td class="fw-semibold">
+                                        <%= item.name || 'N/A' %>
+                                    </td>
+
+                                    <td>
+                                        <small><%= item.email || 'N/A' %></small>
+                                    </td>
+
+                                    <td style="max-width:250px">
+                                        <span
+                                            class="d-block text-truncate"
+                                            title="<%= item.message || '' %>"
+                                        >
+                                            <%= item.message || 'No message' %>
+                                        </span>
+                                    </td>
+
+                                    <!-- Status -->
+                                    <td>
+                                        <% const statusClass = {
+                                            Pending: 'bg-warning text-dark',
+                                            Resolved: 'bg-success',
+                                            Rejected: 'bg-danger'
+                                        }[item.status] || 'bg-secondary'; %>
+
+                                        <span class="badge <%= statusClass %>">
+                                            <%= item.status || 'Unknown' %>
+                                        </span>
+                                    </td>
+
+                                    <!-- Date -->
+                                    <td>
+                                        <small class="text-muted">
+                                            <%= item.createdAt
+                                                ? new Date(item.createdAt).toLocaleDateString('en-IN', {
+                                                    day: '2-digit',
+                                                    month: 'short',
+                                                    year: 'numeric'
+                                                })
+                                                : 'N/A'
+                                            %>
+                                        </small>
+                                    </td>
+
+                                    <!-- Actions -->
+                                    <td class="text-center">
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <!-- View -->
+                                            <a
+                                                href="/api/feedback/<%= item._id %>"
+                                                class="btn btn-sm btn-outline-primary"
+                                                title="View Details"
+                                            >
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+
+                                            <!-- Edit -->
+                                            <button
+                                                class="btn btn-sm btn-outline-success"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#status<%= item._id %>"
+                                                title="Update Status"
+                                            >
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Status Modal -->
+                                        <div
+                                            class="modal fade"
+                                            id="status<%= item._id %>"
+                                            tabindex="-1"
+                                        >
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">
+                                                            Update Feedback
+                                                        </h5>
+                                                        <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                        ></button>
+                                                    </div>
+
+                                                    <form
+                                                        action="/api/feedback/update-status/<%= item._id %>"
+                                                        method="POST"
+                                                    >
+                                                        <div class="modal-body text-start">
+                                                            <label class="form-label fw-semibold">
+                                                                Customer
+                                                            </label>
+
+                                                            <input
+                                                                class="form-control mb-3"
+                                                                value="<%= item.name || 'N/A' %>"
+                                                                disabled
+                                                            >
+
+                                                            <label class="form-label fw-semibold">
+                                                                Status
+                                                            </label>
+
+                                                            <select
+                                                                name="status"
+                                                                class="form-select mb-3"
+                                                                required
+                                                            >
+                                                                <% ['Pending','Resolved','Rejected'].forEach(s => { %>
+                                                                    <option
+                                                                        value="<%= s %>"
+                                                                        <%= item.status == s ? 'selected' : '' %>
+                                                                    >
+                                                                        <%= s %>
+                                                                    </option>
+                                                                <% }) %>
+                                                            </select>
+
+                                                            <label class="form-label fw-semibold">
+                                                                Admin Message
+                                                            </label>
+
+                                                            <textarea
+                                                                name="message"
+                                                                class="form-control"
+                                                                rows="3"
+                                                                placeholder="Optional message..."
+                                                            ></textarea>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button
+                                                                type="button"
+                                                                class="btn btn-secondary"
+                                                                data-bs-dismiss="modal"
+                                                            >
+                                                                Cancel
+                                                            </button>
+
+                                                            <button
+                                                                type="submit"
+                                                                class="btn btn-primary"
+                                                            >
+                                                                Update Status
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %>
+                <!-- Empty State -->
+                <div class="text-center py-5">
+                    <i class="bi bi-chat-square-text" style="font-size:3rem"></i>
+                    <h5 class="fw-bold mt-3">No Feedback Found</h5>
+                    <p class="text-muted mb-0">
+                        No feedback matches your filters.
+                    </p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
