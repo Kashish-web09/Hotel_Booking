@@ -10,28 +10,28 @@ import expressEjsLayouts from 'express-ejs-layouts';
 import swagger from 'swagger-ui-express';
 // features routes 
 import { currentUser } from './middleware/jwtAuthMiddleware.js';
-import feedbackRoutes from './features/guest/contact/contactRoutes.js';
-import userAuth from './features/guest/userAuth/userRoutes.js';
+import feedbackRoutes from './features/user/contact/contactRoutes.js';
+import userAuth from './features/user/userAuth/userRoutes.js';
 // import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
 // import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
 // import feedbackRoute from './features/contact/contactRoutes.js';
 // import roomRoutes from './features/admin/rooms/roomsRoutes.js';
-import roomRoute from './features/guest/rooms/roomsRoutes.js';
-import bookingRoutes from './features/guest/booking/bookingRoutes.js';
-import dashRoutes from './features/guest/dashboard/dashRoutes.js';
+import roomRoute from './features/user/rooms/roomsRoutes.js';
+import bookingRoutes from './features/user/booking/bookingRoutes.js';
+import dashRoutes from './features/user/dashboard/dashRoutes.js';
 // import bookingRoute from './features/admin/booking/bookingRoutes.js';
 // import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
 // import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
-import hotelRoute from './features/guest/hotel/hotelRoutes.js';
-import profileRoutes from './features/guest/profile/profileRoutes.js';
+import hotelRoute from './features/user/hotel/hotelRoutes.js';
+import profileRoutes from './features/user/profile/profileRoutes.js';
 // import profileRoute from './features/admin/profile/profileRoutes.js';
 // import travelRoutes from './features/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
-import paymentRoutes from './features/guest/payment/paymentRoutes.js';
+import paymentRoutes from './features/user/payment/paymentRoutes.js';
 // import paymentRoute from './features/admin/payment/paymentRoutes.js';
 import router from './aiService/aiRoutes.js';
-import travelRoutes from './features/guest/travel/travelRoutes.js';
+import travelRoutes from './features/user/travel/travelRoutes.js';
 const app=express();
 let corsOption={
     origin:`http://127.0.0.1:5500`

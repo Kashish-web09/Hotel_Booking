@@ -1,5 +1,5 @@
 import express from 'express';
-import feedbackController from '../../guest/contact/contactController.js';
+import feedbackController from '../../user/contact/contactController.js';
 import validator from '../../../middleware/commonValidation.js';
 import { feedbackRule } from './contactValidation.js';
 
