@@ -72,7 +72,7 @@
                 <h5 class="fw-bold mb-0">Payment Transactions</h5>
 
                 <!-- Search -->
-                <form action="/api/payment/search" method="GET" class="d-flex gap-2">
+                <form action="/api/payment/admin/search" method="GET" class="d-flex gap-2">
                     <input type="text" name="bookingId" class="form-control" placeholder="Search by booking ID..." value="<%= bookingId || '' %>">
                     <button type="submit" class="btn btn-primary">
                         <i class="bi bi-search"></i>
@@ -183,7 +183,7 @@
 
                                     <td>
                                         <% if (payment.status === "Success" && payment.paymentMethod !== "Cash") { %>
-                                            <form action="/api/payment/refund?bookingId=<%= payment.bookingId %>" method="POST" onsubmit="return confirm('Are you sure you want to refund this payment?');">
+                                            <form action="/api/payment/admin/refund?bookingId=<%= payment.bookingId %>" method="POST" onsubmit="return confirm('Are you sure you want to refund this payment?');">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">
                                                     <i class="bi bi-arrow-counterclockwise"></i> Refund
                                                 </button>

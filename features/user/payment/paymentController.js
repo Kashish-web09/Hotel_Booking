@@ -1,29 +1,42 @@
-import paymentRepo from "./paymentRepository.js";
+
 import logger from "../../../middleware/loggerMiddleware.js";
+
 import bookingRepo from "../booking/bookingRepository.js";
+import paymentRepo from './paymentRepository.js'
 import roomRepo from "../rooms/roomsRepository.js";
+import userRepo from "../userAuth/userRepository.js";
+import hotelRepo from "../hotel/hotelRepository.js";
+
 import {
     bookingConfirmation,
     cancelBooking
 } from "../../../emailService/emailServices.js";
-import userRepo from "../userAuth/userRepository.js";
-import hotelRepo from "../hotel/hotelRepository.js";
+
 
 export default class paymentController {
+
     constructor() {
+
         this.paymentRepo = new paymentRepo();
+
         this.bookingRepo = new bookingRepo();
+
         this.roomRepo = new roomRepo();
+
         this.userRepo = new userRepo();
+
         this.hotelRepo = new hotelRepo();
     }
 
-    // ==========================================
-    // GET PAYMENT PAGE
-    // ==========================================
+
+    // =====================================================
+    // GUEST: GET PAYMENT PAGE
+    // =====================================================
 
     async getPaymentPage(req, res, next) {
+
         try {
+
             const {
                 roomId,
                 checkIn,
@@ -31,62 +44,57 @@ export default class paymentController {
                 guests
             } = req.query;
 
-            // Get room
-            const room = await this.roomRepo.getRoomById(roomId);
+
+            const room =
+                await this.roomRepo.getRoomById(roomId);
+
 
             if (!room) {
-                return res.status(404).render("payment", {
-                    title: "Payment Page",
-                    errors: ["Room not found"],
-                    oldData: req.query
-                });
-            }
 
-            // Check room availability before showing payment page
-            const isAvailable =
-                await this.bookingRepo.checkRoomAvailability(
-                    roomId,
-                    checkIn,
-                    checkOut
+                return res.status(404).send(
+                    "Room not found"
                 );
-
-            if (!isAvailable) {
-                return res.status(409).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.query,
-                    errors: [
-                        "This room is already booked for the selected dates."
-                    ],
-                    oldData: req.query
-                });
             }
+
 
             return res.render("payment", {
+
                 title: "Payment Page",
+
                 room,
+
                 bookingData: {
                     roomId,
                     checkIn,
                     checkOut,
                     guests
                 },
+
                 errors: [],
+
                 oldData: {}
             });
+
         } catch (err) {
+
             logger.error(err.message);
+
             next(err);
         }
     }
 
-    // ==========================================
-    // CREATE PAYMENT + BOOKING
-    // ==========================================
+
+    // =====================================================
+    // GUEST: CREATE BOOKING + PAYMENT
+    // =====================================================
 
     async createPayment(req, res, next) {
+
         try {
+
+            // Logged-in guest ID from JWT
             const userId = req.userId;
+
 
             const {
                 roomId,
@@ -96,550 +104,691 @@ export default class paymentController {
                 paymentMethod
             } = req.body;
 
-            // ==========================================
-            // 1. VALIDATE PAYMENT METHOD
-            // ==========================================
 
-            if (!paymentMethod) {
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    errors: ["Payment method is required"],
-                    oldData: req.body
-                });
+            // ===============================
+            // VALIDATION
+            // ===============================
+
+            if (
+                !roomId ||
+                !checkIn ||
+                !checkOut ||
+                !guests ||
+                !paymentMethod
+            ) {
+
+                return res.status(400).send(
+                    "All payment details are required"
+                );
             }
-            console.log("========== PAYMENT DEBUG ==========");
-console.log("BODY:", req.body);
-console.log("PARAMS:", req.params);
-console.log("ROOM ID:", roomId);
-console.log("===================================");
 
-            // ==========================================
-            // 2. GET ROOM
-            // ==========================================
 
-            const room = await this.roomRepo.getRoomById(roomId);
-console.log("ROOM ID:", roomId);
+            // ===============================
+            // GET ROOM
+            // ===============================
+
+            const room =
+                await this.roomRepo.getRoomById(roomId);
+
+
             if (!room) {
-                logger.warn(`Room not found: ${roomId}`);
 
-                return res.status(404).render("payment", {
-                    title: "Payment Page",
-                    errors: ["Room not found"],
-                    oldData: req.body
-                });
-            }
-
-            // ==========================================
-            // 3. VALIDATE REQUIRED BOOKING DATA
-            // ==========================================
-
-            if (!roomId || !checkIn || !checkOut || !guests) {
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: ["All booking details are required."],
-                    oldData: req.body
-                });
-            }
-
-            // ==========================================
-            // 4. VALIDATE GUESTS
-            // ==========================================
-
-            const numberOfGuests = Number(guests);
-
-            if (
-                !Number.isInteger(numberOfGuests) ||
-                numberOfGuests <= 0
-            ) {
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Please enter a valid number of guests."
-                    ],
-                    oldData: req.body
-                });
-            }
-
-            if (numberOfGuests > room.maxGuests) {
-                logger.warn(
-                    `Too many guests for room ${roomId}. Maximum: ${room.maxGuests}`
+                return res.status(404).send(
+                    "Room not found"
                 );
-
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        `This room can accommodate maximum ${room.maxGuests} guests.`
-                    ],
-                    oldData: req.body
-                });
             }
 
-            // ==========================================
-            // 5. CREATE DATE OBJECTS
-            // ==========================================
 
-            const checkInDate = new Date(`${checkIn}T00:00:00`);
-            const checkOutDate = new Date(`${checkOut}T00:00:00`);
-
-            // ==========================================
-            // 6. VALIDATE DATE FORMAT
-            // ==========================================
-
-            if (
-                isNaN(checkInDate.getTime()) ||
-                isNaN(checkOutDate.getTime())
-            ) {
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Invalid check-in or check-out date."
-                    ],
-                    oldData: req.body
-                });
-            }
-
-            // ==========================================
-            // 7. CHECK-IN CANNOT BE IN THE PAST
-            // ==========================================
-
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-
-            if (checkInDate < today) {
-                logger.warn(
-                    `Past check-in date attempted by user ${userId}: ${checkIn}`
-                );
-
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Check-in date cannot be in the past."
-                    ],
-                    oldData: req.body
-                });
-            }
-
-            // ==========================================
-            // 8. CHECK-OUT MUST BE AFTER CHECK-IN
-            // ==========================================
-
-            if (checkOutDate <= checkInDate) {
-                logger.warn(
-                    `Invalid checkout date for user ${userId}`
-                );
-
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Check-out date must be after check-in date."
-                    ],
-                    oldData: req.body
-                });
-            }
-
-            // ==========================================
-            // 9. CHECK ROOM AVAILABILITY
-            // ==========================================
+            // ===============================
+            // CHECK AVAILABILITY
+            // ===============================
 
             const isAvailable =
                 await this.bookingRepo.checkRoomAvailability(
                     roomId,
-                    checkInDate,
-                    checkOutDate
+                    checkIn,
+                    checkOut
                 );
+
 
             if (!isAvailable) {
-                logger.warn(
-                    `Room ${roomId} is not available from ${checkIn} to ${checkOut}`
+
+                return res.status(409).send(
+                    "Room is not available for selected dates"
+                );
+            }
+
+
+            // ===============================
+            // DATE VALIDATION
+            // ===============================
+
+            const checkInDate =
+                new Date(checkIn);
+
+            const checkOutDate =
+                new Date(checkOut);
+
+
+            if (
+                checkOutDate <= checkInDate
+            ) {
+
+                return res.status(400).send(
+                    "Check-out must be after check-in"
+                );
+            }
+
+
+            // ===============================
+            // CALCULATE NIGHTS
+            // ===============================
+
+            const nights =
+                Math.ceil(
+                    (
+                        checkOutDate -
+                        checkInDate
+                    )
+                    /
+                    (1000 * 60 * 60 * 24)
                 );
 
-                return res.status(409).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "This room is already booked for the selected dates."
-                    ],
-                    oldData: req.body
-                });
-            }
 
-            // ==========================================
-            // 10. CALCULATE NUMBER OF NIGHTS
-            // ==========================================
+            const pricePerNight =
+                Number(room.pricePerNight);
 
-            const millisecondsPerDay =
-                1000 * 60 * 60 * 24;
-
-            const nights = Math.ceil(
-                (checkOutDate - checkInDate) /
-                millisecondsPerDay
-            );
-
-            if (nights <= 0) {
-                return res.status(400).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Invalid booking duration."
-                    ],
-                    oldData: req.body
-                });
-            }
-            // ==========================================
-            // 11. CALCULATE TOTAL AMOUNT
-            // ==========================================
-
-            const pricePerNight = Number(room.pricePerNight);
 
             const totalAmount =
                 pricePerNight * nights;
 
-            // ==========================================
-            // 12. GET USER
-            // ==========================================
 
-            const user =
-                await this.userRepo.findUserById(userId);
-
-            if (!user) {
-                return res.status(404).send(
-                    "User not found"
-                );
-            }
-
-            // ==========================================
-            // 13. GET HOTEL
-            // ==========================================
+            // ===============================
+            // GET HOTEL
+            // ===============================
 
             const hotel =
                 await this.hotelRepo.getHotelDetailsById(
                     room.hotelId
                 );
 
-            if (!hotel) {
-                logger.warn(
-                    `Hotel not found for room ${roomId}`
-                );
 
-                return res.status(404).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Hotel not found."
-                    ],
-                    oldData: req.body
-                });
+            if (!hotel) {
+
+                return res.status(404).send(
+                    "Hotel not found"
+                );
             }
 
-            // ==========================================
-            // 14. GET ADMIN ID
-            // ==========================================
 
-            const adminId = hotel.createdBy;
+            // =====================================
+            // IMPORTANT: HOTEL OWNER / ADMIN
+            // =====================================
+
+            const adminId =
+                hotel.createdBy;
+
 
             if (!adminId) {
-                logger.error(
-                    `Admin not found for hotel ${hotel._id}`
+
+                console.log(
+                    "Hotel does not contain createdBy"
                 );
 
-                return res.status(500).render("payment", {
-                    title: "Payment Page",
-                    room,
-                    bookingData: req.body,
-                    errors: [
-                        "Hotel administrator information is missing."
-                    ],
-                    oldData: req.body
-                });
+                return res.status(500).send(
+                    "Hotel admin not found"
+                );
             }
 
-            // ==========================================
-            // 15. CREATE BOOKING
-            // ==========================================
 
-            const newBooking = {
-                userId,
-                adminId,
-                roomId,
-                checkIn: checkInDate,
-                checkOut: checkOutDate,
-                guests: numberOfGuests,
-                pricePerNight,
-                totalAmount,
-                status: "Pending"
-            };
+            console.log(
+                "PAYMENT DEBUG"
+            );
+
+            console.log(
+                "Guest ID:",
+                userId
+            );
+
+            console.log(
+                "Admin ID:",
+                adminId
+            );
+
+
+            // ===============================
+            // CREATE BOOKING
+            // ===============================
 
             const booking =
-                await this.bookingRepo.createBooking(
-                    newBooking
-                );
+                await this.bookingRepo.createBooking({
 
-            logger.info(
-                `Booking created by guest ${userId}, booking ${booking._id}`
-            );
+                    userId,
 
-            // ==========================================
-            // 16. CREATE PAYMENT
-            // ==========================================
+                    adminId,
 
-            let paymentStatus = "Pending";
-            let paidAt = null;
+                    roomId,
+
+                    checkIn:
+                        checkInDate,
+
+                    checkOut:
+                        checkOutDate,
+
+                    guests:
+                        Number(guests),
+
+                    pricePerNight,
+
+                    totalAmount,
+
+                    status:
+                        "Pending"
+                });
+
+
+            // ===============================
+            // PAYMENT STATUS
+            // ===============================
+
+            let status =
+                "Pending";
+
+            let paidAt =
+                null;
+
 
             // Simulated payment
-            // Online payment = Success
-            // Cash = Pending
 
-            if (paymentMethod !== "Cash") {
-                paymentStatus = "Success";
-                paidAt = new Date();
+            if (
+                paymentMethod !== "Cash"
+            ) {
+
+                status =
+                    "Success";
+
+                paidAt =
+                    new Date();
             }
 
-            const newPayment = {
-                bookingId: booking._id,
-                userId,
-                adminId,
-                amount: totalAmount,
-                paymentMethod,
-                status: paymentStatus,
-                paidAt
-            };
+
+            // ===============================
+            // CREATE PAYMENT
+            // ===============================
 
             const payment =
-                await this.paymentRepo.createPayment(
-                    newPayment
-                );
+                await this.paymentRepo.createPayment({
 
-            logger.info(
-                `Payment created by guest ${userId} for booking ${booking._id}`
+                    bookingId:
+                        booking._id,
+
+                    // Guest who paid
+                    userId,
+
+                    // Admin who owns hotel
+                    adminId,
+
+                    amount:
+                        totalAmount,
+
+                    paymentMethod,
+
+                    status,
+
+                    paidAt
+                });
+
+
+            console.log(
+                "PAYMENT CREATED:",
+                payment
             );
 
-            // ==========================================
-            // 17. UPDATE BOOKING STATUS
-            // ==========================================
 
-            if (paymentStatus === "Success") {
-                await this.bookingRepo.updateBookingStatus(
-                    booking._id,
-                    "Confirmed"
-                );
+            // ===============================
+            // CONFIRM BOOKING
+            // ===============================
 
-                booking.status = "Confirmed";
+            if (
+                status === "Success"
+            ) {
+
+                await this.bookingRepo
+                    .updateBookingStatus(
+
+                        booking._id,
+
+                        "Confirmed"
+                    );
             }
 
-            // ==========================================
-            // 18. SEND CONFIRMATION EMAIL
-            // ==========================================
 
-            try {
-                await bookingConfirmation(
-                    user.email,
-                    user.name,
-                    hotel,
-                    booking._id
-                );
-
-                logger.info(
-                    `Booking confirmation email sent to ${user.email}`
-                );
-            } catch (emailError) {
-                logger.error(
-                    `Booking confirmation email failed: ${emailError.message}`
-                );
-            }
-
-            // ==========================================
-            // 19. SUCCESS PAGE
-            // ==========================================
+            // ===============================
+            // SUCCESS PAGE
+            // ===============================
 
             return res.render(
                 "paymentSuccess",
                 {
-                    title: "Payment Successful",
+
+                    title:
+                        "Payment Successful",
+
                     payment,
+
                     booking,
+
                     room,
+
                     hotel
                 }
             );
+
         } catch (err) {
+
             logger.error(
-                `Payment error: ${err.message}`
+                `Payment Error: ${err.message}`
             );
 
             next(err);
         }
     }
 
-    // ==========================================
-    // CANCEL BOOKING + REFUND
-    // ==========================================
 
-    async payentRefund(req, res, next) {
+    // =====================================================
+    // GUEST: CANCEL BOOKING
+    // =====================================================
+
+    async paymentRefund(req, res, next) {
+
         try {
-            const { bookingId } = req.query;
-            const userId = req.userId;
 
-            // ==========================================
-            // 1. GET BOOKING
-            // ==========================================
+            const { bookingId } =
+                req.query;
+
+
+            const userId =
+                req.userId;
+
 
             const booking =
-                await this.bookingRepo.getBookingById(
-                    bookingId
-                );
+                await this.bookingRepo
+                    .getBookingById(bookingId);
+
 
             if (!booking) {
+
                 return res.status(404).send(
                     "Booking not found"
                 );
             }
 
-            // ==========================================
-            // 2. CHECK OWNERSHIP
-            // ==========================================
+
+            // Check booking belongs to guest
 
             if (
                 booking.userId.toString() !==
                 userId.toString()
             ) {
+
                 return res.status(403).send(
-                    "You are not allowed to cancel this booking"
+                    "Unauthorized"
                 );
             }
 
-            // ==========================================
-            // 3. CHECK ALREADY CANCELLED
-            // ==========================================
-
-            if (booking.status === "Cancelled") {
-                return res.status(400).send(
-                    "Booking is already cancelled"
-                );
-            }
-
-            // ==========================================
-            // 4. CHECK CANCELLATION DEADLINE
-            // ==========================================
-
-            const now = new Date();
-
-            const checkInDate =
-                new Date(booking.checkIn);
-
-            if (now >= checkInDate) {
-                return res.status(400).send(
-                    "Booking cannot be cancelled after check-in"
-                );
-            }
-
-            // ==========================================
-            // 5. GET PAYMENT
-            // ==========================================
 
             const payment =
-                await this.paymentRepo.getPaymentByBookingId(
-                    bookingId
-                );
+                await this.paymentRepo
+                    .getPaymentByBookingId(
+                        bookingId
+                    );
 
-            // ==========================================
-            // 6. GET USER
-            // ==========================================
 
-            const user =
-                await this.userRepo.findUserById(userId);
+            // Cancel booking
 
-            if (!user) {
-                return res.status(404).send(
-                    "User not found"
-                );
-            }
+            await this.bookingRepo
+                .cancelBooking(bookingId);
 
-            // ==========================================
-            // 7. CANCEL BOOKING
-            // ==========================================
 
-            await this.bookingRepo.cancelBooking(
-                bookingId
-            );
-
-            logger.info(
-                `Booking ${bookingId} cancelled by guest ${userId}`
-            );
-
-            // ==========================================
-            // 8. SIMULATED REFUND
-            // ==========================================
+            // Refund only successful online payments
 
             if (
+
                 payment &&
-                payment.paymentMethod !== "Cash" &&
-                payment.status === "Success"
+
+                payment.status === "Success" &&
+
+                payment.paymentMethod !== "Cash"
+
             ) {
-                // Change payment status
-                payment.status = "Refunded";
 
-                await payment.save();
-
-                logger.info(
-                    `Simulated refund completed for booking ${bookingId}`
-                );
-
-                logger.info(
-                    `Refund amount: ₹${payment.amount}`
-                );
-
-                // ==========================================
-                // 9. SEND REFUND EMAIL
-                // ==========================================
-
-                try {
-                    await cancelBooking(
-                        user.email,
-                        bookingId,
-                        payment.amount,
-                        payment.paymentMethod
+                await this.paymentRepo
+                    .refundPayment(
+                        payment._id
                     );
-
-                    logger.info(
-                        `Refund email sent to ${user.email}`
-                    );
-                } catch (emailError) {
-                    logger.error(
-                        `Refund email failed: ${emailError.message}`
-                    );
-                }
-            } else {
-                logger.info(
-                    `No refund required for booking ${bookingId}`
-                );
             }
 
-            // ==========================================
-            // 10. REDIRECT
-            // ==========================================
 
             return res.redirect(
                 "/api/guest/booking"
             );
+
         } catch (err) {
-            logger.error(
-                `Cancellation error: ${err.message}`
+
+            logger.error(err.message);
+
+            next(err);
+        }
+    }
+
+
+    // =====================================================
+    // ADMIN: GET ALL PAYMENTS
+    // =====================================================
+
+    async getAllPayments(req, res, next) {
+
+        try {
+console.log("JWT USER ID:", req.userId);
+console.log("TYPE:", typeof req.userId);
+            // Same JWT field
+            const adminId =
+                req.userId;
+
+
+            console.log(
+                "ADMIN ID FROM TOKEN:",
+                adminId
             );
+
+
+            const payments =
+                await this.paymentRepo
+                    .getAllPayments(adminId);
+
+
+            console.log(
+                "TOTAL PAYMENTS:",
+                payments.length
+            );
+
+
+            return res.render(
+                "adminPayment",
+                {
+
+                    title:
+                        "Payment History",
+
+                    payments,
+
+                    bookingId:
+                        "",
+
+                    errors:
+                        [],
+
+                    oldData:
+                        {}
+                }
+            );
+
+        } catch (err) {
+
+            logger.error(err.message);
+
+            next(err);
+        }
+    }
+
+
+    // =====================================================
+    // ADMIN: SEARCH PAYMENT
+    // =====================================================
+
+    async searchPayment(req, res, next) {
+
+        try {
+
+            const {
+                bookingId
+            } = req.query;
+
+
+            const adminId =
+                req.userId;
+
+
+            const payments =
+                await this.paymentRepo.searchPayment(
+                    bookingId,
+                    adminId
+                );
+
+
+            return res.render(
+                "adminPayment",
+                {
+
+                    title:
+                        "Payment History",
+
+                    payments,
+
+                    bookingId,
+
+                    errors:
+                        [],
+
+                    oldData:
+                        {}
+                }
+            );
+
+        } catch (err) {
+
+            logger.error(err.message);
+
+            next(err);
+        }
+    }
+
+
+    // =====================================================
+    // ADMIN: UPDATE PAYMENT STATUS
+    // =====================================================
+
+    async updatePayment(req, res, next) {
+
+        try {
+
+            const {
+                bookingId
+            } = req.query;
+
+
+            const {
+                status
+            } = req.body;
+
+
+            const adminId =
+                req.userId;
+
+
+            const allowedStatus = [
+
+                "Pending",
+
+                "Success",
+
+                "Failed",
+
+                "Refunded"
+            ];
+
+
+            if (
+                !allowedStatus.includes(status)
+            ) {
+
+                return res.status(400).send(
+                    "Invalid payment status"
+                );
+            }
+
+
+            // Make sure payment belongs to admin
+
+            const payment =
+                await this.paymentRepo
+                    .getPaymentByBookingId(
+                        bookingId
+                    );
+
+
+            if (!payment) {
+
+                return res.status(404).send(
+                    "Payment not found"
+                );
+            }
+
+
+            if (
+                payment.adminId.toString() !==
+                adminId.toString()
+            ) {
+
+                return res.status(403).send(
+                    "Unauthorized"
+                );
+            }
+
+
+            const updatedPayment =
+                await this.paymentRepo
+                    .updatePaymentStatus(
+                        bookingId,
+                        status
+                    );
+
+
+            return res.redirect(
+                "/api/payment/admin"
+            );
+
+        } catch (err) {
+
+            logger.error(err.message);
+
+            next(err);
+        }
+    }
+
+
+    // =====================================================
+    // ADMIN: REFUND PAYMENT
+    // =====================================================
+
+    async refundPayment(req, res, next) {
+
+        try {
+
+            const {
+                bookingId
+            } = req.query;
+
+
+            const adminId =
+                req.userId;
+
+
+            const booking =
+                await this.bookingRepo
+                    .getBookingById(
+                        bookingId
+                    );
+
+
+            if (!booking) {
+
+                return res.status(404).send(
+                    "Booking not found"
+                );
+            }
+
+
+            // Booking must belong to this admin
+
+         if (!booking.adminId) {
+    return res.status(400).send(
+        "This booking does not have an admin assigned"
+    );
+}
+
+if (booking.adminId.toString() !== adminId.toString()) {
+    return res.status(403).send("Unauthorized");
+}
+            if (
+                booking.status !== "Cancelled"
+            ) {
+
+                return res.status(400).send(
+                    "Booking must be cancelled first"
+                );
+            }
+
+
+            const payment =
+                await this.paymentRepo
+                    .getPaymentByBookingId(
+                        bookingId
+                    );
+
+
+            if (!payment) {
+
+                return res.status(404).send(
+                    "Payment not found"
+                );
+            }
+
+
+            if (
+                payment.status !== "Success"
+            ) {
+
+                return res.status(400).send(
+                    "Only successful payments can be refunded"
+                );
+            }
+
+
+            if (
+                payment.paymentMethod === "Cash"
+            ) {
+
+                return res.status(400).send(
+                    "Cash payment cannot be refunded"
+                );
+            }
+
+
+            const refundedPayment =
+                await this.paymentRepo
+                    .refundPayment(
+                        payment._id
+                    );
+
+
+            return res.redirect(
+                "/api/payment/admin"
+            );
+
+        } catch (err) {
+
+            logger.error(err.message);
 
             next(err);
         }
