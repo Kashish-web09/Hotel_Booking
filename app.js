@@ -114,7 +114,7 @@ const startServer = async () => {
     await connectToMongoose();
 
     app.listen(9090, () => {
-        console.log("Server running at http://localhost:9090");
+        console.log("Server running at http://localhost:9090/api/auth/login");
     });
 };
 
