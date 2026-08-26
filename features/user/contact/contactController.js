@@ -1,13 +1,12 @@
 import {
     feedbackSent,
     feedbackUpdate
-} from '../../../emailService/emailServices.js';
+} from "../../../emailService/emailServices.js";
 
-import logger from '../../../middleware/loggerMiddleware.js';
-import feedbackRepo from './contactRepository.js';
+import logger from "../../../middleware/loggerMiddleware.js";
+import feedbackRepo from "./contactRepository.js";
 
 export default class feedbackController {
-
     constructor() {
         this.feedbackRepo = new feedbackRepo();
     }
@@ -15,75 +14,67 @@ export default class feedbackController {
     // =========================
     // CONTACT / FEEDBACK FORM
     // =========================
+
     async feedbackPage(req, res, next) {
         try {
-            return res.render('contact', {
+            return res.render("contact", {
                 title: "Feedback",
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
         }
     }
 
-
     // =========================
     // GET FEEDBACK
     // Admin -> All feedback
     // Guest -> Own feedback
     // =========================
-async getFeedbackPage(req, res, next) {
-    try {
 
-        if (req.role === "Admin") {
+    async getFeedbackPage(req, res, next) {
+        try {
+            if (req.role === "Admin") {
+                const feedback =
+                    await this.feedbackRepo.getAllFeedback();
 
-            const feedback =
-                await this.feedbackRepo.getAllFeedback();
+                return res.render("feedback", {
+                    title: "Admin Feedback",
+                    feedback,
+                    errors: [],
+                    oldData: {}
+                });
+            }
 
+            if (req.role === "Guest") {
+                const feedback =
+                    await this.feedbackRepo.getAllFeedback(
+                        req.userId
+                    );
 
-            return res.render('feedback', {
-                title: "Admin Feedback",
-                feedback,
-                errors: [],
-                oldData: {}
-            });
+                return res.render("contact", {
+                    title: "My Feedback",
+                    feedback,
+                    errors: [],
+                    oldData: {}
+                });
+            }
+
+            return res.status(403).send("Invalid role");
+        } catch (err) {
+            logger.error(err.message);
+            next(err);
         }
-
-        if (req.role === "Guest") {
-
-            const feedback =
-                await this.feedbackRepo.getAllFeedback(req.userId);
-
-
-            return res.render('contact', {
-                title: "My Feedback",
-                feedback,
-                errors: [],
-                oldData: {}
-            });
-        }
-
-
-        return res.status(403).send("Invalid role");
-
-    } catch (err) {
-
-
-        logger.error(err.message);
-        next(err);
     }
-}
-
 
     // =========================
     // CREATE FEEDBACK
     // =========================
+
     async feedback(req, res, next) {
         try {
-
             const {
                 name,
                 email,
@@ -93,8 +84,7 @@ async getFeedbackPage(req, res, next) {
             } = req.body;
 
             if (req.validationErrors) {
-
-                return res.render('contact', {
+                return res.render("contact", {
                     title: "Feedback",
                     errors: req.validationErrors,
                     oldData: req.body
@@ -123,25 +113,23 @@ async getFeedbackPage(req, res, next) {
 
             // Redirect according to role
             if (req.role === "Admin") {
-                return res.redirect('/api/feedback');
+                return res.redirect("/api/feedback");
             }
 
-            return res.redirect('/api/feedback');
-
+            return res.redirect("/api/feedback");
         } catch (err) {
             logger.error(err.message);
             next(err);
         }
     }
 
-
     // =========================
     // UPDATE FEEDBACK STATUS
     // ADMIN ONLY
     // =========================
+
     async updateStatus(req, res, next) {
         try {
-
             const { id } = req.params;
             const { status, message } = req.body;
 
@@ -149,10 +137,9 @@ async getFeedbackPage(req, res, next) {
                 await this.feedbackRepo.getFeedbackByID(id);
 
             if (!feedback) {
-
                 logger.warn(`Feedback not exist: ${id}`);
 
-                return res.render('feedback', {
+                return res.render("feedback", {
                     title: "Feedback Page",
                     feedback: [],
                     errors: ["Feedback not found!"],
@@ -177,29 +164,26 @@ async getFeedbackPage(req, res, next) {
                 `Feedback status updated for ${id} and email sent successfully`
             );
 
-            return res.redirect('/api/feedback');
-
+            return res.redirect("/api/feedback");
         } catch (err) {
             logger.error(err.message);
             next(err);
         }
     }
 
-
     // =========================
     // FEEDBACK DETAILS
     // ADMIN
     // =========================
+
     async getFeedbackDetails(req, res, next) {
         try {
-
             const { id } = req.params;
 
             const feedback =
                 await this.feedbackRepo.getFeedbackByID(id);
 
             if (!feedback) {
-
                 return res.status(404).render(
                     "feedback",
                     {
@@ -212,7 +196,7 @@ async getFeedbackPage(req, res, next) {
             }
 
             return res.render(
-                'feedbackDetails',
+                "feedbackDetails",
                 {
                     title: "Feedback Details",
                     feedback,
@@ -220,21 +204,19 @@ async getFeedbackPage(req, res, next) {
                     oldData: {}
                 }
             );
-
         } catch (err) {
             logger.error(err.message);
             next(err);
         }
     }
 
-
     // =========================
     // FILTER FEEDBACK
     // ADMIN
     // =========================
+
     async filterFeedback(req, res, next) {
         try {
-
             const {
                 email,
                 status,
@@ -249,7 +231,7 @@ async getFeedbackPage(req, res, next) {
                 );
 
             return res.render(
-                'feedback',
+                "feedback",
                 {
                     title: "Feedback Page",
                     feedback,
@@ -257,7 +239,6 @@ async getFeedbackPage(req, res, next) {
                     oldData: req.query
                 }
             );
-
         } catch (err) {
             logger.error(err.message);
             next(err);

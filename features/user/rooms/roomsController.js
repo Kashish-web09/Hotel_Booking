@@ -13,20 +13,23 @@ export default class roomController {
     // Admin -> show rooms belonging to admin's hotels
     // Guest -> show available rooms
     // =========================================================
+
     async getAllRoom(req, res, next) {
         try {
             // =========================
             // ADMIN
             // =========================
-            if (req.role === "Admin") {
 
-                const hotels = await this.hotelRepo.getAllHotels(req.userId);
+            if (req.role === "Admin") {
+                const hotels =
+                    await this.hotelRepo.getAllHotels(req.userId);
 
                 if (!hotels || hotels.length === 0) {
                     return res.status(404).send("Hotel not found");
                 }
 
-                const hotelIds = hotels.map(hotel => hotel._id);
+                const hotelIds =
+                    hotels.map(hotel => hotel._id);
 
                 let rooms = [];
 
@@ -49,9 +52,11 @@ export default class roomController {
             // =========================
             // GUEST
             // =========================
-            const rooms = await this.roomRepo.filterRooms({
-                onlyAvailable: true
-            });
+
+            const rooms =
+                await this.roomRepo.filterRooms({
+                    onlyAvailable: true
+                });
 
             return res.render("room", {
                 title: "Room Page",
@@ -59,7 +64,6 @@ export default class roomController {
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -70,12 +74,14 @@ export default class roomController {
     // ADD ROOM PAGE
     // Admin only
     // =========================================================
+
     async addRoomPage(req, res, next) {
         try {
             const userId = req.userId;
 
             // Get only hotels created by logged-in admin
-            const hotels = await this.hotelRepo.getAllHotels(userId);
+            const hotels =
+                await this.hotelRepo.getAllHotels(userId);
 
             return res.render("addRoom", {
                 title: "Add Room Page",
@@ -83,7 +89,6 @@ export default class roomController {
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -94,14 +99,14 @@ export default class roomController {
     // ADD ROOM
     // Admin only
     // =========================================================
+
     async addRoom(req, res, next) {
         try {
-
             // =========================
             // VALIDATION ERROR
             // =========================
-            if (req.validationErrors) {
 
+            if (req.validationErrors) {
                 const hotels =
                     await this.hotelRepo.getAllHotels(req.userId);
 
@@ -174,13 +179,10 @@ export default class roomController {
                 images: [image],
                 status,
                 description,
-
                 isSmokingAllowed:
                     isSmokingAllowed === "true",
-
                 hasBalcony:
                     hasBalcony === "true",
-
                 hasAC:
                     hasAC === "true"
             };
@@ -192,7 +194,6 @@ export default class roomController {
             );
 
             return res.redirect("/api/rooms");
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -203,11 +204,13 @@ export default class roomController {
     // EDIT ROOM PAGE
     // Admin only
     // =========================================================
+
     async editPage(req, res, next) {
         try {
             const { id } = req.params;
 
-            const room = await this.roomRepo.getRoomById(id);
+            const room =
+                await this.roomRepo.getRoomById(id);
 
             if (!room) {
                 logger.warn(`Room not found: ${id}`);
@@ -223,7 +226,6 @@ export default class roomController {
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -234,10 +236,10 @@ export default class roomController {
     // EDIT ROOM
     // Admin only
     // =========================================================
+
     async edit(req, res, next) {
         try {
             const { id } = req.params;
-
             const data = req.body;
 
             const room =
@@ -277,7 +279,6 @@ export default class roomController {
             );
 
             return res.redirect("/api/rooms");
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -289,9 +290,9 @@ export default class roomController {
     // Admin -> filter admin's rooms
     // Guest -> filter available rooms
     // =========================================================
+
     async filterRooms(req, res, next) {
         try {
-
             const {
                 hotelId,
                 status,
@@ -303,8 +304,8 @@ export default class roomController {
             // =========================
             // ADMIN
             // =========================
-            if (req.role === "Admin") {
 
+            if (req.role === "Admin") {
                 const hotels =
                     await this.hotelRepo.getAllHotels(req.userId);
 
@@ -321,7 +322,6 @@ export default class roomController {
 
                 // If admin selected a hotel
                 if (hotelId) {
-
                     // Make sure hotel belongs to admin
                     if (!adminHotelIds.includes(hotelId)) {
                         return res.status(403).send(
@@ -329,18 +329,16 @@ export default class roomController {
                         );
                     }
 
-                    rooms = await this.roomRepo.filterRooms({
-                        hotelId,
-                        status,
-                        roomType,
-                        roomNumber
-                    });
-
+                    rooms =
+                        await this.roomRepo.filterRooms({
+                            hotelId,
+                            status,
+                            roomType,
+                            roomNumber
+                        });
                 } else {
-
                     // Get rooms from all admin hotels
                     for (const id of adminHotelIds) {
-
                         const hotelRooms =
                             await this.roomRepo.filterRooms({
                                 hotelId: id,
@@ -379,7 +377,6 @@ export default class roomController {
                 errors: [],
                 oldData: req.query
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -390,6 +387,7 @@ export default class roomController {
     // DELETE ROOM
     // Admin only
     // =========================================================
+
     async deleteRoom(req, res, next) {
         try {
             const { id } = req.params;
@@ -414,7 +412,6 @@ export default class roomController {
             );
 
             return res.redirect("/api/rooms");
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -425,9 +422,9 @@ export default class roomController {
     // SEARCH ROOM
     // Guest
     // =========================================================
+
     async searchRoom(req, res, next) {
         try {
-
             const {
                 guests,
                 roomType
@@ -446,7 +443,6 @@ export default class roomController {
                 errors: [],
                 oldData: req.query
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -457,9 +453,9 @@ export default class roomController {
     // ROOM DETAILS
     // Guest
     // =========================================================
+
     async roomDetailsPage(req, res, next) {
         try {
-
             const { id } = req.params;
 
             const room =
@@ -483,7 +479,6 @@ export default class roomController {
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
@@ -493,9 +488,9 @@ export default class roomController {
     // =========================================================
     // GET ROOMS BY HOTEL ID
     // =========================================================
+
     async getRoomByHotelId(req, res, next) {
         try {
-
             const { hotelId } = req.query;
 
             if (!hotelId) {
@@ -516,7 +511,6 @@ export default class roomController {
                 errors: [],
                 oldData: {}
             });
-
         } catch (err) {
             logger.error(err.message);
             next(err);
