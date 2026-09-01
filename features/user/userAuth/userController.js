@@ -82,7 +82,7 @@ if (result.role === "Admin") {
 }
 
 if (result.role === "Guest") {
-    return res.redirect("/");
+    return res.redirect("/dashboard");
 }
 
         } catch (err) {

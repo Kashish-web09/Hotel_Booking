@@ -1,13 +1,72 @@
 {
   "openapi": "3.1.1",
   "info": {
+    "title": "BradMate Hotel Booking API",
     "version": "1.0.0",
-    "title": "BradMate Hotel Booking",
-    "description": "An API for Hotel Booking Clone"
+    "description": "API documentation for the BradMate Hotel Booking application. The application supports Guest and Admin roles with role-based authorization."
   },
+  "servers": [
+    {
+      "url": "http://localhost:9090",
+      "description": "Local Development Server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Authentication",
+      "description": "User authentication and password management"
+    },
+    {
+      "name": "Hotels",
+      "description": "Hotel management and hotel browsing"
+    },
+    {
+      "name": "Rooms",
+      "description": "Room management and room browsing"
+    },
+    {
+      "name": "Bookings",
+      "description": "Guest and admin booking management"
+    },
+    {
+      "name": "Payment",
+      "description": "Payment-related operations"
+    },
+    {
+      "name": "Profile",
+      "description": "User profile operations"
+    },
+    {
+      "name": "Dashboard",
+      "description": "User dashboard"
+    },
+    {
+      "name": "Feedback",
+      "description": "User feedback and contact"
+    },
+    {
+      "name": "Travel",
+      "description": "Travel-related features"
+    },
+    {
+      "name": "AI",
+      "description": "AI-powered features"
+    }
+  ],
   "paths": {
     "/api/auth/login": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Display Login Page",
+        "description": "Render the user login page.",
+        "responses": {
+          "200": {
+            "description": "Login page rendered successfully"
+          }
+        }
+      },
       "post": {
+        "tags": ["Authentication"],
         "summary": "User Login",
         "description": "Authenticate a user using email and password.",
         "requestBody": {
@@ -15,17 +74,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "required": ["email", "password"],
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                }
+                "$ref": "#/components/schemas/LoginRequest"
               }
             }
           }
@@ -35,7 +84,7 @@
             "description": "Login successful"
           },
           "400": {
-            "description": "Invalid credentials"
+            "description": "Invalid credentials or validation error"
           },
           "500": {
             "description": "Internal server error"
@@ -43,146 +92,57 @@
         }
       }
     },
-
-
-    "/api/auth/forgot-pass":{
-              "post": {
-        "summary": "User Forgot Pass",
-        "description": "Reset the user password by getting the email address",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "required": ["email"],
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
+    "/api/auth/register": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Display Registration Page",
+        "description": "Render the user registration page.",
         "responses": {
           "200": {
-            "description": "Email found"
-          },
-          "400": {
-            "description": "Invalid Email"
-          },
-          "500": {
-            "description": "Internal server error"
+            "description": "Registration page rendered successfully"
           }
         }
-      }
-    },
-"/api/auth/reset-pass/{token}": {
-  "post": {
-    "summary": "Enter new password",
-    "parameters": [
-      {
-        "name": "token",
-        "in": "path",
-        "required": true,
-        "schema": {
-          "type": "string"
-        }
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "required": ["password"],
-            "properties": {
-              "password": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      }
-    },
-    "responses": {
-      "200": {
-        "description": "Password updated successfully"
       },
-      "400": {
-        "description": "Validation Error"
-      },
-      "500": {
-        "description": "Internal server error"
-      }
-    }
-  }
-},
-"/api/guest/hotel":{
-"get":{
-    "summary":"User Get All Hotels",
-    "description":"Renders the guest hotel.ejs page",
-    "responses":{
-        "200":{"description" :"Hotel list page rendered successfully"},
-        "500":{"description":"Internal server error"}
-    }
-}
-},
-"/api/guest/rooms":{
-"get":{
-    "summary":"Get All rooms",
-    "description":"Render the guest room.ejs page",
-    "responses":{
-        "200":{"description":"Room list page render successfully!"},
-        "500":{"description":"Internal server error"}
-    }
-}
-},
-"/api/guest/booking":{
-"get":{
-    "summary":"Get All bookings",
-    "description":"Render the guest myBooking.ejs.ejs page",
-    "responses":{
-        "200":{"description":"My Booking page render successfully!"},
-        "500":{"description":"Internal server error"}
-    }
-}
-},
-
-
-        "/api/admin/login": {
-        
       "post": {
-        "summary": "Admin Login",
-        "description": "Authenticate a admin user using email and password.",
+        "tags": ["Authentication"],
+        "summary": "Register User",
+        "description": "Create a new user account. Supports profile image upload.",
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
                 "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "john@example.com"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "format": "password"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
                   }
-                }
+                },
+                "required": ["name", "email", "password"]
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Login successful"
+          "201": {
+            "description": "User registered successfully"
           },
           "400": {
-            "description": "Invalid credentials"
+            "description": "Validation error or user already exists"
           },
           "500": {
             "description": "Internal server error"
@@ -190,20 +150,680 @@
         }
       }
     },
-        "/api/admin/forgotPass":{
-              "post": {
-        "summary": "Admin Forgot Pass",
-        "description": "Reset the admin password by getting the email address",
+    "/api/auth/logout": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "User Logout",
+        "description": "Logout the currently authenticated user.",
+        "responses": {
+          "200": {
+            "description": "User logged out successfully"
+          }
+        }
+      }
+    },
+    "/api/auth/forgot-pass": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Display Forgot Password Page",
+        "responses": {
+          "200": {
+            "description": "Forgot password page rendered successfully"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Request Password Reset",
+        "description": "Send a password reset link to the user's registered email address.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForgotPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password reset email sent successfully"
+          },
+          "400": {
+            "description": "Invalid email or validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/auth/reset-pass/{token}": {
+      "get": {
+        "tags": ["Authentication"],
+        "summary": "Display Reset Password Page",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reset password page rendered successfully"
+          },
+          "400": {
+            "description": "Invalid or expired token"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Authentication"],
+        "summary": "Reset Password",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Token"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Password updated successfully"
+          },
+          "400": {
+            "description": "Invalid token or validation error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/hotel": {
+      "get": {
+        "tags": ["Hotels"],
+        "summary": "Get All Hotels",
+        "description": "Get or render all available hotels.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotels retrieved successfully"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/hotel/search": {
+      "get": {
+        "tags": ["Hotels"],
+        "summary": "Search and Filter Hotels",
+        "description": "Search or filter hotels based on query parameters.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "location",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filtered hotels retrieved successfully"
+          }
+        }
+      }
+    },
+    "/api/hotel/add": {
+      "get": {
+        "tags": ["Hotels"],
+        "summary": "Display Add Hotel Page",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Add hotel page rendered successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Hotels"],
+        "summary": "Add Hotel",
+        "description": "Admin only. Create a new hotel with an image.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Hotel added successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/hotel/update/{id}": {
+      "get": {
+        "tags": ["Hotels"],
+        "summary": "Display Update Hotel Page",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update hotel page rendered successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Hotels"],
+        "summary": "Update Hotel",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/HotelRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Hotel updated successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/hotel/{id}": {
+      "get": {
+        "tags": ["Hotels"],
+        "summary": "Get Hotel Details",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel details retrieved successfully"
+          },
+          "404": {
+            "description": "Hotel not found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Hotels"],
+        "summary": "Delete Hotel",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel deleted successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/rooms": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "Get All Rooms",
+        "description": "Accessible to Guest and Admin users.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Rooms retrieved successfully"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/rooms/add": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "Display Add Room Page",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Add room page rendered successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Rooms"],
+        "summary": "Add Room",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Room added successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/rooms/delete/{id}": {
+      "post": {
+        "tags": ["Rooms"],
+        "summary": "Delete Room",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Room deleted successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/rooms/edit/{id}": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "Display Edit Room Page",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Edit room page rendered successfully"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Rooms"],
+        "summary": "Update Room",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Room updated successfully"
+          }
+        }
+      }
+    },
+    "/api/rooms/filter": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "Filter Rooms",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Filtered rooms retrieved successfully"
+          }
+        }
+      }
+    },
+    "/api/rooms/view_Room/{id}": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "View Room Details",
+        "description": "Guest only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Room details retrieved successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/rooms/hotel": {
+      "get": {
+        "tags": ["Rooms"],
+        "summary": "Get Rooms By Hotel",
+        "description": "Get rooms associated with a hotel.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hotel rooms retrieved successfully"
+          }
+        }
+      }
+    },
+    "/api/booking": {
+      "get": {
+        "tags": ["Bookings"],
+        "summary": "Get Bookings",
+        "description": "Guest receives their own bookings. Admin receives all bookings.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookings retrieved successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/booking/create": {
+      "post": {
+        "tags": ["Bookings"],
+        "summary": "Create Booking",
+        "description": "Guest only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookingRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Booking created successfully"
+          },
+          "400": {
+            "description": "Validation error or room unavailable"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/booking/details/{id}": {
+      "get": {
+        "tags": ["Bookings"],
+        "summary": "Get My Booking Details",
+        "description": "Guest only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking details retrieved successfully"
+          }
+        }
+      }
+    },
+    "/api/booking/{id}/cancel": {
+      "post": {
+        "tags": ["Bookings"],
+        "summary": "Cancel Booking",
+        "description": "Guest only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking cancelled successfully"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          }
+        }
+      }
+    },
+    "/api/booking/{id}": {
+      "get": {
+        "tags": ["Bookings"],
+        "summary": "Get Booking By ID",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Booking retrieved successfully"
+          },
+          "404": {
+            "description": "Booking not found"
+          }
+        }
+      }
+    },
+    "/api/booking/{id}/status": {
+      "post": {
+        "tags": ["Bookings"],
+        "summary": "Update Booking Status",
+        "description": "Admin only.",
+        "security": [
+          {
+            "cookieAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Id"
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email"],
+                "required": ["status"],
                 "properties": {
-                  "email": {
-                    "type": "string"
+                  "status": {
+                    "type": "string",
+                    "example": "Confirmed"
                   }
                 }
               }
@@ -212,58 +832,148 @@
         },
         "responses": {
           "200": {
-            "description": "Email found"
-          },
-          "400": {
-            "description": "Invalid Email"
-          },
-          "500": {
-            "description": "Internal server error"
+            "description": "Booking status updated successfully"
           }
         }
       }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "cookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "token",
+        "description": "JWT authentication token stored in a cookie"
+      }
     },
-"/api/admin/reset-pass/{token}": {
-  "post": {
-    "summary": "Enter new password",
-    "parameters": [
-      {
+    "parameters": {
+      "Id": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string"
+        },
+        "description": "MongoDB document ID"
+      },
+      "Token": {
         "name": "token",
         "in": "path",
         "required": true,
         "schema": {
           "type": "string"
-        }
-      }
-    ],
-    "requestBody": {
-      "required": true,
-      "content": {
-        "application/json": {
-          "schema": {
-            "type": "object",
-            "required": ["password"],
-            "properties": {
-              "password": {
-                "type": "string"
-              }
-            }
-          }
-        }
+        },
+        "description": "Password reset token"
       }
     },
     "responses": {
-      "200": {
-        "description": "Password updated successfully"
+      "Unauthorized": {
+        "description": "Authentication required"
       },
-      "400": {
-        "description": "Validation Error"
+      "Forbidden": {
+        "description": "Access denied. Insufficient permissions."
+      }
+    },
+    "schemas": {
+      "LoginRequest": {
+        "type": "object",
+        "required": ["email", "password"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "user@example.com"
+          },
+          "password": {
+            "type": "string",
+            "format": "password",
+            "example": "Password123"
+          }
+        }
       },
-      "500": {
-        "description": "Internal server error"
+      "ForgotPasswordRequest": {
+        "type": "object",
+        "required": ["email"],
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email"
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "type": "object",
+        "required": ["password"],
+        "properties": {
+          "password": {
+            "type": "string",
+            "format": "password"
+          }
+        }
+      },
+      "HotelRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "BradMate Grand Hotel"
+          },
+          "location": {
+            "type": "string",
+            "example": "Goa"
+          },
+          "description": {
+            "type": "string"
+          },
+          "hotelImage": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "RoomRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "capacity": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "BookingRequest": {
+        "type": "object",
+        "properties": {
+          "roomId": {
+            "type": "string"
+          },
+          "checkIn": {
+            "type": "string",
+            "format": "date"
+          },
+          "checkOut": {
+            "type": "string",
+            "format": "date"
+          },
+          "guests": {
+            "type": "integer",
+            "example": 2
+          }
+        },
+        "required": ["roomId", "checkIn", "checkOut", "guests"]
       }
     }
-  }
-}
   }
 }

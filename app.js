@@ -1,35 +1,22 @@
 // npm packages
-import dotenv from 'dotenv';
-dotenv.config()
 import express from 'express';
 import ejs from 'ejs';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-import { connectToMongoose } from './cofnig/mongoose.js';
 import expressEjsLayouts from 'express-ejs-layouts';
 import swagger from 'swagger-ui-express';
 // features routes 
 import { currentUser } from './middleware/jwtAuthMiddleware.js';
 import feedbackRoutes from './features/user/contact/contactRoutes.js';
 import userAuth from './features/user/userAuth/userRoutes.js';
-// import adminUserRoutes from './features/admin/adminAuth/adminRoutes.js';
-// import { adminUser } from './middleware/adminJwtAuthMiddleware.js';
-// import feedbackRoute from './features/contact/contactRoutes.js';
-// import roomRoutes from './features/admin/rooms/roomsRoutes.js';
 import roomRoute from './features/user/rooms/roomsRoutes.js';
 import bookingRoutes from './features/user/booking/bookingRoutes.js';
 import dashRoutes from './features/user/dashboard/dashRoutes.js';
-// import bookingRoute from './features/admin/booking/bookingRoutes.js';
-// import adminDashRoutes from './features/admin/adminDashboard/adminDashboardRoutes.js';
-// import hotelRoutes from './features/admin/hotel/hotelRoutes.js';
 import hotelRoute from './features/user/hotel/hotelRoutes.js';
 import profileRoutes from './features/user/profile/profileRoutes.js';
-// import profileRoute from './features/admin/profile/profileRoutes.js';
-// import travelRoutes from './features/travel/travelRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
 import paymentRoutes from './features/user/payment/paymentRoutes.js';
-// import paymentRoute from './features/admin/payment/paymentRoutes.js';
 import router from './aiService/aiRoutes.js';
 import travelRoutes from './features/user/travel/travelRoutes.js';
 const app=express();
@@ -67,11 +54,16 @@ app.use((req,res,next)=>{
     res.locals.user=req.user||null;
     next()
 })
+app.get('/',(req,res)=>{
+    res.redirect('/api/auth/login')
+})
 
 
-// guest routes
+
+//-------------------------------------- user routes ----------------//
+
 app.use('/api/auth',userAuth);
-app.use('/',currentUser,dashRoutes)
+app.use('/dashboard',currentUser,dashRoutes)
 app.use('/api/auth/profile',currentUser,profileRoutes)
 app.use('/api/feedback',currentUser,feedbackRoutes)
 app.use('/api/hotel',currentUser,hotelRoute)
@@ -79,24 +71,14 @@ app.use('/api/rooms',currentUser,roomRoute)
 app.use('/api/payment',currentUser,paymentRoutes)
 app.use('/api/booking',currentUser,bookingRoutes)
 app.use('/api/travel',currentUser,travelRoutes)
-// admin routes
-// app.use('/api/admin',adminUserRoutes) 
 
-// app.use('/api/dashboard/admin',adminUser,adminDashRoutes)
-// app.use('/api/admin/profile',adminUser,profileRoute)
-// app.use('/api/feedback',adminUser,feedbackRoute)
-// app.use('/api/admin/hotel',adminUser,hotelRoutes)
-// app.use('/api/admin/payment',adminUser,paymentRoute)
-// app.use('/api/admin/rooms',adminUser,roomRoutes)
-// app.use('/api/travel',adminUser,travelRoutes)
-// app.use('/api/admin/booking',adminUser,bookingRoute);
-
-
-//ai prompt
+//..................................ai prompt.........................//
 
 app.use('/api/ai',router)
 
-// error handler page
+// ................................UI page.............................//
+
+//............................error handler page......................//
 
 app.use((req,res,next)=>{
     res.status(404).render('errorPages/404Error',{
@@ -110,12 +92,5 @@ app.use((err,req,res,next)=>{
         title:"500- Internal Server Error"
     })
 })
-const startServer = async () => {
-    await connectToMongoose();
 
-    app.listen(9090, () => {
-        console.log("Server running at http://localhost:9090/api/auth/login");
-    });
-};
-
-startServer();
+export default app;
