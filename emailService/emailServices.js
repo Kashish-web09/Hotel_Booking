@@ -25,8 +25,6 @@ const sendEmail = async ({ to, subject, html }) => {
             htmlContent: html
         });
 
-        console.log(`Email sent successfully to ${to}`);
-        console.log("Brevo response:", info);
 
         return info;
 

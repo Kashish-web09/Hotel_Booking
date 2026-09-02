@@ -117,15 +117,6 @@ async hotelDetailsPage(req, res, next) {
                     checkOutTime,
                     status
                 }=req.body;
-    //             const location=`${city}, ${state}, ${country}`;
-    //             console.log("Generating AI description...");
-    // console.log("Hotel:", name);
-    // console.log("Location:", location);
-    // const desc=await generateHotelDescription({
-    //     hotelName:name,
-    //     location
-    // });
-    // console.log("AI DESCRIPTION:", desc);
                 const image=req.file ? req.file.filename :"default.png";
     
                 const existingHotel=await this.hotelRepo.findHotel(name,city);
