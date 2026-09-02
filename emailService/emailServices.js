@@ -3,7 +3,6 @@ import brevo from "./emailConfig.js";
 
 // ==================== COMMON SEND EMAIL ====================
 
-import brevo from "./emailConfig.js";
 
 const sendEmail = async ({ to, subject, html }) => {
     try {
