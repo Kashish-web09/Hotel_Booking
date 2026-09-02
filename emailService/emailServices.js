@@ -1,4 +1,4 @@
-import apiInstance from "./emailConfig.js";
+import brevo from "./emailConfig.js";
 
 
 // ==================== COMMON SEND EMAIL ====================
