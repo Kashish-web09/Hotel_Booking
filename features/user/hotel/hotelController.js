@@ -105,7 +105,7 @@ async hotelDetailsPage(req, res, next) {
                 }
                 const {
                     name,
-desc,
+                    desc,
                     address,
                     city,
                     state,

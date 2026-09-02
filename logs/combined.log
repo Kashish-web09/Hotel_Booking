@@ -15,3 +15,5 @@
 {"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-09-02T05:40:01.380Z"}
 {"level":"info","message":"Hotel and all its rooms deleted successfully 6a97b6b121ea59a95f331114","timestamp":"2026-09-02T05:40:17.463Z"}
 {"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-09-02T05:40:32.907Z"}
+{"level":"warn","message":"Login failed: Invalid password (narang2305@gmail.com)","timestamp":"2026-09-02T05:50:31.119Z"}
+{"level":"info","message":"User logged in: narang2305@gmail.com","timestamp":"2026-09-02T05:50:39.237Z"}
