@@ -226,7 +226,7 @@ async hotelDetailsPage(req, res, next) {
             };
     
             if (req.file) {
-                data.image = req.file.filename;
+                data.hotelImage = req.file.filename;
             }
     
             await this.hotelRepo.updateHotelById(id, data);

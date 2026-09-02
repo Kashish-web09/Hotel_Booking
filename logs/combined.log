@@ -17,3 +17,8 @@
 {"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-09-02T05:40:32.907Z"}
 {"level":"warn","message":"Login failed: Invalid password (narang2305@gmail.com)","timestamp":"2026-09-02T05:50:31.119Z"}
 {"level":"info","message":"User logged in: narang2305@gmail.com","timestamp":"2026-09-02T05:50:39.237Z"}
+{"level":"info","message":"User logged in: knarang0909@gmail.com","timestamp":"2026-09-02T06:35:19.336Z"}
+{"level":"info","message":"User logged out","timestamp":"2026-09-02T06:35:23.868Z"}
+{"level":"warn","message":"Login failed: Invalid password (narang2305@gmail.com)","timestamp":"2026-09-02T06:35:25.835Z"}
+{"level":"info","message":"User logged in: narang2305@gmail.com","timestamp":"2026-09-02T06:35:35.081Z"}
+{"level":"info","message":"Hotel test in test created scucessfully ","timestamp":"2026-09-02T06:36:31.653Z"}
