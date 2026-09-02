@@ -17,7 +17,6 @@ import profileRoutes from './features/user/profile/profileRoutes.js';
 import logger from './middleware/loggerMiddleware.js';
 import apiDocs from './swagger.json' with{type:'json'}
 import paymentRoutes from './features/user/payment/paymentRoutes.js';
-import router from './aiService/aiRoutes.js';
 import travelRoutes from './features/user/travel/travelRoutes.js';
 const app=express();
 let corsOption={
@@ -74,9 +73,6 @@ app.use('/api/payment',currentUser,paymentRoutes)
 app.use('/api/booking',currentUser,bookingRoutes)
 app.use('/api/travel',currentUser,travelRoutes)
 
-//..................................ai prompt.........................//
-
-app.use('/api/ai',router)
 
 // ................................UI page.............................//
 
