@@ -231,7 +231,7 @@ await userRegister(newUser.email,newUser.name)
         const expiry = Date.now() + 15 * 60 * 1000;
 
             await this.userRepo.saveResetToken(email, token, expiry);
-const resetUrl=`http://localhost:9090/api/auth/reset-pass/${token}`
+const resetUrl=`${process.env.BASE_URL}/api/auth/reset-pass/${token}`
             logger.info(`Password reset token generated for: ${email}`);
 await resetLinkSent(result.email,result.name,resetUrl);
   return res.render("forgotPass", {
