@@ -135,11 +135,7 @@ This architecture separates responsibilities and makes the application easier to
 ```text
 hotel_booking/
 │
-├── aiService/
-│   ├── aiController.js
-│   ├── aiRoutes.js
-│   └── aiService.js
-│
+|
 ├── config/
 │   ├── mongoDb.js
 │   └── mongoose.js
