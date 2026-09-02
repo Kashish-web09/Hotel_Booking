@@ -1,41 +1,71 @@
-import transporter from "./emailConfig.js";
+import apiInstance from "./emailConfig.js";
 
-const from = `"Hotel BradMate" <${process.env.EMAIL_USER}>`;
+
+// ==================== COMMON SEND EMAIL ====================
 
 const sendEmail = async ({ to, subject, html }) => {
     try {
-        const info = await transporter.sendMail({
-            from,
-            to,
-            subject,
-            html
-        });
 
-        console.log(`Email sent to ${to}: ${info.messageId}`);
+        const sendSmtpEmail = {
+            sender: {
+                email: process.env.BREVO_EMAIL,
+                name: "Hotel BradMate"
+            },
+
+            to: [
+                {
+                    email: to
+                }
+            ],
+
+            subject,
+            htmlContent: html
+        };
+
+        const info = await brevo.sendTransacEmail(sendSmtpEmail);
+
+        console.log(`Email sent successfully to ${to}`);
+        console.log("Brevo response:", info);
+
         return info;
+
     } catch (error) {
-        console.error(`Failed to send email to ${to}:`, error.message);
+
+        console.error(
+            `Failed to send email to ${to}:`,
+            error.message
+        );
+
         throw error;
     }
 };
 
+
 // ==================== USER REGISTER ====================
 
 export const userRegister = async (userEmail, userName) => {
+
     return sendEmail({
+
         to: userEmail,
+
         subject: "Welcome to Hotel BradMate",
+
         html: `
             <h2>Welcome to Hotel BradMate, ${userName}!</h2>
 
-            <p>Thank you for creating an account with us.</p>
+            <p>
+                Thank you for creating an account with us.
+            </p>
 
             <p>
                 Your account has been successfully created.
                 You can now explore our rooms and make bookings.
             </p>
 
-            <p>We look forward to serving you.</p>
+            <p>
+                We look forward to serving you.
+            </p>
 
             <br>
 
@@ -51,13 +81,19 @@ export const userRegister = async (userEmail, userName) => {
 // ==================== ADMIN USER REGISTER ====================
 
 export const adminUserRegister = async (adminEmail, userName) => {
+
     return sendEmail({
+
         to: adminEmail,
+
         subject: "New User Registered",
+
         html: `
             <h2>New User Registration</h2>
 
-            <p>A new user has registered on Hotel BradMate.</p>
+            <p>
+                A new user has registered on Hotel BradMate.
+            </p>
 
             <p>
                 <strong>User Name:</strong> ${userName}
@@ -77,21 +113,35 @@ export const adminUserRegister = async (adminEmail, userName) => {
 };
 
 
-// ==================== BOOKING ====================
+// ==================== BOOKING CONFIRMATION ====================
 
-export const bookingConfirmation = async (userEmail, userName,hotel, bookingId) => {
-     console.log("CONFIRMATION EMAIL FUNCTION CALLED");
+export const bookingConfirmation = async (
+    userEmail,
+    userName,
+    hotel,
+    bookingId
+) => {
+
+    console.log("CONFIRMATION EMAIL FUNCTION CALLED");
     console.log("EMAIL:", userEmail);
+
     return sendEmail({
+
         to: userEmail,
+
         subject: "Booking Confirmation - Hotel BradMate",
+
         html: `
             <h2>Booking Confirmed 🎉</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
-                Your booking for ${hotel.name} hotel has been successfully confirmed.
+                Your booking for
+                <strong>${hotel.name}</strong>
+                has been successfully confirmed.
             </p>
 
             <p>
@@ -121,8 +171,12 @@ export const bookingStatus = async (
     bookingId,
     status
 ) => {
+
     let subject;
     let html;
+
+
+    // ==================== COMPLETED ====================
 
     if (status === "Completed") {
 
@@ -131,7 +185,9 @@ export const bookingStatus = async (
         html = `
             <h2>Thank You for Staying with Us! 🎉</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
                 Thank you for choosing
@@ -140,8 +196,8 @@ export const bookingStatus = async (
             </p>
 
             <p>
-                We hope you had a comfortable and enjoyable experience
-                with us.
+                We hope you had a comfortable and enjoyable
+                experience with us.
             </p>
 
             <p>
@@ -170,18 +226,25 @@ export const bookingStatus = async (
             </p>
         `;
 
-    } else if (status === "Cancelled") {
+    }
+
+
+    // ==================== CANCELLED ====================
+
+    else if (status === "Cancelled") {
 
         subject = "We're Sorry About Your Booking - Hotel BradMate";
 
         html = `
             <h2>We're Sorry About Your Booking</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
-                We're sorry to inform you that your booking has been
-                <strong>cancelled</strong>.
+                We're sorry to inform you that your booking
+                has been <strong>cancelled</strong>.
             </p>
 
             <p>
@@ -189,18 +252,18 @@ export const bookingStatus = async (
             </p>
 
             <p>
-                We sincerely apologize for any inconvenience this may
-                have caused you.
+                We sincerely apologize for any inconvenience
+                this may have caused you.
             </p>
 
             <p>
-                We hope to have the opportunity to welcome you to
-                <strong>Hotel BradMate</strong> in the future.
+                We hope to have the opportunity to welcome you
+                to <strong>Hotel BradMate</strong> in the future.
             </p>
 
             <p>
-                If you have any questions regarding this cancellation,
-                please contact our support team.
+                If you have any questions regarding this
+                cancellation, please contact our support team.
             </p>
 
             <br>
@@ -211,14 +274,21 @@ export const bookingStatus = async (
             </p>
         `;
 
-    } else {
+    }
+
+
+    // ==================== OTHER STATUS ====================
+
+    else {
 
         subject = "Booking Status Update - Hotel BradMate";
 
         html = `
             <h2>Booking Status Update</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
                 Your booking status has been updated to
@@ -230,7 +300,8 @@ export const bookingStatus = async (
             </p>
 
             <p>
-                If you have any questions, please contact our support team.
+                If you have any questions, please contact
+                our support team.
             </p>
 
             <br>
@@ -242,31 +313,46 @@ export const bookingStatus = async (
         `;
     }
 
+
     return sendEmail({
+
         to: userEmail,
+
         subject,
+
         html
     });
 };
 
+
 // ==================== PROFILE UPDATE ====================
 
-export const profileUpdate = async (userEmail, userName) => {
+export const profileUpdate = async (
+    userEmail,
+    userName
+) => {
+
     return sendEmail({
+
         to: userEmail,
+
         subject: "Profile Updated Successfully",
+
         html: `
             <h2>Profile Updated Successfully</h2>
 
-            <p>Hello ${userName},</p>
-
             <p>
-                Your Hotel BradMate profile has been successfully updated.
+                Hello ${userName},
             </p>
 
             <p>
-                If you did not make this change, please contact our support team
-                immediately.
+                Your Hotel BradMate profile has been
+                successfully updated.
+            </p>
+
+            <p>
+                If you did not make this change, please
+                contact our support team immediately.
             </p>
 
             <br>
@@ -282,10 +368,17 @@ export const profileUpdate = async (userEmail, userName) => {
 
 // ==================== FEEDBACK SENT ====================
 
-export const feedbackSent = async (adminEmail, userName) => {
+export const feedbackSent = async (
+    adminEmail,
+    userName
+) => {
+
     return sendEmail({
+
         to: adminEmail,
+
         subject: "New Feedback Received",
+
         html: `
             <h2>New Feedback Received</h2>
 
@@ -295,7 +388,8 @@ export const feedbackSent = async (adminEmail, userName) => {
             </p>
 
             <p>
-                Please check the admin dashboard to review the feedback.
+                Please check the admin dashboard to
+                review the feedback.
             </p>
 
             <br>
@@ -318,6 +412,7 @@ export const feedbackUpdate = async (
 ) => {
 
     return sendEmail({
+
         to: userEmail,
 
         subject: "Feedback Status Update - Hotel BradMate",
@@ -325,7 +420,9 @@ export const feedbackUpdate = async (
         html: `
             <h2>Feedback Status Update</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
                 Thank you for contacting
@@ -344,7 +441,9 @@ export const feedbackUpdate = async (
                 message
                     ? `
                         <p>
-                            <strong>Message from Hotel BradMate:</strong>
+                            <strong>
+                                Message from Hotel BradMate:
+                            </strong>
                         </p>
 
                         <p>
@@ -355,7 +454,8 @@ export const feedbackUpdate = async (
             }
 
             <p>
-                If you have any questions, please contact our support team.
+                If you have any questions, please contact
+                our support team.
             </p>
 
             <br>
@@ -368,6 +468,9 @@ export const feedbackUpdate = async (
     });
 };
 
+
+// ==================== PASSWORD RESET ====================
+
 export const resetLinkSent = async (
     userEmail,
     userName,
@@ -375,6 +478,7 @@ export const resetLinkSent = async (
 ) => {
 
     return sendEmail({
+
         to: userEmail,
 
         subject: "Reset Your Password - Hotel BradMate",
@@ -382,7 +486,9 @@ export const resetLinkSent = async (
         html: `
             <h2>Password Reset Request</h2>
 
-            <p>Hello ${userName},</p>
+            <p>
+                Hello ${userName},
+            </p>
 
             <p>
                 We received a request to reset your password
@@ -394,6 +500,7 @@ export const resetLinkSent = async (
             </p>
 
             <div style="margin: 25px 0;">
+
                 <a
                     href="${resetUrl}"
                     style="
@@ -407,6 +514,7 @@ export const resetLinkSent = async (
                 >
                     Reset Password
                 </a>
+
             </div>
 
             <p>
@@ -429,6 +537,8 @@ export const resetLinkSent = async (
 };
 
 
+// ==================== CANCEL BOOKING ====================
+
 export const cancelBooking = async (
     userEmail,
     bookingId,
@@ -442,7 +552,9 @@ export const cancelBooking = async (
     console.log("AMOUNT:", refundAmount);
     console.log("PAYMENT METHOD:", paymentMethod);
 
+
     const isCash = paymentMethod === "Cash";
+
 
     return sendEmail({
 
@@ -453,13 +565,17 @@ export const cancelBooking = async (
             : "Hotel Booking Cancelled & Refund Initiated - Hotel BradMate",
 
         html: isCash
+
             ? `
                 <h2>Booking Cancelled</h2>
 
-                <p>Hello,</p>
+                <p>
+                    Hello,
+                </p>
 
                 <p>
-                    Your hotel booking has been cancelled successfully.
+                    Your hotel booking has been cancelled
+                    successfully.
                 </p>
 
                 <p>
@@ -467,12 +583,13 @@ export const cancelBooking = async (
                 </p>
 
                 <p>
-                    <strong>Payment Method:</strong> Pay at Hotel
+                    <strong>Payment Method:</strong>
+                    Pay at Hotel
                 </p>
 
                 <p>
-                    No refund is applicable because no online payment
-                    was made.
+                    No refund is applicable because no online
+                    payment was made.
                 </p>
 
                 <p>
@@ -487,13 +604,17 @@ export const cancelBooking = async (
                     <strong>Hotel BradMate Team</strong>
                 </p>
             `
+
             : `
                 <h2>Booking Cancelled & Refund Initiated</h2>
 
-                <p>Hello,</p>
+                <p>
+                    Hello,
+                </p>
 
                 <p>
-                    Your hotel booking has been cancelled successfully.
+                    Your hotel booking has been cancelled
+                    successfully.
                 </p>
 
                 <p>
@@ -501,16 +622,19 @@ export const cancelBooking = async (
                 </p>
 
                 <p>
-                    <strong>Payment Method:</strong> ${paymentMethod}
+                    <strong>Payment Method:</strong>
+                    ${paymentMethod}
                 </p>
 
                 <p>
-                    <strong>Refund Amount:</strong> ₹${refundAmount}
+                    <strong>Refund Amount:</strong>
+                    ₹${refundAmount}
                 </p>
 
                 <p>
-                    Your refund has been initiated and will be credited
-                    back to your original payment method.
+                    Your refund has been initiated and will
+                    be credited back to your original
+                    payment method.
                 </p>
 
                 <p>

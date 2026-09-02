@@ -87,7 +87,8 @@ if (result.role === "Guest") {
 
         } catch (err) {
             logger.error({
-                message: err.message            });
+                message: err.message          
+              });
             next(err);
         }
     }
