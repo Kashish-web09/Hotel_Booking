@@ -3,10 +3,13 @@ import brevo from "./emailConfig.js";
 
 // ==================== COMMON SEND EMAIL ====================
 
+import brevo from "./emailConfig.js";
+
 const sendEmail = async ({ to, subject, html }) => {
     try {
 
-        const sendSmtpEmail = {
+        const info = await brevo.transactionalEmails.sendTransacEmail({
+
             sender: {
                 email: process.env.BREVO_EMAIL,
                 name: "Hotel BradMate"
@@ -19,10 +22,9 @@ const sendEmail = async ({ to, subject, html }) => {
             ],
 
             subject,
-            htmlContent: html
-        };
 
-        const info = await brevo.sendTransacEmail(sendSmtpEmail);
+            htmlContent: html
+        });
 
         console.log(`Email sent successfully to ${to}`);
         console.log("Brevo response:", info);
